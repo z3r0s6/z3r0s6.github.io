@@ -3,9 +3,9 @@ title: "Jet - HTB Fortress"
 date: 2026-02-26 00:07:00 +0000
 categories: [HTB-Fortress]
 tags: [web, sqli, buffer-overflow, heap, rsa, format-string, elasticsearch, fortress]
+layout: locked
+password: "HTB{Join_Me_In_Death}"
 ---
-
-<div id="protected-content" style="display:none">
 
 ## Overview
 
@@ -102,34 +102,3 @@ The `memo` service (port 7777) contained:
 - GDB with pwndbg (binary debugging)
 - socat (port forwarding)
 - OpenSSL (RSA/AES operations)
-
-</div>
-
-<div id="password-gate">
-  <div style="text-align:center; padding: 60px 20px; font-family: monospace;">
-    <h2>🔒 Protected Content</h2>
-    <p>This writeup is password protected.</p>
-    <input type="password" id="pw-input" placeholder="Enter password"
-      style="padding:10px; font-size:16px; border-radius:6px; border:1px solid #ccc; margin-right:8px;" />
-    <button onclick="checkPassword()"
-      style="padding:10px 20px; font-size:16px; border-radius:6px; background:#e74c3c; color:#fff; border:none; cursor:pointer;">
-      Unlock
-    </button>
-    <p id="pw-error" style="color:red; display:none;">Wrong password. Try again.</p>
-  </div>
-</div>
-
-<script>
-function checkPassword() {
-  var input = document.getElementById('pw-input').value;
-  if (input === 'HTB{Join_Me_In_Death}') {
-    document.getElementById('password-gate').style.display = 'none';
-    document.getElementById('protected-content').style.display = 'block';
-  } else {
-    document.getElementById('pw-error').style.display = 'block';
-  }
-}
-document.getElementById('pw-input').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') checkPassword();
-});
-</script>
