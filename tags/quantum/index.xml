@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quantum on z3r0s</title><link>https://z3r0s6.github.io/tags/quantum/</link><description>Recent content in Quantum on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/quantum/index.xml" rel="self" type="application/rss+xml"/><item><title>Quantum - flagportation</title><link>https://z3r0s6.github.io/challenges/quantum-flagportation/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-flagportation/</guid><description>&lt;h1 id="htb-write-up-flagportation"&gt;
+ HTB Write-up: Flagportation
+ &lt;a class="heading-link" href="#htb-write-up-flagportation"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Link - &lt;a href="https://app.hackthebox.com/challenges/Flagportation" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Flagportation&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Very Easy&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The server implements a simplified quantum teleportation protocol: it encodes bit pairs (&lt;code&gt;00&lt;/code&gt;, &lt;code&gt;01&lt;/code&gt;, &lt;code&gt;10&lt;/code&gt;, &lt;code&gt;11&lt;/code&gt;) into a 3-qubit state, measures the first two qubits and prints the measurement results and the basis (&lt;code&gt;Z&lt;/code&gt; or &lt;code&gt;X&lt;/code&gt;) used to encode the original bits. Your job is to send instructions (which gates to apply to the third qubit) and choose the measurement basis for the third qubit. From the returned measurement you can reconstruct the original two-bit pair.&lt;/p&gt;</description></item><item><title>Quantum - global hyperlink zone</title><link>https://z3r0s6.github.io/challenges/quantum-global-hyperlink-zone/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-global-hyperlink-zone/</guid><description>&lt;h1 id="htb-write-up-global-hyperlink-zone"&gt;
+ HTB Write-up: Global Hyperlink Zone
+ &lt;a class="heading-link" href="#htb-write-up-global-hyperlink-zone"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Link - &lt;a href="https://app.hackthebox.com/challenges/Global%2520Hyperlink%2520Zone" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Global%2520Hyperlink%2520Zone&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Very Easy&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge provides a Python script for a server that expects a specific sequence of quantum gates. The goal is to build a quantum circuit that satisfies a set of conditions defined in a validation function within the script. The solution involves creating a specific entangled state across five qubits.&lt;/p&gt;</description></item><item><title>Quantum - noisy vault</title><link>https://z3r0s6.github.io/challenges/quantum-noisy-vault/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-noisy-vault/</guid><description>&lt;h1 id="noisy-vault-writeup"&gt;
+ Noisy Vault Writeup
+ &lt;a class="heading-link" href="#noisy-vault-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge description mentions a 13-qubit system and a 9-bit key, but the actual service uses:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;64&lt;/code&gt; data qubits&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;16&lt;/code&gt; ancilla qubits&lt;/li&gt;
+&lt;li&gt;a single oracle query&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;4096&lt;/code&gt; noisy measurement shots&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The goal is to recover the hidden 64-bit &lt;code&gt;secret_key&lt;/code&gt; and submit it in one unlock attempt.&lt;/p&gt;
+&lt;h2 id="root-cause"&gt;
+ Root Cause
+ &lt;a class="heading-link" href="#root-cause"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service prepares the secret as a computational basis state by applying &lt;code&gt;X&lt;/code&gt; on each data qubit whose key bit is &lt;code&gt;1&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Quantum - phase madness</title><link>https://z3r0s6.github.io/challenges/quantum-phase-madness/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-phase-madness/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Title:&lt;/strong&gt; Phase Madness&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Easy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link:&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/Phase%20Madness" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Phase%20Madness&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="brief-description"&gt;
+ Brief Description
+ &lt;a class="heading-link" href="#brief-description"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The description says &amp;quot;Qubitrix stores data unlike any other. At its core, every secret is locked in a silent quantum spiral, inaccessible to classical developers. The engineers swore it was flawless, yet something in its design hums and breathes. To them, it's madness. To us, clarity.&amp;quot;&lt;/p&gt;
+&lt;p&gt;So, essentially, we are given the server code in Python, &lt;code&gt;server.py&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Quantum - qlotto</title><link>https://z3r0s6.github.io/challenges/quantum-qlotto/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-qlotto/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Name -&lt;/strong&gt; QLotto&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category -&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty -&lt;/strong&gt; Easy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link -&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/qlotto" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/qlotto&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge description sets the scene: &amp;quot;They call it QLotto â€” a dazzling new quantum lottery table provided by Qubitrix... If you can predict their draws, you can beat the system.&amp;quot; We are provided with a &lt;code&gt;server.py&lt;/code&gt; file. The core task is to bypass a restrictive input check on the quantum circuit indices and then manipulate the quantum state to create a predictable correlation between the &amp;quot;house card&amp;quot; and our draws. By using negative indexing and specific quantum gates, we can rig the lottery.&lt;/p&gt;</description></item><item><title>Quantum - untrusted node</title><link>https://z3r0s6.github.io/challenges/quantum-untrusted-node/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-untrusted-node/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Name -&lt;/strong&gt; Untrusted Node&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category -&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty -&lt;/strong&gt; Medium&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link -&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/Untrusted%2520Node" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Untrusted%2520Node&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge presents a Quantum Key Distribution (QKD) simulation. The &amp;quot;Transmitter&amp;quot; (Alice) sends qubits to a &amp;quot;Receiver&amp;quot; (Bob), but there is a redundancy flaw: for every bit of the key, Alice sends a &amp;quot;chunk&amp;quot; of identical qubits. We act as the compromised &amp;quot;Trusted Node&amp;quot; in the middle. By measuring the first two qubits of each chunk in different bases and letting the rest pass to Bob, we can recover the key without alerting the protocol during the reconciliation phase.&lt;/p&gt;</description></item></channel></rss>

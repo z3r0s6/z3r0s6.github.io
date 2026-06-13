@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OPCUA on z3r0s</title><link>https://z3r0s6.github.io/tags/opcua/</link><description>Recent content in OPCUA on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/opcua/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Helix</title><link>https://z3r0s6.github.io/machines/helix/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/helix/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux | &lt;strong&gt;Date:&lt;/strong&gt; 2026-05-10&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Helix presents a realistic industrial operations scenario built around Apache NiFi, OPC UA, and a custom maintenance console. The attack chain is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Vhost fuzzing → &lt;code&gt;flow.helix.htb&lt;/code&gt; (Apache NiFi 1.21.0, unauthenticated)&lt;/li&gt;
+&lt;li&gt;NiFi RCE via ExecuteScript processor → shell as &lt;code&gt;nifi&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;SSH private key for &lt;code&gt;operator&lt;/code&gt; found in NiFi support bundles&lt;/li&gt;
+&lt;li&gt;Privilege escalation via OPC UA node manipulation to open a timed maintenance window → root shell&lt;/li&gt;
+&lt;/ol&gt;</description></item></channel></rss>

@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head><title>Reverse Engineering - Regas Town · z3r0s</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="author" content="z3r0s"><meta name="description" content="
+  Rega's Town - HTB Reverse Engineering Challenge Writeup
+  
+    
+    Link to heading
+  
+
+
+  Challenge Info
+  
+    
+    Link to heading
+  
+
+
+Category: Reverse Engineering
+Description: Welcome to Rega Town, a quaint little place where everyone communicates through the magic of patterns and rules!
+
+
+  Analysis
+  
+    
+    Link to heading
+  
+
+The challenge provides a 64-bit ELF binary written in Rust. Running it prompts for a &quot;secret passphrase&quot; and validates it against a series of regex patterns."><meta name="keywords" content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Reverse Engineering - Regas Town"><meta name="twitter:description" content="Rega's Town - HTB Reverse Engineering Challenge Writeup
+Link to heading
+Challenge Info
+Link to heading
+Category: Reverse Engineering Description: Welcome to Rega Town, a quaint little place where everyone communicates through the magic of patterns and rules! Analysis
+Link to heading
+The challenge provides a 64-bit ELF binary written in Rust. Running it prompts for a &quot;secret passphrase&quot; and validates it against a series of regex patterns."><meta property="og:url" content="https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="Reverse Engineering - Regas Town"><meta property="og:description" content="Rega's Town - HTB Reverse Engineering Challenge Writeup
+Link to heading
+Challenge Info
+Link to heading
+Category: Reverse Engineering Description: Welcome to Rega Town, a quaint little place where everyone communicates through the magic of patterns and rules! Analysis
+Link to heading
+The challenge provides a 64-bit ELF binary written in Rust. Running it prompts for a &quot;secret passphrase&quot; and validates it against a series of regex patterns."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="challenges"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="HackTheBox"><meta property="article:tag" content="Reverse Engineering"><link rel="canonical" href="https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/"><link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin=""><link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin=""><link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin=""><link rel="stylesheet" href="/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css" integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin="anonymous" media="screen"><link rel="stylesheet" href="/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css" integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin="anonymous" media="screen"><link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any"><link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16"><link rel="apple-touch-icon" href="/images/apple-touch-icon.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5"></head><body class="preload-transitions colorscheme-dark"><div class="float-container"><a id="dark-mode-toggle" class="colorscheme-toggle"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></a></div><main class="wrapper"><nav class="navigation"><section class="container"><a class="navigation-title" href="https://z3r0s6.github.io/">z3r0s
+</a><input type="checkbox" id="menu-toggle">
+<label class="menu-button float-right" for="menu-toggle"><i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i></label><ul class="navigation-list"><li class="navigation-item"><a class="navigation-link" href="/posts/">Posts</a></li><li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li></ul></section></nav><div class="content"><section class="container post"><article><header><div class="post-title"><h1 class="title"><a class="title-link" href="https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/">Reverse Engineering - Regas Town</a></h1></div><div class="post-meta"><div class="date"><span class="posted-on"><i class="fa-solid fa-calendar" aria-hidden="true"></i>
+<time datetime="2026-05-10T00:00:00Z">May 10, 2026
+</time></span><span class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i>
+2-minute read</span></div><div class="categories"><i class="fa-solid fa-folder" aria-hidden="true"></i>
+<a href="/categories/machineschallenges/">Machines&amp;Challenges</a></div><div class="tags"><i class="fa-solid fa-tag" aria-hidden="true"></i>
+<span class="tag"><a href="/tags/hackthebox/">HackTheBox</a>
+</span><span class="separator">•</span>
+<span class="tag"><a href="/tags/reverse-engineering/">Reverse Engineering</a></span></div></div></header><div class="post-content">
+    <div id="encryption-ui" style="text-align: center; margin: 50px 0; padding: 20px; border: 1px solid var(--border-color); border-radius: 8px;">
+        <h3 style="margin-bottom: 20px;">This content is currently password-protected while the machine/challenge remains active. It will be made publicly available once the machine/challenge is retired.</h3>
+        <input type="password" id="decrypt-password" placeholder="Enter password" style="padding: 10px; width: 60%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px; margin-right: 10px;">
+        <button id="decrypt-btn" style="padding: 10px 20px; border-radius: 4px; background: var(--primary-color, #007bff); color: white; border: none; cursor: pointer;">Unlock</button>
+        <p id="decrypt-error" style="color: red; display: none; margin-top: 10px;">Incorrect password.</p>
+    </div>
+    
+    <div id="encrypted-content" style="display: none;">U2FsdGVkX19nL7cKoUkEXYfHIAvrVDKu7dLbECNl9LdhZRLrWDuM+bVQDUoENv99prFAXi+nLTio+j+makd0YhUSQHX8a2IfbhZ5wKVuITgU6XyBOcfx4tUPE+r4JxY8/ETsI5TZA9jm30wz1zxBnI8GksbxNfGSGSjeFnDfYJHT2LEx4B5xMTYh3WvBYVWDa+HrhvjgJFnVEXqb8GxC7nuPQxxtxsS1x8RuIX+4oAVfM6AYFyIJVWA1dU7icG03wd2wIuLMM1Cp5r4o5Hpp0h4kdKxS8eHd6MzrXI2kdJA+NIk3BKxtTrRafKhz1eezwys2HHhmIwrixe89pjBhexTQW4Q+9Ka+unLl/85Nv+2rVopQxGBxBpVR2uAd9tFKekbVbOB4N3PtkEgiWT7XzuNBH4n2yzVoGmK5FNdZfzT9qriP3ru5YXJ8yB/zm5VCy7vr3wsmLGERjEk3KfviabIKbh49TolTtmUSUVyhuUOSZRx7bLk/9t8p+8s/H/sHrrENaw8U5BYtwUKrfOxV88pYk9Ec87Ku4HvGCipTiSQYMdo2qIwxDHwt8/b4WTpjBwnxSjfZ3NccAod29D+9jdZGO+QRAQJUTFhU6Y8N5LzeC9YbcIfwGv6USf69z1NMLqMpBk6TYzx3nYk4Hy2j8AcnJBo7RhKk3dXXGoJI30Ng36UDkzVGcIX/z8/PUvUhQyNBDlhozTOCbI/aHBtKEYOQBiHY0Mp4GDnjOu2+9Cuptc+qEp3zg4P2KTvNW3QmejGP6ZXH05gqXdcH/hMfxatGXSHtXAplNl7IBiBA6vsQ+vM0jAGdy6OtvIFf+r0nKW4O2CpxMuPn5OCC2Taxw1KHwtGSi6WjYrpaglk2UEvrMwQne4i6S8tpOsxYFrVpSJtOrFKtE/vZLRgiKqFmOlBtOuISlP5iNDWT1VYvYsgA2NHlM03oteIFvhswv/kekANRoHhSL8sqYkIemGlMZ7TMh2nB9F+hx8537/CXuYmrzdAWVGFLhDaeYgbNaD6FZyNE5Cp710fsY4RiLGN7SGk0T1gLIqzoXFMskB80RkBZSH85uWmfm5S0jwASx6Fxr6WCf+a/GKj89yAOLXWscNyBjs3IWdt5psV/LaoxL7vNbEGiq3Avx4kk7vtF+WHf1KguuYa/jpsWI0MYFPMcDq9f3hziIQo0giQ2r870x1pGyufZLXikVQSTArgixAeEkZil/QWjUZfuxnfUYF88hjGVs+hiMkzvxKCBwUMcmL8FhTKOkeIoLiWnsOPgDntxiTM/0s+yaI9Av/omzRvSuVbIR+HEAzrTbWJUg6sJWl42oEPbQ3jSb1kSQqw467s2hIFvefO2bWqMCSxPc9PFXPFTqD2aoV4ZOUzGGCGLblTv3tQm7j2f2jLoUgnqpMl5BLimx1rf6dKQUFye7i9hsE+KqyB6DWa3iYuiGSiz2s7gc6vB+CCHuXwDifpfKxsFOzzq5eTYN+JD8K5lWAhm5wdbf/F7iEK9b6am8BmdNRdxkWMN+1nyfO5OwDTKIVmf1DrUGk1ja4L/Wq+MdoXmVL2257saYHsjuaSBifFtOPSxfTphGLgzbmxI5Ax+Tc3R3Q0P0frJ8Xto/4PoeDDymvVXbn35eGtmUVBdvLn69d/+b4xpAmtFQtj+1hnFoDLdX9ijmgOmPIt7pUDZh1ZeLh/2rnVk6E1dFBm5voOT/YsjLKLFYvlMCtqihcFPmobGaV4jFTeGrkoqPOv0Qx1nVMYSiMhzU58VOn1fMN9Z37H78IbGlZgj9hHuZ6RvLS1yf6OD7JCBf8HVW0nmYQOD7SGJP9Dqd88/wrSHWetZTf+pyikjbcK26chdnBqCQfzZaaw0kIDjKBBNw2Jl4sIGeumX/9+Zd+kyK6kJt1bUOJ4+grUukj+hgeuwBnRxyktRYmbaajF0vMDw52O+/yK600rVhTY5z1i5oYeM3g+WyXmWtj7TFaGEl394Q+S55TlfgQyY0EgTExr9xkkCbjqCq/Dbf7XqWx2tF5I3g464Eq4CbZsXwq9DhYixLL8c28nGIRkg0iH3+lDPicIQoGGQSm9ezKpEska4NeYDWQuvtZqozIHfGKkBWMOTv5BfcGEQ/fb5S+UclzVMw6Jc84N9+732SdcztdKrhSblZObYCl6njwLOQYbdkOWEpNpmAj3ge1cpCH6ErCtUzydzho7Ku38EUmzNV2K8lMBoJpB1uCET3vnpddhWeakGCuJK+HMjzfDieurgBPzvn2mY4JHUhE35vBgatEEBAmkHVHfRzrUvr7bTiKbdHIcL95MiV/Q2VN/BO/qW/hPscx05IS1nxZ/vsqx/fswVWduFX4yeQSXHM3mMTDzvDfTDOYTo+7Nle8GL/zqfX1570r+6U8LwqFYfLdsby9anKNAdgEZKsu+eRJLtSRszuOACejL75we+cU0mRrFIVvRyZwn6GOl+GM1otsbvw5nEp17ssHQVXXEa/5HmAbEvMS72mKwv/V8Ix9NRiZ7YEReM3Yqlv/wIZMNPaVCksQtYwbjfKlopyzDyv23CnSKY8YX7tF6g3UcVn29Kf8QGKjVP4IrdISWYqgHSA55gMW04pAh3OnyK1PZ5U7KAucOH+XV8q0GVNLJp3gZsm4xLZsqhgjistpcCz1w9JFAPX0ooEJoKUB1BeC6vK8EoD9OcTBQDwpny2hl1Sbfjo9uxyRk0vIZL6nlLSdyO2YQ+7+pyXKc3Zo+SySeHpQioLhywwdFPo56nn3nzKvZArTPoVyO68EnoWqbFE3SMKhb+QJKt9+7DbOakx32fAmhxkDmuQ8Jj87Y1A3wv8SkLpJDjVHhL0Myt1R3OYgnPlu0t73pTzAZGDjVRRw/volSTSzXbftIm1WISJINMtHZFjW+N/L1OTY3W/lDy2iLVrqve6xHh0HIchC2M/JG5fQC1Q5oc8tTyUrWIW6gK8ujqLPaCS2rBhrAvEuTg10UhpUMKkNdohd7kQl47u6rhq9JcNkYkq5HOzqFm5iNqFjF19Ghni8Bx12PpXNuN8vzvN9zvx51Ukz9lY0yuJ6O/gRpDQU4dfF0Mtw/fssVdea2KvtIaFn+nRMliCgaQdDC0wmkjKjQI1vBK37ET9AaDve4/TYJT6cOKCOGOOQWYMxxiUMiegEWvxGr8JnTTS7sYViwmH5o1feiujqj+NimhytWeWUgT8SXcG5p0ZCiFz1N7QQaF6VMVPlhIQHVmkdgk6QCXnP60YdHECSmzVbPOfCnUiN429r3v0a+UmmONi/EbbiOSvLXFAgC6g49YvbAhX6pK1Ad3+6t+XY0ee91F5WDkDBZRbawD34q9T1mIXiDL2CXbl0G6dx/KOCD/nDYod4C/otXCDas9NARrcTNa1GmmM3GLBvVlyOAZRAotFk3Ak8AQ6xZiRfiXEk4NIyizquB8gt6KGmrzdJ6/b8BjViXoFiXWihvy1vTpz3LzE7+99lCaiuO59MCO9O39PHtSnXPjnlfy43JXxxcwv6YzcBusReOC2J8lofBVsmtY6L5YDbgugJshzEaFWNnvey3Ucb+APKPBH2uErtrFKjqrBIb9YZx08IzA5CoTeiWGbwzE5S30SXqGIDEQQSlWbV9fUnLQNYhYGKgW5se8D/MaF+eS6Wz6UOouC/yTaH16HBJaqEquzWat2l3aztg66ll4WzCgwxIGJxdB4YhXNKN5CyLxOQEuundqwBvEQmAkc3sRjj4EPuIV+IIpMKUVzeu+HzADS/58oW95jFDN+/4unm+G/HUYL8umyI5sy1uXj1qUHC65V0ikBfEACparmTpDFWYdYUBT2ACewQtHPbZo7txmNqkLrroxjIXKF7LeXc+4tN8ba8DQUTitapNBmWVgXsg1q/lv33Zd128uLWkpqGTcgd+OrCJzdJfZ3VD7E9FwD/gkyyFULesDAhrCIj1/VmrmibC5ZBL9uWuCSEgchxSXGVAswTXmZAf5rniJSi7WSlQhg2GnQkU7e2ceY/oaCJbHKmtvmBr6ihkyxt+iQ7pvl4W/ds0674W3OKXrDmQEgufaaMlAYAj5XMH7XNLeA/KcywWZ+5aiypVGZeZbfjoTLfiuzP0usuQUtEtoz1j9p2XXaQUD5JUSyzW6FzS1ITaWI37Yo2yRTd+mgu03eBPFhTmJBz/6l9VwN4FAwYnR9BrcwpLIAxCqcu0PP0MZnRjd1TTQjaHcwM/+BCXHby5gzxBm9S7mpi6eF0c4YSzzfw4LtFnKTbo0t2gZ3XH2Q3JeUmQ5BtvQLAzFp+1wOZnPCva0nTC4HjTPv9gQr6RFM1TvWFWLxorn1PJlQbqy8e7f9jBG60RQVJAKMtpIUDbctEtypkue2qXuD+qDci2tV41CYrOs2DX6YxCyWOLN4ukySsybNozf8ZWYz3GK5bXuhtfmGSshvNlfgN0kv4dlXYlFFqXkpeAlbG7kae47JulNe+IGeFU8CykdFd8GrR6Avbr1/8EdAdWFHGzobVyJuPzSpbAq8P+FQ0HeJAh9RplU0IXj3V2IDXKcPs/amezOHHolrOWdgwOTB7AV9/tC77TEB0TzqWExxOgv6Kbu90ce9mJLnjka3If7wju/ofoZACXKkHgno5wnRTIjIAQu7ZUkqUjeWnI9lzFcFbzdIcqDbftnsYgFXNp+VFKVC6fRSqPXAv3Cc6Cz6Dkd6m8CRHUnc9m+RyI+oZ6Az7QBIH9Tr/7Y0kaaJiz88/xSKiMoLO3LsjACo3Zu3A8NDRKUJTtCQ9LTSEEyaRcxv5MQJzT5iEBsNjFLKpkF5AQZFQSKECQdSp38NfBwOs6S9nBsWrZO48Fb3f6UliM2oZTBEBYktK0uSdcBD0Wngqwkig7/rTLBUvln/ZMFeobptYZRKyR9AraHNDbo9EaEWCqKJS1KaA2nW8EPx1eWzWnjqp8R03GgNuijvlU/iYhT7kM5IKNFKSBdDnw0PfjcRNq9OOD0nMLn35DtKMtXJs29FqM+wRCUX6+c8oror4j69pT545FMyVX9iRZikkQflZQJYdM+/h8B6R56DXQAeNUTiEGu45kP0zLd8KXjcRRB3vxRKy+Pbn+7chqbvw3HJxFNtnPtSGqsJhrZD948cV14Fsu4tgCYl0wWDliwp7gC/xD0mRMeZUQQKSF9FyWnpObYmpsz6+N9tdtWouqw78NXQuivAKF2Rf9ziDbsMvceLqFFW4zMJ61J3MLcR9yUPfxFUtgzKzMAKIGNkL6T3ZZXYTVOM2jZsGtAb8Hov05JqAAcmXnsJUllzXrsPvEqXGEz8mVrKaXCr4w/bAtZ/US/6Nax+zo3d2iF+jqWPGvvH6u8zyfgu5j3War0+Zo1jMXTu1Ev2UHtztPxW9AVdpQ3wnh8yK26Urh2o7dXo8rQtfJ42VXFK26oYMNSnn2vBAOJGVvGhuYy6ZjJM1CRBWu7OpK1elQ8Wc9v4E/SohQw/CukV7U6aUpZWGxXwIr0QIwLxq774yhjhQijrSKu/Ruj33qYVsHVmGv/W28Dx4r320AYm2KYq8KkqPmaTGrLxsKwX1k4ADjBkL1uKWJ1hWKt4ctJquA8UIpkR7Grsne3s7LcYG4H0Yu21W73/K1stxKZ9yMO53PidPz+HGdZsNUGTjnDg3jN6xqrvvYCyndUMgck89K2CeUHu0wL/UhsgfHPT0JyDzzJguXkDa4Ji7Y+O14G3Vl58rVXcB1H2PHjTA+V/h0BscvsgcvOv9TtkwjovsC93bfUVdscyQW1m8T81j8hv5mYvEeuGdtYB6ZCEHj2wlYoQUBTq0MMJCPbzFy9HFL9ndZTCSvEkzO4MxA59SPb/JfUU5bOIH3FiLfTZmApk7FOqIARptI7QZWl+RJmYXlcfJswEUaG1+Gh4oW54XUkSizhCjNA/JOjpfAQtESNoXX4Af3aUTqSWnyUw89Td+z0G2QMEhvlvgvgKsvQZ/vGCaqLySEphsK0neks36BzXXRATXkxuLQNS8IYPee1nno8v3N/zSb3zcWg+GUDJLddzW9b19U0j9ADxwJi8guqdoKHMyuf9qC8kjLYFYSkeNJsCF9zixt+HFeM1LMk/+o+CfGDccJCI4Lm2/H1jN0kv9cUAkegcc2f8Kcd6cZHVtYCrO+Rqpcm7OXMS061a0+o1iGOtoTyn8ASL/iCq5Tc8nPPr9RATnJKPQ1fBdIPbWqrQt5PQ546Vd2yUlxTJAhiOfwgLjMBdNm5YDja/RzSZ0R/L2MKkZLf6pbSjKu6qrWd8eGzm19IKn2fdYdEhxgen8yiTPSzD6CcDVjntcvXk/6hF6AtPgCd6D/bzQtpm0vV7udiuPn6atnV84H2EVyawvkQVD158FP6yKibSSLLXGf06h8oOVsfj3WPW++90BS5Hkh4QKAfEV/+l+Rcy+jCMNx/31I7+GnrTlv5AhFEquJu+N7xYR4cbur5Dcjzcup1bbFfD11/utMufW8I4H/6ceGQpZgr9uE3VwS1yEIRo1WyPTmt831r37bzI6zyQV1kn9vKMZ2liPPT/TZWV0wkuXLU4gpHKFeO5jqrOorsxwktufPhVM2WBdi13YkmJohwvK8MkIk3patoyxnoBD4iLA8wPxzqYAFFUflPBqdko0yW5feHPAJWttO6P1uO26Mn+ljpdmbg8LN2IDBbZcB0N7oRinL2MEGA7H9vwp+QPx6tY0F8ZHyWtwrfylxmrvaZOeodTyncvETx2cnNxyo6jEn1p9fjtPeIgPpIrLOserjC93TDsKoo3S3R/Eoua+grbIjY0puIvS0ylfjxcscgQXaEW+sMJqB/msB4c0gPP0xA9uUc5sghN1scvAjr56vxAmMKGK7HcwS1waIzOnCTZ2i5dxU6YcstK4n1Zv9HeNhf+IQmTRvTTeHmBo5E4s0UEMd3nSWgHhGqcLTEgVErn7dv1huH98pgj3uf+dp0jqNxcCrREvxQBJmQJNsegSqRv6uSuUsqnO+mDmG8V1UKsy3NFs3sISW8Hyki4wSgL6f+0XV82rtc1AfJms3/iSKkh7hY9EkLoZNXslc=</div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        document.getElementById('decrypt-btn').addEventListener('click', function() {
+            var pass = document.getElementById('decrypt-password').value;
+            var ciphertext = document.getElementById('encrypted-content').innerText;
+            try {
+                var bytes = CryptoJS.AES.decrypt(ciphertext, pass);
+                var originalText = bytes.toString(CryptoJS.enc.Utf8);
+                if (!originalText) throw new Error('Bad password');
+                
+                var postContentDiv = document.querySelector('.post-content');
+                postContentDiv.innerHTML = originalText;
+                
+            } catch (e) {
+                document.getElementById('decrypt-error').style.display = 'block';
+            }
+        });
+        
+        document.getElementById('decrypt-password').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('decrypt-btn').click();
+            }
+        });
+    </script>
+    </div><footer></footer></article></section></div><footer class="footer"><section class="container">©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.</section></footer></main><script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

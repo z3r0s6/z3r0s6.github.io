@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Crypto on z3r0s</title><link>https://z3r0s6.github.io/tags/crypto/</link><description>Recent content in Crypto on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/crypto/index.xml" rel="self" type="application/rss+xml"/><item><title>Crypto - aliens</title><link>https://z3r0s6.github.io/challenges/crypto-aliens/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-aliens/</guid><description>&lt;h1 id="crypto-aliens-write-up"&gt;
+ Crypto Aliens Write-up
+ &lt;a class="heading-link" href="#crypto-aliens-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-summary"&gt;
+ Challenge Summary
+ &lt;a class="heading-link" href="#challenge-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a remote service and a local copy of the challenge logic in &lt;code&gt;server.py&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The service asks for a message, applies a custom padding routine, appends a similarly padded flag, and then encrypts the result with AES-ECB.&lt;/p&gt;
+&lt;p&gt;At first glance this looks annoying rather than breakable, because:&lt;/p&gt;</description></item><item><title>Crypto - BabyEncryption</title><link>https://z3r0s6.github.io/challenges/crypto-babyencryption/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-babyencryption/</guid><description>&lt;h1 id="baby-encryption"&gt;
+ Baby encryption
+ &lt;a class="heading-link" href="#baby-encryption"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;You are after an organised crime group which is responsible for the illegal
+weapon market in your country. As a secret agent, you have infiltrated the
+group enough to be included in meetings with clients. During the last
+negotiation, you found one of the confidential messages for the customer. It
+contains crucial information about the delivery. Do you think you can decrypt
+it?&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Crypto - raining primes</title><link>https://z3r0s6.github.io/challenges/crypto-raining-primes/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-raining-primes/</guid><description>&lt;h1 id="raining-primes-write-up"&gt;
+ Raining Primes Write-up
+ &lt;a class="heading-link" href="#raining-primes-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service mixes three ideas:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Prime generation of the form &lt;code&gt;p = a*r + b&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A homomorphic-looking key update routine&lt;/li&gt;
+&lt;li&gt;RSA encryption of an AES-encrypted flag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The design breaks because the same hidden 640-bit prime &lt;code&gt;r&lt;/code&gt; is reused everywhere:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;every prime returned by option &lt;code&gt;1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;both RSA primes&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;update_key()&lt;/code&gt; routine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once &lt;code&gt;r&lt;/code&gt; is recovered, the rest of the scheme collapses:&lt;/p&gt;</description></item><item><title>Crypto - the last dance</title><link>https://z3r0s6.github.io/challenges/crypto-the-last-dance/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-the-last-dance/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;To be accepted into the upper class of the Berford Empire, you had to attend the annual Cha-Cha Ball at the High Court.
+Little did you know that among the many aristocrats invited, you would find a burned enemy spy.
+Your goal quickly became to capture him, which you succeeded in doing after putting something in his drink.
+Many hours passed in your agency's interrogation room, and you eventually learned important information about the enemy agency's secret communications.
+Can you use what you learned to decrypt the rest of the messages?&lt;/p&gt;</description></item><item><title>Crypto - twisted entanglement</title><link>https://z3r0s6.github.io/challenges/crypto-twisted-entanglement/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-twisted-entanglement/</guid><description>&lt;h1 id="twisted-entanglement-write-up"&gt;
+ Twisted Entanglement Write-Up
+ &lt;a class="heading-link" href="#twisted-entanglement-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="target"&gt;
+ Target
+ &lt;a class="heading-link" href="#target"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Host: &lt;code&gt;154.57.164.77:30486&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Flag: &lt;code&gt;HTB{Ek3rT_W4s_s000_b0R1nG_1N_1991_4nD_1_h4t3_Pr0b4b1l1Ty_s0_I_Us3_4_ECC_S33d!}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="vulnerabilities"&gt;
+ Vulnerabilities
+ &lt;a class="heading-link" href="#vulnerabilities"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge has two independent weaknesses that chain together cleanly.&lt;/p&gt;
+&lt;h3 id="1-invalid-curve-scalar-multiplication"&gt;
+ 1. Invalid-curve scalar multiplication
+ &lt;a class="heading-link" href="#1-invalid-curve-scalar-multiplication"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Menu option &lt;code&gt;1&lt;/code&gt; accepts an arbitrary user point and computes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;public_key &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; multiply(private_key, point, E)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is no validation that the input point lies on the original secp256k1 curve. The code only uses &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; inside the EC formulas, so any point on any curve of the form:&lt;/p&gt;</description></item></channel></rss>

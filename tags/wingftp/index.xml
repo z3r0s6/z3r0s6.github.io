@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>WingFTP on z3r0s</title><link>https://z3r0s6.github.io/tags/wingftp/</link><description>Recent content in WingFTP on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/wingftp/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - WingData</title><link>https://z3r0s6.github.io/machines/wingdata/</link><pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/wingdata/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-47812 · CVE-2025-4517 · CVE-2025-4138&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;WingData is an Easy Linux machine. A company website redirects to an FTP client portal running &lt;strong&gt;Wing FTP Server v7.4.3&lt;/strong&gt;, which is vulnerable to an unauthenticated RCE (&lt;strong&gt;CVE-2025-47812&lt;/strong&gt;). Post-exploitation enumeration reveals a salted SHA-256 hash for user &lt;code&gt;wacky&lt;/code&gt; stored in Wing FTP config files. After cracking the hash with hashcat and gaining SSH access, a misconfigured sudo rule allows execution of a Python backup restoration script as root. The script is vulnerable to &lt;strong&gt;CVE-2025-4517&lt;/strong&gt;, a tarfile &lt;code&gt;PATH_MAX&lt;/code&gt; bypass that allows arbitrary file write - used to overwrite &lt;code&gt;/etc/sudoers&lt;/code&gt; and gain root.&lt;/p&gt;</description></item></channel></rss>

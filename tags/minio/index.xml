@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MinIO on z3r0s</title><link>https://z3r0s6.github.io/tags/minio/</link><description>Recent content in MinIO on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/minio/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Facts</title><link>https://z3r0s6.github.io/machines/facts/</link><pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/facts/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Techniques&lt;/td&gt;
+ &lt;td&gt;Mass Assignment · MinIO · ssh2john · facter GTFOBin&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Facts is an Easy Linux machine running a Ruby on Rails CMS. The intended foothold is a &lt;strong&gt;Mass Assignment&lt;/strong&gt; vulnerability in the password change endpoint - by appending &lt;code&gt;&amp;amp;password[role]=admin&lt;/code&gt; to the intercepted request, a low-privilege user escalates to admin without touching the LFI path. As admin, MinIO S3 credentials are exposed in the General Site filesystem settings. Using the &lt;code&gt;mc&lt;/code&gt; client, an SSH private key is pulled from the internal MinIO bucket. The key passphrase is cracked offline with &lt;code&gt;ssh2john&lt;/code&gt; + &lt;code&gt;john&lt;/code&gt; (rockyou.txt → &lt;code&gt;dragonballz&lt;/code&gt;). SSH access lands as &lt;code&gt;trivia&lt;/code&gt;, who can run &lt;code&gt;/usr/bin/facter&lt;/code&gt; as root via sudo. A malicious Ruby script planted in &lt;code&gt;/tmp/piv&lt;/code&gt; and loaded via &lt;code&gt;--custom-dir&lt;/code&gt; gives a root shell.&lt;/p&gt;</description></item></channel></rss>

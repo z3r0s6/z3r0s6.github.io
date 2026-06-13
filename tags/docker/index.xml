@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on z3r0s</title><link>https://z3r0s6.github.io/tags/docker/</link><description>Recent content in Docker on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 05 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Kobold</title><link>https://z3r0s6.github.io/machines/kobold/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/kobold/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Ubuntu)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVE&lt;/td&gt;
+ &lt;td&gt;CVE-2026-23744&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Tags&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;docker&lt;/code&gt; &lt;code&gt;gshadow&lt;/code&gt; &lt;code&gt;lfi&lt;/code&gt; &lt;code&gt;mcp&lt;/code&gt; &lt;code&gt;mcpjam&lt;/code&gt; &lt;code&gt;pastebin&lt;/code&gt; &lt;code&gt;path-traversal&lt;/code&gt; &lt;code&gt;rce&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Kobold is a Linux easy box featuring a multi-service web application behind nginx with HTTPS and wildcard virtual hosting. Initial access requires exploiting &lt;strong&gt;CVE-2026-23744&lt;/strong&gt; - an unauthenticated RCE in MCPJam Inspector - by sending a crafted JSON payload to &lt;code&gt;/api/mcp/connect&lt;/code&gt; to execute arbitrary commands. Privilege escalation abuses a discrepancy between &lt;code&gt;/etc/gshadow&lt;/code&gt; and the running session, allowing the &lt;code&gt;sg&lt;/code&gt; command to switch into the &lt;code&gt;docker&lt;/code&gt; group and mount the host filesystem inside a container.&lt;/p&gt;</description></item></channel></rss>

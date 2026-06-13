@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Challenges on z3r0s</title><link>https://z3r0s6.github.io/challenges/</link><description>Recent content in Challenges on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 05 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/challenges/index.xml" rel="self" type="application/rss+xml"/><item><title>Hardware - Espresso</title><link>https://z3r0s6.github.io/challenges/hardware-espresso/</link><pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-espresso/</guid><description>&lt;h1 id="hack-the-box-challenge-writeup-espresso"&gt;
+ Hack The Box Challenge Writeup: Espresso
+ &lt;a class="heading-link" href="#hack-the-box-challenge-writeup-espresso"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Name: Espresso&lt;/p&gt;
+&lt;p&gt;Scenario:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Someone leaked the new Espresso firmware, can you try to figure out what it does?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides an ESP32 firmware image. The firmware checks whether it is running on expected hardware by comparing the ESP32 factory MAC address against zero bytes. If the check fails, it prints anti-clone messages. If the check passes, it generates the flag by XOR decoding a 31 byte table stored in the firmware data segment.&lt;/p&gt;</description></item><item><title>Pwn - cyKer</title><link>https://z3r0s6.github.io/challenges/pwn-cyker/</link><pubDate>Sun, 10 May 2026 22:54:00 +0300</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-cyker/</guid><description>&lt;h1 id="cyker--kernel-exploitation-writeup"&gt;
+ cyKer — Kernel Exploitation Writeup
+ &lt;a class="heading-link" href="#cyker--kernel-exploitation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Pwn / Kernel
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{3c03ee481e3c39c175d1a8baed7f9bbe}&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a QEMU-based kernel challenge containing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bzImage&lt;/code&gt; — Linux 5.4.0 kernel&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initramfs.cpio.gz&lt;/code&gt; — root filesystem with a vulnerable kernel module &lt;code&gt;hackme.ko&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;run.sh&lt;/code&gt; — QEMU launch script with &lt;strong&gt;all mitigations disabled&lt;/strong&gt;:
+&lt;pre tabindex="0"&gt;&lt;code&gt;nokaslr nosmep nosmap mitigations=off
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The VM boots, loads &lt;code&gt;hackme.ko&lt;/code&gt;, then drops us into a shell as &lt;strong&gt;uid 1000&lt;/strong&gt;. The flag at &lt;code&gt;/flag&lt;/code&gt; is owned by root with &lt;code&gt;chmod 600&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Crypto - aliens</title><link>https://z3r0s6.github.io/challenges/crypto-aliens/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-aliens/</guid><description>&lt;h1 id="crypto-aliens-write-up"&gt;
+ Crypto Aliens Write-up
+ &lt;a class="heading-link" href="#crypto-aliens-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-summary"&gt;
+ Challenge Summary
+ &lt;a class="heading-link" href="#challenge-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a remote service and a local copy of the challenge logic in &lt;code&gt;server.py&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The service asks for a message, applies a custom padding routine, appends a similarly padded flag, and then encrypts the result with AES-ECB.&lt;/p&gt;
+&lt;p&gt;At first glance this looks annoying rather than breakable, because:&lt;/p&gt;</description></item><item><title>Crypto - BabyEncryption</title><link>https://z3r0s6.github.io/challenges/crypto-babyencryption/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-babyencryption/</guid><description>&lt;h1 id="baby-encryption"&gt;
+ Baby encryption
+ &lt;a class="heading-link" href="#baby-encryption"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;You are after an organised crime group which is responsible for the illegal
+weapon market in your country. As a secret agent, you have infiltrated the
+group enough to be included in meetings with clients. During the last
+negotiation, you found one of the confidential messages for the customer. It
+contains crucial information about the delivery. Do you think you can decrypt
+it?&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Crypto - raining primes</title><link>https://z3r0s6.github.io/challenges/crypto-raining-primes/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-raining-primes/</guid><description>&lt;h1 id="raining-primes-write-up"&gt;
+ Raining Primes Write-up
+ &lt;a class="heading-link" href="#raining-primes-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service mixes three ideas:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Prime generation of the form &lt;code&gt;p = a*r + b&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A homomorphic-looking key update routine&lt;/li&gt;
+&lt;li&gt;RSA encryption of an AES-encrypted flag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The design breaks because the same hidden 640-bit prime &lt;code&gt;r&lt;/code&gt; is reused everywhere:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;every prime returned by option &lt;code&gt;1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;both RSA primes&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;update_key()&lt;/code&gt; routine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once &lt;code&gt;r&lt;/code&gt; is recovered, the rest of the scheme collapses:&lt;/p&gt;</description></item><item><title>Crypto - the last dance</title><link>https://z3r0s6.github.io/challenges/crypto-the-last-dance/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-the-last-dance/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;To be accepted into the upper class of the Berford Empire, you had to attend the annual Cha-Cha Ball at the High Court.
+Little did you know that among the many aristocrats invited, you would find a burned enemy spy.
+Your goal quickly became to capture him, which you succeeded in doing after putting something in his drink.
+Many hours passed in your agency's interrogation room, and you eventually learned important information about the enemy agency's secret communications.
+Can you use what you learned to decrypt the rest of the messages?&lt;/p&gt;</description></item><item><title>Crypto - twisted entanglement</title><link>https://z3r0s6.github.io/challenges/crypto-twisted-entanglement/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-twisted-entanglement/</guid><description>&lt;h1 id="twisted-entanglement-write-up"&gt;
+ Twisted Entanglement Write-Up
+ &lt;a class="heading-link" href="#twisted-entanglement-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="target"&gt;
+ Target
+ &lt;a class="heading-link" href="#target"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Host: &lt;code&gt;154.57.164.77:30486&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Flag: &lt;code&gt;HTB{Ek3rT_W4s_s000_b0R1nG_1N_1991_4nD_1_h4t3_Pr0b4b1l1Ty_s0_I_Us3_4_ECC_S33d!}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="vulnerabilities"&gt;
+ Vulnerabilities
+ &lt;a class="heading-link" href="#vulnerabilities"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge has two independent weaknesses that chain together cleanly.&lt;/p&gt;
+&lt;h3 id="1-invalid-curve-scalar-multiplication"&gt;
+ 1. Invalid-curve scalar multiplication
+ &lt;a class="heading-link" href="#1-invalid-curve-scalar-multiplication"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Menu option &lt;code&gt;1&lt;/code&gt; accepts an arbitrary user point and computes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;public_key &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; multiply(private_key, point, E)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is no validation that the input point lies on the original secp256k1 curve. The code only uses &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; inside the EC formulas, so any point on any curve of the form:&lt;/p&gt;</description></item><item><title>Hardware - defusal</title><link>https://z3r0s6.github.io/challenges/hardware-defusal/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-defusal/</guid><description>&lt;h1 id="hardware-defusal-writeup"&gt;
+ Hardware Defusal Writeup
+ &lt;a class="heading-link" href="#hardware-defusal-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Ignoring &lt;code&gt;file.zip&lt;/code&gt; as requested, the challenge files are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Defusal&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;circuit.png&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C4-BOMB.mp4&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-triage"&gt;
+ 1. Triage
+ &lt;a class="heading-link" href="#1-triage"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Defusal&lt;/code&gt; is an AVR firmware ELF:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ELF 32-bit LSB executable, Atmel AVR 8-bit, statically linked, with debug_info, not stripped
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That makes this mostly a firmware reverse-engineering problem.&lt;/p&gt;
+&lt;h2 id="2-key-firmware-findings"&gt;
+ 2. Key Firmware Findings
+ &lt;a class="heading-link" href="#2-key-firmware-findings"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Useful strings inside the binary:&lt;/p&gt;</description></item><item><title>Hardware - line</title><link>https://z3r0s6.github.io/challenges/hardware-line/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-line/</guid><description>&lt;h1 id="hardware-line"&gt;
+ Hardware Line
+ &lt;a class="heading-link" href="#hardware-line"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Target: &lt;code&gt;154.57.164.83:31804&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service on &lt;code&gt;31804/tcp&lt;/code&gt; speaks LPD. The queue name &lt;code&gt;lp&lt;/code&gt; is accepted, and the implementation is vulnerable to command execution via Shellshock in user-controlled LPD control-file fields.&lt;/p&gt;
+&lt;p&gt;The working primitive is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;() { :;}; &amp;lt;command&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That payload can be injected into the control-file fields and filenames during a standard LPD &lt;code&gt;Receive a printer job&lt;/code&gt; request.&lt;/p&gt;</description></item><item><title>Hardware - mission pinpossible</title><link>https://z3r0s6.github.io/challenges/hardware-mission-pinpossible/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-mission-pinpossible/</guid><description>&lt;h1 id="mission-pinpossible-writeup"&gt;
+ Mission Pinpossible Writeup
+ &lt;a class="heading-link" href="#mission-pinpossible-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;op_pinpossible.logicdata&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;security_keypad.jpeg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="goal"&gt;
+ Goal
+ &lt;a class="heading-link" href="#goal"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Recover the password shown on the keypad LCD from the intercepted monitor traffic.&lt;/p&gt;
+&lt;h2 id="1-identify-the-bus"&gt;
+ 1. Identify the bus
+ &lt;a class="heading-link" href="#1-identify-the-bus"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The photo shows a standard 16x2 HD44780 LCD connected through a common I2C backpack based on a &lt;code&gt;PCF8574&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Hardware - ProjectPower</title><link>https://z3r0s6.github.io/challenges/hardware-projectpower/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-projectpower/</guid><description>&lt;h1 id="project-power-writeup"&gt;
+ Project Power Writeup
+ &lt;a class="heading-link" href="#project-power-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge exposes a remote interface to an embedded device performing AES-128 encryption. The interface lets us:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;send a chosen 16-byte plaintext and receive a corresponding power trace&lt;/li&gt;
+&lt;li&gt;submit a candidate AES key and receive the flag if the key is correct&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is a standard side-channel setup. A simple Correlation Power Analysis (CPA) attack against the first AES round is enough to recover the key.&lt;/p&gt;</description></item><item><title>Hardware - rflag</title><link>https://z3r0s6.github.io/challenges/hardware-rflag/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-rflag/</guid><description>&lt;h1 id="hardware_rflag-writeup"&gt;
+ hardware_rflag Writeup
+ &lt;a class="heading-link" href="#hardware_rflag-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{RF_H4ck1n6_1s_c00l!!!}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="approach"&gt;
+ Approach
+ &lt;a class="heading-link" href="#approach"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The archive only contains one useful file: &lt;code&gt;signal.cf32&lt;/code&gt;, a raw complex64 IQ capture.&lt;/p&gt;
+&lt;p&gt;I loaded the samples with NumPy and inspected the amplitude envelope:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The capture has &lt;code&gt;476160&lt;/code&gt; complex samples.&lt;/li&gt;
+&lt;li&gt;Thresholding the magnitude shows runs quantized almost perfectly at &lt;code&gt;~899&lt;/code&gt; samples and &lt;code&gt;~1798&lt;/code&gt; samples.&lt;/li&gt;
+&lt;li&gt;The first part of the signal is a preamble, followed by data encoded as alternating &lt;code&gt;01&lt;/code&gt; / &lt;code&gt;10&lt;/code&gt; unit pairs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That pattern is consistent with Manchester-style encoding.&lt;/p&gt;</description></item><item><title>Hardware - Secret Treasures</title><link>https://z3r0s6.github.io/challenges/hardware-secret-treasures/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-secret-treasures/</guid><description>&lt;h1 id="hardware-secret-treasures"&gt;
+ Hardware Secret Treasures
+ &lt;a class="heading-link" href="#hardware-secret-treasures"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{m3M0ry_5cR4Mbl1Ng_4nd_1CG_423_n07_3n0u9h7!$#}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;embedded_software&lt;/code&gt;: ARM ELF, not stripped&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flash_memory_dump.bin&lt;/code&gt;: 16 MiB flash contents&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;input_channel_trace.sal&lt;/code&gt;: Saleae capture of the passcode line&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-reverse-the-firmware"&gt;
+ 1. Reverse the firmware
+ &lt;a class="heading-link" href="#1-reverse-the-firmware"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The firmware is an ARM binary with useful symbols:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;random_generator&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_UniqieID&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_secret&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;W25Q128_init&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Important observations from &lt;code&gt;main&lt;/code&gt;:&lt;/p&gt;</description></item><item><title>Hardware - signals</title><link>https://z3r0s6.github.io/challenges/hardware-signals/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-signals/</guid><description>&lt;h1 id="hardware-signals-writeup"&gt;
+ Hardware Signals Writeup
+ &lt;a class="heading-link" href="#hardware-signals-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;The WAV file is an SSTV transmission, not packet radio.&lt;/p&gt;
+&lt;p&gt;The giveaway is the VIS/header pattern at the start of the audio:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1900 Hz&lt;/code&gt; leader&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1200 Hz&lt;/code&gt; break&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1900 Hz&lt;/code&gt; leader&lt;/li&gt;
+&lt;li&gt;VIS bits around &lt;code&gt;1100/1300 Hz&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Decoding the VIS bits gives decimal &lt;code&gt;95&lt;/code&gt;, which corresponds to &lt;code&gt;PD120&lt;/code&gt;. That also matches the total duration of the file: about &lt;code&gt;126 s&lt;/code&gt;, which is the expected PD120 transmission time used in ISS SSTV events.&lt;/p&gt;</description></item><item><title>Hardware - wander</title><link>https://z3r0s6.github.io/challenges/hardware-wander/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-wander/</guid><description>&lt;h1 id="hardware-challenge-wander"&gt;
+ Hardware Challenge: Wander
+ &lt;a class="heading-link" href="#hardware-challenge-wander"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="target"&gt;
+ Target
+ &lt;a class="heading-link" href="#target"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;154.57.164.83:31454&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The exposed service is a Flask/Werkzeug web app that forwards user-supplied PJL commands to the printer backend.&lt;br&gt;
+The &lt;code&gt;/jobs&lt;/code&gt; page exposes a form with the placeholder &lt;code&gt;@PJL INFO ID&lt;/code&gt;, which is enough to identify the intended attack surface: raw Printer Job Language.&lt;/p&gt;</description></item><item><title>misc,CyCTF-Luxor - sonnet-jail</title><link>https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/</guid><description>&lt;h1 id="sonnet-jail---writeup"&gt;
+ Sonnet Jail - Writeup
+ &lt;a class="heading-link" href="#sonnet-jail---writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Sonnet Jail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Misc / PyJail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; &amp;quot;I told Sonnet create me a creative pyjail even you can't solve, does it make the job?&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Read &lt;code&gt;./flag.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="reconnaissance"&gt;
+ Reconnaissance
+ &lt;a class="heading-link" href="#reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Connecting to the service presents a Python REPL with several restrictions:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; print(1+1)
+2
+&amp;gt;&amp;gt;&amp;gt; print(open(&amp;#34;flag.txt&amp;#34;).read())
+[blocked] no dots
+&amp;gt;&amp;gt;&amp;gt; print(open(&amp;#34;flag&amp;#34; + chr(46) + &amp;#34;txt&amp;#34;))
+[blocked] &amp;#39;open&amp;#39; is blocked
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="blocked-keywords"&gt;
+ Blocked keywords
+ &lt;a class="heading-link" href="#blocked-keywords"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Keyword&lt;/th&gt;
+ &lt;th&gt;Message&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;.&lt;/code&gt; (dot character)&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;no dots&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;open&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'open' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;eval&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'eval' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;exec&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'exec' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;dir&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'dir' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;getattr&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'getattr' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;hasattr&lt;/code&gt; / &lt;code&gt;setattr&lt;/code&gt; / &lt;code&gt;delattr&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__builtins__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__import__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;globals&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;breakpoint&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;compile&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;input&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__subclasses__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__init__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;flag&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="allowed-builtins"&gt;
+ Allowed builtins
+ &lt;a class="heading-link" href="#allowed-builtins"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;print&lt;/code&gt;, &lt;code&gt;type&lt;/code&gt;, &lt;code&gt;chr&lt;/code&gt;, &lt;code&gt;isinstance&lt;/code&gt;, &lt;code&gt;vars&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;map&lt;/code&gt;, &lt;code&gt;filter&lt;/code&gt;, &lt;code&gt;zip&lt;/code&gt;, &lt;code&gt;object&lt;/code&gt;, &lt;code&gt;bytes&lt;/code&gt;, &lt;code&gt;int&lt;/code&gt;, &lt;code&gt;str&lt;/code&gt;, &lt;code&gt;range&lt;/code&gt;, &lt;code&gt;enumerate&lt;/code&gt;, &lt;code&gt;len&lt;/code&gt;, &lt;code&gt;tuple&lt;/code&gt;, &lt;code&gt;set&lt;/code&gt;, &lt;code&gt;dict&lt;/code&gt;, &lt;code&gt;frozenset&lt;/code&gt;, &lt;code&gt;hex&lt;/code&gt;, &lt;code&gt;oct&lt;/code&gt;, &lt;code&gt;ord&lt;/code&gt;, &lt;code&gt;bin&lt;/code&gt;, &lt;code&gt;abs&lt;/code&gt;, &lt;code&gt;round&lt;/code&gt;, &lt;code&gt;sorted&lt;/code&gt;, &lt;code&gt;reversed&lt;/code&gt;, &lt;code&gt;min&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;, &lt;code&gt;sum&lt;/code&gt;, &lt;code&gt;any&lt;/code&gt;, &lt;code&gt;all&lt;/code&gt;, &lt;code&gt;bool&lt;/code&gt;, &lt;code&gt;float&lt;/code&gt;, &lt;code&gt;complex&lt;/code&gt;, &lt;code&gt;super&lt;/code&gt;, &lt;code&gt;staticmethod&lt;/code&gt;, &lt;code&gt;classmethod&lt;/code&gt;, &lt;code&gt;property&lt;/code&gt;, &lt;code&gt;slice&lt;/code&gt;, &lt;code&gt;memoryview&lt;/code&gt;, &lt;code&gt;bytearray&lt;/code&gt;&lt;/p&gt;</description></item><item><title>pwn - bil</title><link>https://z3r0s6.github.io/challenges/pwn-bil/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-bil/</guid><description>&lt;h1 id="bil---pwn-writeup"&gt;
+ bil - PWN Writeup
+ &lt;a class="heading-link" href="#bil---pwn-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; bil&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; PWN&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Remote:&lt;/strong&gt; 0.cloud.chals.io:18850&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="files-provided"&gt;
+ Files Provided
+ &lt;a class="heading-link" href="#files-provided"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - ELF 64-bit binary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;libc.so.6&lt;/code&gt; - GLIBC 2.36&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ld-linux-x86-64.so.2&lt;/code&gt; - dynamic linker&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flag&lt;/code&gt; - placeholder flag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="binary-analysis"&gt;
+ Binary Analysis
+ &lt;a class="heading-link" href="#binary-analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="checksec"&gt;
+ Checksec
+ &lt;a class="heading-link" href="#checksec"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Protection&lt;/th&gt;
+ &lt;th&gt;Status&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RELRO&lt;/td&gt;
+ &lt;td&gt;Full RELRO&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Stack Canary&lt;/td&gt;
+ &lt;td&gt;No&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;NX&lt;/td&gt;
+ &lt;td&gt;Enabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;PIE&lt;/td&gt;
+ &lt;td&gt;Disabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="key-functions"&gt;
+ Key Functions
+ &lt;a class="heading-link" href="#key-functions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;vuln()&lt;/code&gt; @ 0x4011c6&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Quantum - flagportation</title><link>https://z3r0s6.github.io/challenges/quantum-flagportation/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-flagportation/</guid><description>&lt;h1 id="htb-write-up-flagportation"&gt;
+ HTB Write-up: Flagportation
+ &lt;a class="heading-link" href="#htb-write-up-flagportation"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Link - &lt;a href="https://app.hackthebox.com/challenges/Flagportation" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Flagportation&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Very Easy&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The server implements a simplified quantum teleportation protocol: it encodes bit pairs (&lt;code&gt;00&lt;/code&gt;, &lt;code&gt;01&lt;/code&gt;, &lt;code&gt;10&lt;/code&gt;, &lt;code&gt;11&lt;/code&gt;) into a 3-qubit state, measures the first two qubits and prints the measurement results and the basis (&lt;code&gt;Z&lt;/code&gt; or &lt;code&gt;X&lt;/code&gt;) used to encode the original bits. Your job is to send instructions (which gates to apply to the third qubit) and choose the measurement basis for the third qubit. From the returned measurement you can reconstruct the original two-bit pair.&lt;/p&gt;</description></item><item><title>Quantum - global hyperlink zone</title><link>https://z3r0s6.github.io/challenges/quantum-global-hyperlink-zone/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-global-hyperlink-zone/</guid><description>&lt;h1 id="htb-write-up-global-hyperlink-zone"&gt;
+ HTB Write-up: Global Hyperlink Zone
+ &lt;a class="heading-link" href="#htb-write-up-global-hyperlink-zone"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Link - &lt;a href="https://app.hackthebox.com/challenges/Global%2520Hyperlink%2520Zone" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Global%2520Hyperlink%2520Zone&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Very Easy&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge provides a Python script for a server that expects a specific sequence of quantum gates. The goal is to build a quantum circuit that satisfies a set of conditions defined in a validation function within the script. The solution involves creating a specific entangled state across five qubits.&lt;/p&gt;</description></item><item><title>Quantum - noisy vault</title><link>https://z3r0s6.github.io/challenges/quantum-noisy-vault/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-noisy-vault/</guid><description>&lt;h1 id="noisy-vault-writeup"&gt;
+ Noisy Vault Writeup
+ &lt;a class="heading-link" href="#noisy-vault-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge description mentions a 13-qubit system and a 9-bit key, but the actual service uses:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;64&lt;/code&gt; data qubits&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;16&lt;/code&gt; ancilla qubits&lt;/li&gt;
+&lt;li&gt;a single oracle query&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;4096&lt;/code&gt; noisy measurement shots&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The goal is to recover the hidden 64-bit &lt;code&gt;secret_key&lt;/code&gt; and submit it in one unlock attempt.&lt;/p&gt;
+&lt;h2 id="root-cause"&gt;
+ Root Cause
+ &lt;a class="heading-link" href="#root-cause"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service prepares the secret as a computational basis state by applying &lt;code&gt;X&lt;/code&gt; on each data qubit whose key bit is &lt;code&gt;1&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Quantum - phase madness</title><link>https://z3r0s6.github.io/challenges/quantum-phase-madness/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-phase-madness/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Title:&lt;/strong&gt; Phase Madness&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Easy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link:&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/Phase%20Madness" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Phase%20Madness&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="brief-description"&gt;
+ Brief Description
+ &lt;a class="heading-link" href="#brief-description"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The description says &amp;quot;Qubitrix stores data unlike any other. At its core, every secret is locked in a silent quantum spiral, inaccessible to classical developers. The engineers swore it was flawless, yet something in its design hums and breathes. To them, it's madness. To us, clarity.&amp;quot;&lt;/p&gt;
+&lt;p&gt;So, essentially, we are given the server code in Python, &lt;code&gt;server.py&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Quantum - qlotto</title><link>https://z3r0s6.github.io/challenges/quantum-qlotto/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-qlotto/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Name -&lt;/strong&gt; QLotto&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category -&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty -&lt;/strong&gt; Easy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link -&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/qlotto" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/qlotto&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge description sets the scene: &amp;quot;They call it QLotto â€” a dazzling new quantum lottery table provided by Qubitrix... If you can predict their draws, you can beat the system.&amp;quot; We are provided with a &lt;code&gt;server.py&lt;/code&gt; file. The core task is to bypass a restrictive input check on the quantum circuit indices and then manipulate the quantum state to create a predictable correlation between the &amp;quot;house card&amp;quot; and our draws. By using negative indexing and specific quantum gates, we can rig the lottery.&lt;/p&gt;</description></item><item><title>Quantum - untrusted node</title><link>https://z3r0s6.github.io/challenges/quantum-untrusted-node/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-untrusted-node/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Name -&lt;/strong&gt; Untrusted Node&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category -&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty -&lt;/strong&gt; Medium&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link -&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/Untrusted%2520Node" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Untrusted%2520Node&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge presents a Quantum Key Distribution (QKD) simulation. The &amp;quot;Transmitter&amp;quot; (Alice) sends qubits to a &amp;quot;Receiver&amp;quot; (Bob), but there is a redundancy flaw: for every bit of the key, Alice sends a &amp;quot;chunk&amp;quot; of identical qubits. We act as the compromised &amp;quot;Trusted Node&amp;quot; in the middle. By measuring the first two qubits of each chunk in different bases and letting the rest pass to Bob, we can recover the key without alerting the protocol during the reconciliation phase.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Coffee Invocation</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-coffee-invocation/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-coffee-invocation/</guid><description>&lt;h1 id="coffee-invocation-writeup"&gt;
+ Coffee Invocation Writeup
+ &lt;a class="heading-link" href="#coffee-invocation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{1_c4nt_c4ptur3_fl4g5_unt17_1v3_h4d_a1l_my_0xCAFEBABE}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;coffee_invocation&lt;/code&gt; is a PIE ELF that embeds two Java class files and drives them through JNI.&lt;/p&gt;
+&lt;p&gt;The native code:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;creates a JVM&lt;/li&gt;
+&lt;li&gt;hooks &lt;code&gt;java/lang/Shutdown.halt0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;rewrites cached boxed values such as &lt;code&gt;Byte&lt;/code&gt;, &lt;code&gt;Short&lt;/code&gt;, &lt;code&gt;Character&lt;/code&gt;, &lt;code&gt;Boolean&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;runs &lt;code&gt;Verify1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;runs &lt;code&gt;Verify2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;if both wrappers return &lt;code&gt;0&lt;/code&gt;, prints the supplied password as &lt;code&gt;HTB{&amp;lt;password&amp;gt;}&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So the solve is to recover the exact 52-character password accepted by both verifiers.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Cyberpsychosis</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-cyberpsychosis/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-cyberpsychosis/</guid><description>&lt;h1 id="hackthebox---cyberpsychosis-reverse-engineering"&gt;
+ HackTheBox - Cyberpsychosis (Reverse Engineering)
+ &lt;a class="heading-link" href="#hackthebox---cyberpsychosis-reverse-engineering"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-description"&gt;
+ Challenge Description
+ &lt;a class="heading-link" href="#challenge-description"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Malicious actors have infiltrated our systems and we believe they've implanted a custom rootkit. Can you disarm the rootkit and find the hidden data?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium&lt;br&gt;
+&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;br&gt;
+&lt;strong&gt;Files:&lt;/strong&gt; &lt;code&gt;diamorphine.ko&lt;/code&gt;, &lt;code&gt;LICENSE.txt&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;Target:&lt;/strong&gt; TCP service hosting a QEMU VM&lt;/p&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="identifying-the-rootkit"&gt;
+ Identifying the Rootkit
+ &lt;a class="heading-link" href="#identifying-the-rootkit"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge provides &lt;code&gt;diamorphine.ko&lt;/code&gt;, a Linux kernel module (LKM). Diamorphine is a well-known open-source Linux rootkit. Basic identification:&lt;/p&gt;</description></item><item><title>Reverse Engineering - Maze</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-maze/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-maze/</guid><description>&lt;h1 id="htb-reverse-challenge-maze"&gt;
+ HTB Reverse Challenge: Maze
+ &lt;a class="heading-link" href="#htb-reverse-challenge-maze"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-overview"&gt;
+ Challenge Overview
+ &lt;a class="heading-link" href="#challenge-overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;br&gt;
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium&lt;br&gt;
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;HTB{w0W_Y0u_C0uld_E5c4p3_Th1s_M4Z33!!}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We are given a Windows executable (&lt;code&gt;maze.exe&lt;/code&gt;), an encrypted zip (&lt;code&gt;enc_maze.zip&lt;/code&gt;), and an image (&lt;code&gt;maze.png&lt;/code&gt;). The goal is to navigate through multiple layers of obfuscation to find the flag.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="solution"&gt;
+ Solution
+ &lt;a class="heading-link" href="#solution"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="step-1-identify-and-unpack-pyinstaller"&gt;
+ Step 1: Identify and Unpack PyInstaller
+ &lt;a class="heading-link" href="#step-1-identify-and-unpack-pyinstaller"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ file maze.exe
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;maze.exe: PE32+ executable &lt;span style="color:#ff7b72"&gt;for&lt;/span&gt; MS Windows, x86-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ strings maze.exe | grep PyInstaller
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PyInstaller: pyi_win32_utils_to_utf8 failed.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The binary is a PyInstaller-packed Python 3.8 application. We extract it using &lt;code&gt;pyinstxtractor&lt;/code&gt;:&lt;/p&gt;</description></item><item><title>Reverse Engineering - rauth</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-rauth/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-rauth/</guid><description>&lt;h1 id="htb-reverse-challenge-rauth"&gt;
+ HTB Reverse Challenge: rauth
+ &lt;a class="heading-link" href="#htb-reverse-challenge-rauth"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; &amp;quot;My implementation of authentication mechanisms in C turned out to be failures. But my implementation in Rust is unbreakable. Can you retrieve my password?&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;HTB{I_Kn0w_h0w_t0_5al54}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The binary is a 64-bit ELF Rust executable, dynamically linked, with debug info and not stripped.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Regas Town</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/</guid><description>&lt;h1 id="regas-town---htb-reverse-engineering-challenge-writeup"&gt;
+ Rega's Town - HTB Reverse Engineering Challenge Writeup
+ &lt;a class="heading-link" href="#regas-town---htb-reverse-engineering-challenge-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; Welcome to Rega Town, a quaint little place where everyone communicates through the magic of patterns and rules!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides a 64-bit ELF binary written in Rust. Running it prompts for a &amp;quot;secret passphrase&amp;quot; and validates it against a series of regex patterns.&lt;/p&gt;</description></item><item><title>Reverse Engineering - VirtuallyMad</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-virtuallymad/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-virtuallymad/</guid><description>&lt;h1 id="virtuallymad---htb-reverse-engineering-challenge"&gt;
+ VirtuallyMad - HTB Reverse Engineering Challenge
+ &lt;a class="heading-link" href="#virtuallymad---htb-reverse-engineering-challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{0210010002100100031100010112110004130000}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides a stripped ELF binary (&lt;code&gt;virtually.mad&lt;/code&gt;) that implements a custom virtual machine. The user must supply a hex-encoded &amp;quot;code&amp;quot; string that, when executed by the VM, produces a specific register state.&lt;/p&gt;
+&lt;h2 id="vm-architecture"&gt;
+ VM Architecture
+ &lt;a class="heading-link" href="#vm-architecture"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="registers--state"&gt;
+ Registers &amp;amp; State
+ &lt;a class="heading-link" href="#registers--state"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The VM allocates a 0x38-byte structure:&lt;/p&gt;</description></item><item><title>Reverse Engineering - vvm</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-vvm/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-vvm/</guid><description>&lt;h1 id="rev_vvm-writeup"&gt;
+ rev_vvm Writeup
+ &lt;a class="heading-link" href="#rev_vvm-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{v1rTu4L_p4sSw0rD_t3ChN0loGy}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The binary is a stripped PIE ELF that implements a small VM. The visible flow is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Print the banner.&lt;/li&gt;
+&lt;li&gt;Build a dispatch table for VM opcodes by XOR-decoding multiple handler stubs from &lt;code&gt;.data&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Execute a dword-based bytecode program stored in &lt;code&gt;.data&lt;/code&gt; at &lt;code&gt;0x5540&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Running the binary directly is not useful because one VM opcode calls &lt;code&gt;ptrace&lt;/code&gt; and exits under tracing/debugged environments. The solve is easier statically by reconstructing the VM handlers and emulating the bytecode.&lt;/p&gt;</description></item><item><title>Web - NextBlog</title><link>https://z3r0s6.github.io/challenges/web-nextblog/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-nextblog/</guid><description>&lt;h1 id="nextblog---ctf-writeup"&gt;
+ NextBlog - CTF Writeup
+ &lt;a class="heading-link" href="#nextblog---ctf-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; NextBlog&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;code&gt;https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Web&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;A Next.js 16 blog application with a hidden flag server running on &lt;code&gt;localhost:3001&lt;/code&gt;. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server.&lt;/p&gt;</description></item><item><title>WEB - Resizer</title><link>https://z3r0s6.github.io/challenges/web-resizer/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-resizer/</guid><description>&lt;h1 id="resizer-writeup"&gt;
+ Resizer Writeup
+ &lt;a class="heading-link" href="#resizer-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Name: &lt;code&gt;Resizer&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Category: &lt;code&gt;Web&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Target: &lt;code&gt;http://154.57.164.66:30462&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="tldr"&gt;
+ TL;DR
+ &lt;a class="heading-link" href="#tldr"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The core bug is an &lt;strong&gt;arbitrary file write through path traversal&lt;/strong&gt; in the upload filename:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;filename &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; file&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;filename
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;filepath &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; os&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;path&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;join(app&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;config[&lt;span style="color:#a5d6ff"&gt;&amp;#39;UPLOAD_FOLDER&amp;#39;&lt;/span&gt;], filename)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;file&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;save(filepath)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because &lt;code&gt;filename&lt;/code&gt; is never sanitized with &lt;code&gt;secure_filename()&lt;/code&gt; and &lt;code&gt;os.path.join()&lt;/code&gt; does not stop &lt;code&gt;../&lt;/code&gt;, we can write files outside &lt;code&gt;uploads/&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>

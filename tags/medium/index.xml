@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Medium on z3r0s</title><link>https://z3r0s6.github.io/tags/medium/</link><description>Recent content in Medium on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/medium/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Checkpoint</title><link>https://z3r0s6.github.io/machines/checkpoint/</link><pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/checkpoint/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Windows&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before starting our pentest, the machine logo and name offer some interesting context clues.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The logo shows a traveler in a green cloak holding a staff, standing before a massive, reinforced iron gate (portcullis) inside a purple stone vault or dungeon.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Portcullis:&lt;/strong&gt; Represents a barrier or &amp;quot;checkpoint&amp;quot; preventing unauthorized entry.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Traveler:&lt;/strong&gt; Symbolizes the auditor or attacker looking for credentials or a key to open the gate and penetrate the internal domain.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Checkpoint&amp;quot; suggests:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A gateway or barrier where credentials, tokens, or tickets (like Kerberos TGTs) must be validated.&lt;/li&gt;
+&lt;li&gt;An assumed-breach scenario where we must verify access at various stages to move deeper into the Active Directory domain.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is an Active Directory box that starts with an assumed breach. The name 'Checkpoint' indicates we will be verifying our access at different stages (checkpoints) to move laterally. The foothold will likely involve getting past an initial access barrier using credentials, followed by lateral movement through Active Directory privileges or misconfigured service accounts, and escalating to Domain Admin by exploiting a Windows Server feature or credential reuse.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>HTB - Connected</title><link>https://z3r0s6.github.io/machines/connected/</link><pubDate>Sat, 06 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/connected/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows a visual representation of network and telecom connections. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Network / Telephony lines:&lt;/strong&gt; A system managing communication channels, VoIP gateways, or PBX nodes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Telecom theme:&lt;/strong&gt; Likely FreePBX, Asterisk, or a similar telephony administration interface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Connected&amp;quot; combined with the logo points toward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Telephony networks, voice connections, or dial-in systems. FreePBX/Asterisk is the industry-standard Linux VoIP gateway.&lt;/li&gt;
+&lt;li&gt;A service coordinating connections, ports, or SIP trunks.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name and logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a Linux VoIP server running FreePBX/Asterisk. The name 'Connected' is a direct nod to telephony connections, and the logo reinforces this. The foothold is likely an exploit in FreePBX (potentially a recent CVE like CVE-2025-57819), and privilege escalation will likely involve abusing telephony or PBX configuration files/processes.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis is confirmed within minutes of scanning and basic web interaction.&lt;/p&gt;</description></item><item><title>HTB - SmartHire</title><link>https://z3r0s6.github.io/machines/smarthire/</link><pubDate>Mon, 18 May 2026 00:37:12 +0300</pubDate><guid>https://z3r0s6.github.io/machines/smarthire/</guid><description>&lt;h1 id="smarthire-htb-write-up"&gt;
+ SmartHire HTB Write-up
+ &lt;a class="heading-link" href="#smarthire-htb-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;img src="https://htb-mp-prod-public-storage.s3.eu-central-1.amazonaws.com/avatars/26260a4f7f1e95d188a99210fb2ae693.png" alt="SmartHire Logo"&gt;&lt;/p&gt;
+&lt;h2 id="executive-summary"&gt;
+ Executive Summary
+ &lt;a class="heading-link" href="#executive-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;SmartHire was compromised in two stages:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Initial access / user shell&lt;/strong&gt;
+The SmartHire web application relied on an external MLflow instance to load a model by name during resume prediction. Because the MLflow registry was exposed and protected only by weak credentials (&lt;code&gt;admin:password&lt;/code&gt;), it was possible to register a malicious &lt;code&gt;pyfunc&lt;/code&gt; model under the exact name expected by the application. When the application later loaded that model during a prediction request, it deserialized attacker-controlled pickle content and executed a reverse shell as &lt;code&gt;svcweb&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>HTB - Browsed</title><link>https://z3r0s6.github.io/machines/browsed/</link><pubDate>Sun, 10 May 2026 23:19:05 +0300</pubDate><guid>https://z3r0s6.github.io/machines/browsed/</guid><description>&lt;p&gt;After get the target ip lets scan with nmap&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231254.png" alt="Pasted image 20260510231254.png"&gt;&lt;/p&gt;
+&lt;p&gt;We have port 80 lets check it&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231301.png" alt="Pasted image 20260510231301.png"&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo nano /etc/hosts
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ip browsed.htb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;lets go to check Samples Page&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://browsed.htb/samples.html&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;lets Download any file, I'll download second file&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**After download the file we got zip file lets unzip it
+&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231317.png" alt="Pasted image 20260510231317.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;It Looks interesting&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;lets Check upload page&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231338.png" alt="Pasted image 20260510231338.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can Upload Chrome Extension (.zip)&lt;/p&gt;</description></item><item><title>HTB - Helix</title><link>https://z3r0s6.github.io/machines/helix/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/helix/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux | &lt;strong&gt;Date:&lt;/strong&gt; 2026-05-10&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Helix presents a realistic industrial operations scenario built around Apache NiFi, OPC UA, and a custom maintenance console. The attack chain is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Vhost fuzzing → &lt;code&gt;flow.helix.htb&lt;/code&gt; (Apache NiFi 1.21.0, unauthenticated)&lt;/li&gt;
+&lt;li&gt;NiFi RCE via ExecuteScript processor → shell as &lt;code&gt;nifi&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;SSH private key for &lt;code&gt;operator&lt;/code&gt; found in NiFi support bundles&lt;/li&gt;
+&lt;li&gt;Privilege escalation via OPC UA node manipulation to open a timed maintenance window → root shell&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>HTB - VariaType</title><link>https://z3r0s6.github.io/machines/variatype/</link><pubDate>Tue, 05 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/variatype/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-66034 · CVE-2024-25082 · CVE-2025-47273&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;VariaType is a Linux medium box centered around a typography company's web infrastructure. The attack chain involves &lt;strong&gt;three distinct CVEs&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66034&lt;/strong&gt; - fonttools DesignSpace output path traversal → PHP webshell (&lt;code&gt;www-data&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-25082&lt;/strong&gt; - FontForge archive filename command injection → SSH as &lt;code&gt;steve&lt;/code&gt; (user)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-47273&lt;/strong&gt; - setuptools PackageIndex path traversal → SSH as &lt;code&gt;root&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="attack-chain-overview"&gt;
+ Attack Chain Overview
+ &lt;a class="heading-link" href="#attack-chain-overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;#&lt;/th&gt;
+ &lt;th&gt;Stage&lt;/th&gt;
+ &lt;th&gt;Technique&lt;/th&gt;
+ &lt;th&gt;CVE/Tool&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;1&lt;/td&gt;
+ &lt;td&gt;Recon&lt;/td&gt;
+ &lt;td&gt;Nmap + vhost fuzzing + &lt;code&gt;.git&lt;/code&gt; dump&lt;/td&gt;
+ &lt;td&gt;-&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;2&lt;/td&gt;
+ &lt;td&gt;Foothold&lt;/td&gt;
+ &lt;td&gt;DesignSpace filename path traversal&lt;/td&gt;
+ &lt;td&gt;CVE-2025-66034&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;3&lt;/td&gt;
+ &lt;td&gt;User (steve)&lt;/td&gt;
+ &lt;td&gt;FontForge archive filename cmd injection&lt;/td&gt;
+ &lt;td&gt;CVE-2024-25082&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;4&lt;/td&gt;
+ &lt;td&gt;Root&lt;/td&gt;
+ &lt;td&gt;setuptools PackageIndex path traversal&lt;/td&gt;
+ &lt;td&gt;CVE-2025-47273&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="01---reconnaissance"&gt;
+ 01 - Reconnaissance
+ &lt;a class="heading-link" href="#01---reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rustscan -a &amp;lt;TARGET_IP&amp;gt; --ulimit &lt;span style="color:#a5d6ff"&gt;5000&lt;/span&gt; -b &lt;span style="color:#a5d6ff"&gt;1500&lt;/span&gt; -- -sV -sC
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;Port 22 OpenSSH 9.2p1
+Port 80 nginx/1.22.1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="virtual-host-discovery"&gt;
+ Virtual Host Discovery
+ &lt;a class="heading-link" href="#virtual-host-discovery"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt &lt;span style="color:#79c0ff"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -u http://&amp;lt;TARGET_IP&amp;gt; -H &lt;span style="color:#a5d6ff"&gt;&amp;#34;Host: FUZZ.variatype.htb&amp;#34;&lt;/span&gt; -fs &amp;lt;default_size&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#8b949e;font-style:italic"&gt;# → portal.variatype.htb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="git-repository-leak"&gt;
+ Git Repository Leak
+ &lt;a class="heading-link" href="#git-repository-leak"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;curl -s http://portal.variatype.htb/.git/HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#8b949e;font-style:italic"&gt;# ref: refs/heads/master&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Dumping the repository reveals hardcoded credentials in commit history:&lt;/p&gt;</description></item><item><title>HTB - Pterodactyl</title><link>https://z3r0s6.github.io/machines/pterodactyl/</link><pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/pterodactyl/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-49132 · CVE-2025-6018 · CVE-2025-6019&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pterodactyl is a Linux machine that chains three critical vulnerabilities for full system compromise. The Pterodactyl Panel (a Laravel-based game server management platform) is hosted on a discovered subdomain. &lt;strong&gt;PHP PEAR&lt;/strong&gt; is enabled with writable config paths, vulnerable to &lt;strong&gt;CVE-2025-49132&lt;/strong&gt; - unauthenticated RCE. Database credentials extracted from Laravel's &lt;code&gt;.env&lt;/code&gt; file reveal a secondary user. Privilege escalation leverages &lt;strong&gt;CVE-2025-6018&lt;/strong&gt; (PAM environment variable injection) chained with &lt;strong&gt;CVE-2025-6019&lt;/strong&gt; (UDisks2 XFS filesystem privilege escalation) to achieve root.&lt;/p&gt;</description></item><item><title>HTB - Silentium</title><link>https://z3r0s6.github.io/machines/silentium/</link><pubDate>Tue, 14 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/silentium/</guid><description>&lt;hr&gt;
+&lt;h2 id="1-port-scan"&gt;
+ 1. Port Scan
+ &lt;a class="heading-link" href="#1-port-scan"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;nmap -sV -A -T4 10.129.30.114 -o port_scan
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;Starting Nmap 7.99 ( https://nmap.org ) at 2026-04-14 15:20 -0400
+Nmap scan report for 10.129.30.114
+Host is up (0.088s latency).
+Not shown: 998 closed tcp ports (reset)
+
+PORT STATE SERVICE VERSION
+22/tcp open ssh OpenSSH 9.6p1 Ubuntu 3ubuntu13.15 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+| 256 0c:4b:d2:76:ab:10:06:92:05:dc:f7:55:94:7f:18:df (ECDSA)
+|_ 256 2d:6d:4a:4c:ee:2e:11:b6:c8:90:e6:83:e9:df:38:b0 (ED25519)
+80/tcp open http nginx 1.24.0 (Ubuntu)
+|_http-server-header: nginx/1.24.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://silentium.htb/
+
+OS details: Linux 5.0 - 5.14
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Only &lt;strong&gt;SSH (22)&lt;/strong&gt; and &lt;strong&gt;HTTP (80)&lt;/strong&gt; are exposed. Add &lt;code&gt;silentium.htb&lt;/code&gt; to &lt;code&gt;/etc/hosts&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>HTB - Interpreter</title><link>https://z3r0s6.github.io/machines/interpreter/</link><pubDate>Sun, 29 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/interpreter/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Debian 12)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2023-43208 · CVE-2023-37679&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Interpreter is a Medium-difficulty Linux machine centred around &lt;strong&gt;Mirth Connect 4.4.0&lt;/strong&gt;, a widely-deployed open-source healthcare integration engine. The attack chain exploits &lt;strong&gt;CVE-2023-43208&lt;/strong&gt; - an unauthenticated pre-auth RCE via XStream deserialization - to gain an initial shell as the service user. Database credentials extracted from Mirth's config file lead to a PBKDF2-hashed password in the internal MySQL/PostgreSQL database. After cracking the hash offline with hashcat, SSH access is gained as user &lt;code&gt;sedric&lt;/code&gt;. A locally-bound Python Flask service (&lt;code&gt;notif.py&lt;/code&gt;) running as root exposes an &lt;code&gt;eval()&lt;/code&gt; sink vulnerable to SSTI, which is abused to plant a SUID bash binary and achieve full root compromise.&lt;/p&gt;</description></item><item><title>HTB - DevArea</title><link>https://z3r0s6.github.io/machines/devarea/</link><pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/devarea/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Ubuntu 24.04)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Season&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;DevArea is a Medium Linux machine. An anonymous FTP share exposes a Java SOAP service JAR. Decompiling it reveals Apache CXF with XOP/MTOM processing, vulnerable to CVE-2022-46364 - allowing Local File Inclusion via &lt;code&gt;&amp;lt;xop:Include href=&amp;quot;file:///...&amp;quot;/&amp;gt;&lt;/code&gt; elements. Using this LFI, plaintext HoverFly credentials are extracted from a systemd service file. HoverFly's middleware API then provides unauthenticated RCE. Privilege escalation abuses a world-writable &lt;code&gt;/bin/bash&lt;/code&gt; combined with a passwordless sudo rule.&lt;/p&gt;</description></item></channel></rss>

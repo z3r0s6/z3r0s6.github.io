@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Next.js on z3r0s</title><link>https://z3r0s6.github.io/tags/next.js/</link><description>Recent content in Next.js on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 24 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/next.js/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Reactor</title><link>https://z3r0s6.github.io/machines/reactor/</link><pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/reactor/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Easy | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows a nuclear reactor facility - cooling towers with radiation symbols (☢), smoke/steam rising, set inside a green circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nuclear reactor theme → the web app will be a reactor monitoring dashboard, ICS/SCADA-style interface with sensor readings, logs, and personnel panels&lt;/li&gt;
+&lt;li&gt;Green color scheme → &amp;quot;nominal / online&amp;quot; status indicators - a live running service dashboard&lt;/li&gt;
+&lt;li&gt;Radiation symbols → nuclear operations terminology ahead: coolant flow, pressure, neutron flux, core temperature - all realistic dashboard labels that give no obvious attack surface&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Reactor&amp;quot; combined with the logo points toward two things at once:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;React/Next.js&lt;/strong&gt; - &amp;quot;Reactor&amp;quot; is almost certainly a pun on React, the JavaScript framework. HTB machine names frequently reference the intended technology this way. This immediately narrows the attack surface to a Node.js web application.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nuclear monitoring theme&lt;/strong&gt; - the app will look like a static read-only dashboard with no login, no forms, no visible input - pushing the attacker toward framework-level vulnerabilities rather than application logic.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name + logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a Next.js app themed as a nuclear reactor dashboard. The name 'Reactor' punning on React strongly suggests a Next.js vulnerability is the intended path. The dashboard will look static but the attack vector will be server-side - likely Server Actions, API routes, or RSC deserialization.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis was confirmed within minutes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Port 3000 → &lt;code&gt;X-Powered-By: Next.js&lt;/code&gt; in response headers&lt;/li&gt;
+&lt;li&gt;No login page, no visible forms → the framework itself is the attack surface, not the application logic&lt;/li&gt;
+&lt;li&gt;Next.js Server Actions prototype pollution (CVE-2025-55182) → exact match&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is why reading the logo matters. A good HTB player can often narrow the entire attack path to 1-2 CVEs before the nmap scan finishes.&lt;/p&gt;</description></item></channel></rss>

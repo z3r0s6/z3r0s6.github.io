@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CyCTF-Luxor on z3r0s</title><link>https://z3r0s6.github.io/tags/cyctf-luxor/</link><description>Recent content in CyCTF-Luxor on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 22:54:00 +0300</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/cyctf-luxor/index.xml" rel="self" type="application/rss+xml"/><item><title>Pwn - cyKer</title><link>https://z3r0s6.github.io/challenges/pwn-cyker/</link><pubDate>Sun, 10 May 2026 22:54:00 +0300</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-cyker/</guid><description>&lt;h1 id="cyker--kernel-exploitation-writeup"&gt;
+ cyKer — Kernel Exploitation Writeup
+ &lt;a class="heading-link" href="#cyker--kernel-exploitation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Pwn / Kernel
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{3c03ee481e3c39c175d1a8baed7f9bbe}&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a QEMU-based kernel challenge containing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bzImage&lt;/code&gt; — Linux 5.4.0 kernel&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initramfs.cpio.gz&lt;/code&gt; — root filesystem with a vulnerable kernel module &lt;code&gt;hackme.ko&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;run.sh&lt;/code&gt; — QEMU launch script with &lt;strong&gt;all mitigations disabled&lt;/strong&gt;:
+&lt;pre tabindex="0"&gt;&lt;code&gt;nokaslr nosmep nosmap mitigations=off
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The VM boots, loads &lt;code&gt;hackme.ko&lt;/code&gt;, then drops us into a shell as &lt;strong&gt;uid 1000&lt;/strong&gt;. The flag at &lt;code&gt;/flag&lt;/code&gt; is owned by root with &lt;code&gt;chmod 600&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>misc,CyCTF-Luxor - sonnet-jail</title><link>https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/</guid><description>&lt;h1 id="sonnet-jail---writeup"&gt;
+ Sonnet Jail - Writeup
+ &lt;a class="heading-link" href="#sonnet-jail---writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Sonnet Jail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Misc / PyJail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; &amp;quot;I told Sonnet create me a creative pyjail even you can't solve, does it make the job?&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Read &lt;code&gt;./flag.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="reconnaissance"&gt;
+ Reconnaissance
+ &lt;a class="heading-link" href="#reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Connecting to the service presents a Python REPL with several restrictions:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; print(1+1)
+2
+&amp;gt;&amp;gt;&amp;gt; print(open(&amp;#34;flag.txt&amp;#34;).read())
+[blocked] no dots
+&amp;gt;&amp;gt;&amp;gt; print(open(&amp;#34;flag&amp;#34; + chr(46) + &amp;#34;txt&amp;#34;))
+[blocked] &amp;#39;open&amp;#39; is blocked
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="blocked-keywords"&gt;
+ Blocked keywords
+ &lt;a class="heading-link" href="#blocked-keywords"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Keyword&lt;/th&gt;
+ &lt;th&gt;Message&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;.&lt;/code&gt; (dot character)&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;no dots&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;open&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'open' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;eval&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'eval' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;exec&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'exec' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;dir&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'dir' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;getattr&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'getattr' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;hasattr&lt;/code&gt; / &lt;code&gt;setattr&lt;/code&gt; / &lt;code&gt;delattr&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__builtins__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__import__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;globals&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;breakpoint&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;compile&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;input&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__subclasses__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__init__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;flag&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="allowed-builtins"&gt;
+ Allowed builtins
+ &lt;a class="heading-link" href="#allowed-builtins"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;print&lt;/code&gt;, &lt;code&gt;type&lt;/code&gt;, &lt;code&gt;chr&lt;/code&gt;, &lt;code&gt;isinstance&lt;/code&gt;, &lt;code&gt;vars&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;map&lt;/code&gt;, &lt;code&gt;filter&lt;/code&gt;, &lt;code&gt;zip&lt;/code&gt;, &lt;code&gt;object&lt;/code&gt;, &lt;code&gt;bytes&lt;/code&gt;, &lt;code&gt;int&lt;/code&gt;, &lt;code&gt;str&lt;/code&gt;, &lt;code&gt;range&lt;/code&gt;, &lt;code&gt;enumerate&lt;/code&gt;, &lt;code&gt;len&lt;/code&gt;, &lt;code&gt;tuple&lt;/code&gt;, &lt;code&gt;set&lt;/code&gt;, &lt;code&gt;dict&lt;/code&gt;, &lt;code&gt;frozenset&lt;/code&gt;, &lt;code&gt;hex&lt;/code&gt;, &lt;code&gt;oct&lt;/code&gt;, &lt;code&gt;ord&lt;/code&gt;, &lt;code&gt;bin&lt;/code&gt;, &lt;code&gt;abs&lt;/code&gt;, &lt;code&gt;round&lt;/code&gt;, &lt;code&gt;sorted&lt;/code&gt;, &lt;code&gt;reversed&lt;/code&gt;, &lt;code&gt;min&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;, &lt;code&gt;sum&lt;/code&gt;, &lt;code&gt;any&lt;/code&gt;, &lt;code&gt;all&lt;/code&gt;, &lt;code&gt;bool&lt;/code&gt;, &lt;code&gt;float&lt;/code&gt;, &lt;code&gt;complex&lt;/code&gt;, &lt;code&gt;super&lt;/code&gt;, &lt;code&gt;staticmethod&lt;/code&gt;, &lt;code&gt;classmethod&lt;/code&gt;, &lt;code&gt;property&lt;/code&gt;, &lt;code&gt;slice&lt;/code&gt;, &lt;code&gt;memoryview&lt;/code&gt;, &lt;code&gt;bytearray&lt;/code&gt;&lt;/p&gt;</description></item><item><title>pwn - bil</title><link>https://z3r0s6.github.io/challenges/pwn-bil/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-bil/</guid><description>&lt;h1 id="bil---pwn-writeup"&gt;
+ bil - PWN Writeup
+ &lt;a class="heading-link" href="#bil---pwn-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; bil&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; PWN&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Remote:&lt;/strong&gt; 0.cloud.chals.io:18850&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="files-provided"&gt;
+ Files Provided
+ &lt;a class="heading-link" href="#files-provided"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - ELF 64-bit binary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;libc.so.6&lt;/code&gt; - GLIBC 2.36&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ld-linux-x86-64.so.2&lt;/code&gt; - dynamic linker&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flag&lt;/code&gt; - placeholder flag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="binary-analysis"&gt;
+ Binary Analysis
+ &lt;a class="heading-link" href="#binary-analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="checksec"&gt;
+ Checksec
+ &lt;a class="heading-link" href="#checksec"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Protection&lt;/th&gt;
+ &lt;th&gt;Status&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RELRO&lt;/td&gt;
+ &lt;td&gt;Full RELRO&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Stack Canary&lt;/td&gt;
+ &lt;td&gt;No&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;NX&lt;/td&gt;
+ &lt;td&gt;Enabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;PIE&lt;/td&gt;
+ &lt;td&gt;Disabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="key-functions"&gt;
+ Key Functions
+ &lt;a class="heading-link" href="#key-functions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;vuln()&lt;/code&gt; @ 0x4011c6&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Web - NextBlog</title><link>https://z3r0s6.github.io/challenges/web-nextblog/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-nextblog/</guid><description>&lt;h1 id="nextblog---ctf-writeup"&gt;
+ NextBlog - CTF Writeup
+ &lt;a class="heading-link" href="#nextblog---ctf-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; NextBlog&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;code&gt;https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Web&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;A Next.js 16 blog application with a hidden flag server running on &lt;code&gt;localhost:3001&lt;/code&gt;. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server.&lt;/p&gt;</description></item></channel></rss>

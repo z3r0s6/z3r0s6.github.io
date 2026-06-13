@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on z3r0s</title><link>https://z3r0s6.github.io/posts/</link><description>Recent content in Posts on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Machines</title><link>https://z3r0s6.github.io/posts/machines-link/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/posts/machines-link/</guid><description/></item><item><title>Challenges</title><link>https://z3r0s6.github.io/posts/challenges-link/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/posts/challenges-link/</guid><description/></item><item><title>Android Fundamentals</title><link>https://z3r0s6.github.io/posts/android-fundamentals/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/posts/android-fundamentals/</guid><description>&lt;p&gt;primary hardware architecture used in the majority of Android devices : ARM&lt;/p&gt;
+&lt;p&gt;most Emulators using: x86_64&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="1-android-layers-from-bottom-to-top"&gt;
+ 1-Android Layers from Bottom to Top
+ &lt;a class="heading-link" href="#1-android-layers-from-bottom-to-top"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;The Android platform consists of six components,The image below shows the Linux-based software stack Android uses, which contains these components&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/android-fundamentals/image.png" alt="image.png"&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Linux Kernel&lt;/strong&gt; (The very bottom layer)
+&lt;ul&gt;
+&lt;li&gt;The foundation of everything.&lt;/li&gt;
+&lt;li&gt;It talks directly to the processor, camera, Wi-Fi, Bluetooth, screen, speakers, etc.&lt;/li&gt;
+&lt;li&gt;It’s also the main source of your protection:
+&lt;ul&gt;
+&lt;li&gt;Every app runs in its own isolated box (can’t see another app’s files).&lt;/li&gt;
+&lt;li&gt;No app can eat all the RAM or CPU.&lt;/li&gt;
+&lt;li&gt;No app can use GPS, camera, or phone without permission.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hardware Abstraction Layer – HAL&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;A middle layer so Android can run on thousands of completely different phones.&lt;/li&gt;
+&lt;li&gt;Samsung has different cameras and chips than Xiaomi than Google Pixel… each needs different commands.&lt;/li&gt;
+&lt;li&gt;HAL is the one that tells Android: “Don’t worry, I’ll deal with this hardware no matter what brand it is – you just say ‘open camera’ and I’ll handle the rest.”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Android Runtime – ART&lt;/strong&gt; (The thing that runs apps now)
+&lt;ul&gt;
+&lt;li&gt;Used from Android 5 (Lollipop) and above.&lt;/li&gt;
+&lt;li&gt;When you install an app, ART converts it to super-fast code immediately (AOT compilation).&lt;/li&gt;
+&lt;li&gt;That’s why apps open lightning-fast these days.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Native C/C++ Libraries&lt;/strong&gt; (Super-fast libraries)
+&lt;ul&gt;
+&lt;li&gt;Written in C and C++ languages.&lt;/li&gt;
+&lt;li&gt;Used by heavy games like PUBG, Call of Duty Mobile, Genshin Impact to get maximum speed and performance.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Java API Framework&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;All the ready-made tools that developers use:
+&lt;ul&gt;
+&lt;li&gt;Buttons, lists, notifications, maps, camera functions, location, contacts, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;System Apps&lt;/strong&gt; (The very top layer)
+&lt;ul&gt;
+&lt;li&gt;The apps that come pre-installed from the factory:
+&lt;ul&gt;
+&lt;li&gt;Camera, Messages, Phone dialer, Settings, Clock, Play Store, Browser, etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Third Part: Dalvik VM (The Old Way)&lt;/p&gt;</description></item></channel></rss>

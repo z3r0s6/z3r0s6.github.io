@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fonttools on z3r0s</title><link>https://z3r0s6.github.io/tags/fonttools/</link><description>Recent content in Fonttools on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 05 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/fonttools/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - VariaType</title><link>https://z3r0s6.github.io/machines/variatype/</link><pubDate>Tue, 05 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/variatype/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-66034 · CVE-2024-25082 · CVE-2025-47273&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;VariaType is a Linux medium box centered around a typography company's web infrastructure. The attack chain involves &lt;strong&gt;three distinct CVEs&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66034&lt;/strong&gt; - fonttools DesignSpace output path traversal → PHP webshell (&lt;code&gt;www-data&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-25082&lt;/strong&gt; - FontForge archive filename command injection → SSH as &lt;code&gt;steve&lt;/code&gt; (user)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-47273&lt;/strong&gt; - setuptools PackageIndex path traversal → SSH as &lt;code&gt;root&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="attack-chain-overview"&gt;
+ Attack Chain Overview
+ &lt;a class="heading-link" href="#attack-chain-overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;#&lt;/th&gt;
+ &lt;th&gt;Stage&lt;/th&gt;
+ &lt;th&gt;Technique&lt;/th&gt;
+ &lt;th&gt;CVE/Tool&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;1&lt;/td&gt;
+ &lt;td&gt;Recon&lt;/td&gt;
+ &lt;td&gt;Nmap + vhost fuzzing + &lt;code&gt;.git&lt;/code&gt; dump&lt;/td&gt;
+ &lt;td&gt;-&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;2&lt;/td&gt;
+ &lt;td&gt;Foothold&lt;/td&gt;
+ &lt;td&gt;DesignSpace filename path traversal&lt;/td&gt;
+ &lt;td&gt;CVE-2025-66034&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;3&lt;/td&gt;
+ &lt;td&gt;User (steve)&lt;/td&gt;
+ &lt;td&gt;FontForge archive filename cmd injection&lt;/td&gt;
+ &lt;td&gt;CVE-2024-25082&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;4&lt;/td&gt;
+ &lt;td&gt;Root&lt;/td&gt;
+ &lt;td&gt;setuptools PackageIndex path traversal&lt;/td&gt;
+ &lt;td&gt;CVE-2025-47273&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="01---reconnaissance"&gt;
+ 01 - Reconnaissance
+ &lt;a class="heading-link" href="#01---reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rustscan -a &amp;lt;TARGET_IP&amp;gt; --ulimit &lt;span style="color:#a5d6ff"&gt;5000&lt;/span&gt; -b &lt;span style="color:#a5d6ff"&gt;1500&lt;/span&gt; -- -sV -sC
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;Port 22 OpenSSH 9.2p1
+Port 80 nginx/1.22.1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="virtual-host-discovery"&gt;
+ Virtual Host Discovery
+ &lt;a class="heading-link" href="#virtual-host-discovery"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt &lt;span style="color:#79c0ff"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -u http://&amp;lt;TARGET_IP&amp;gt; -H &lt;span style="color:#a5d6ff"&gt;&amp;#34;Host: FUZZ.variatype.htb&amp;#34;&lt;/span&gt; -fs &amp;lt;default_size&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#8b949e;font-style:italic"&gt;# → portal.variatype.htb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="git-repository-leak"&gt;
+ Git Repository Leak
+ &lt;a class="heading-link" href="#git-repository-leak"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;curl -s http://portal.variatype.htb/.git/HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#8b949e;font-style:italic"&gt;# ref: refs/heads/master&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Dumping the repository reveals hardcoded credentials in commit history:&lt;/p&gt;</description></item></channel></rss>

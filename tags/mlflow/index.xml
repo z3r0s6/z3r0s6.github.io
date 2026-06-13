@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MlFlow on z3r0s</title><link>https://z3r0s6.github.io/tags/mlflow/</link><description>Recent content in MlFlow on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 18 May 2026 00:37:12 +0300</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/mlflow/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - SmartHire</title><link>https://z3r0s6.github.io/machines/smarthire/</link><pubDate>Mon, 18 May 2026 00:37:12 +0300</pubDate><guid>https://z3r0s6.github.io/machines/smarthire/</guid><description>&lt;h1 id="smarthire-htb-write-up"&gt;
+ SmartHire HTB Write-up
+ &lt;a class="heading-link" href="#smarthire-htb-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;img src="https://htb-mp-prod-public-storage.s3.eu-central-1.amazonaws.com/avatars/26260a4f7f1e95d188a99210fb2ae693.png" alt="SmartHire Logo"&gt;&lt;/p&gt;
+&lt;h2 id="executive-summary"&gt;
+ Executive Summary
+ &lt;a class="heading-link" href="#executive-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;SmartHire was compromised in two stages:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Initial access / user shell&lt;/strong&gt;
+The SmartHire web application relied on an external MLflow instance to load a model by name during resume prediction. Because the MLflow registry was exposed and protected only by weak credentials (&lt;code&gt;admin:password&lt;/code&gt;), it was possible to register a malicious &lt;code&gt;pyfunc&lt;/code&gt; model under the exact name expected by the application. When the application later loaded that model during a prediction request, it deserialized attacker-controlled pickle content and executed a reverse shell as &lt;code&gt;svcweb&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>

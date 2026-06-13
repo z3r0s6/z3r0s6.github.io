@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BadSuccessor on z3r0s</title><link>https://z3r0s6.github.io/tags/badsuccessor/</link><description>Recent content in BadSuccessor on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/badsuccessor/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Checkpoint</title><link>https://z3r0s6.github.io/machines/checkpoint/</link><pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/checkpoint/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Windows&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before starting our pentest, the machine logo and name offer some interesting context clues.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The logo shows a traveler in a green cloak holding a staff, standing before a massive, reinforced iron gate (portcullis) inside a purple stone vault or dungeon.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Portcullis:&lt;/strong&gt; Represents a barrier or &amp;quot;checkpoint&amp;quot; preventing unauthorized entry.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Traveler:&lt;/strong&gt; Symbolizes the auditor or attacker looking for credentials or a key to open the gate and penetrate the internal domain.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Checkpoint&amp;quot; suggests:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A gateway or barrier where credentials, tokens, or tickets (like Kerberos TGTs) must be validated.&lt;/li&gt;
+&lt;li&gt;An assumed-breach scenario where we must verify access at various stages to move deeper into the Active Directory domain.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is an Active Directory box that starts with an assumed breach. The name 'Checkpoint' indicates we will be verifying our access at different stages (checkpoints) to move laterally. The foothold will likely involve getting past an initial access barrier using credentials, followed by lateral movement through Active Directory privileges or misconfigured service accounts, and escalating to Domain Admin by exploiting a Windows Server feature or credential reuse.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description></item></channel></rss>

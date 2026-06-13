@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Custom on z3r0s</title><link>https://z3r0s6.github.io/tags/custom/</link><description>Recent content in Custom on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/custom/index.xml" rel="self" type="application/rss+xml"/><item><title>Herald</title><link>https://z3r0s6.github.io/machines/herald/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/herald/</guid><description>&lt;p&gt;Nmap Scan&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ff7b72;font-weight:bold"&gt;[&lt;/span&gt;12ms&lt;span style="color:#ff7b72;font-weight:bold"&gt;][&lt;/span&gt;127&lt;span style="color:#ff7b72;font-weight:bold"&gt;][&lt;/span&gt;~/herald&lt;span style="color:#ff7b72;font-weight:bold"&gt;]&lt;/span&gt;$ nmap -sCV 10.0.12.3
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Starting Nmap 7.98 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt; https://nmap.org &lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt; at 2026-04-13 17:45 -0400
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Stats: 0:00:50 elapsed; &lt;span style="color:#a5d6ff"&gt;0&lt;/span&gt; hosts completed &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;&lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; up&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;, &lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; undergoing Script Scan
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;NSE Timing: About 99.95% &lt;span style="color:#ff7b72"&gt;done&lt;/span&gt;; ETC: 17:46 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;0:00:00 remaining&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap scan report &lt;span style="color:#ff7b72"&gt;for&lt;/span&gt; herald.htb &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;10.0.12.3&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Host is up &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;0.00091s latency&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Not shown: &lt;span style="color:#a5d6ff"&gt;986&lt;/span&gt; filtered tcp ports &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;no-response&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PORT STATE SERVICE VERSION
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;53/tcp open domain Simple DNS Plus
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;88/tcp open kerberos-sec Microsoft Windows Kerberos &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;server time: 2026-04-13 21:45:30Z&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;135/tcp open msrpc Microsoft Windows RPC
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;139/tcp open netbios-ssn Microsoft Windows netbios-ssn
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;389/tcp open ldap Microsoft Windows Active Directory LDAP &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Domain: herald.htb, Site: Default-First-Site-Name&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;445/tcp open microsoft-ds?
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;464/tcp open kpasswd5?
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;593/tcp open ncacn_http Microsoft Windows RPC over HTTP 1.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;636/tcp open tcpwrapped
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1433/tcp open ms-sql-s Microsoft SQL Server &lt;span style="color:#a5d6ff"&gt;2019&lt;/span&gt; 15.00.2000.00; RTM
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ms-sql-info: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 10.0.12.3:1433: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Version: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| name: Microsoft SQL Server &lt;span style="color:#a5d6ff"&gt;2019&lt;/span&gt; RTM
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| number: 15.00.2000.00
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Product: Microsoft SQL Server &lt;span style="color:#a5d6ff"&gt;2019&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Service pack level: RTM
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Post-SP patches applied: false
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ TCP port: &lt;span style="color:#a5d6ff"&gt;1433&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: 2026-04-13T21:46:08+00:00; -3s from scanner time.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: &lt;span style="color:#79c0ff"&gt;commonName&lt;/span&gt;&lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt;SSL_Self_Signed_Fallback
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2026-04-13T21:42:38
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_Not valid after: 2056-04-13T21:42:38
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ms-sql-ntlm-info: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 10.0.12.3:1433: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Target_Name: HERALD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| NetBIOS_Domain_Name: HERALD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| NetBIOS_Computer_Name: DC01
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| DNS_Domain_Name: herald.htb
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| DNS_Computer_Name: DC01.herald.htb
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| DNS_Tree_Name: herald.htb
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Product_Version: 10.0.17763
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3268/tcp open ldap Microsoft Windows Active Directory LDAP &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Domain: herald.htb, Site: Default-First-Site-Name&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3269/tcp open tcpwrapped
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;5357/tcp open http Microsoft HTTPAPI httpd 2.0 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;SSDP/UPnP&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: Microsoft-HTTPAPI/2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Service Unavailable
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;5985/tcp open http Microsoft HTTPAPI httpd 2.0 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;SSDP/UPnP&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Not Found
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: Microsoft-HTTPAPI/2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;MAC Address: 08:00:27:0F:D0:78 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Oracle VirtualBox virtual NIC&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Host script results:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| smb2-security-mode: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 3.1.1: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Message signing enabled and required
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_clock-skew: mean: 0s, deviation: 3s, median: 1s
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| smb2-time: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| date: 2026-04-13T21:45:35
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ start_date: N/A
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_nbstat: NetBIOS name: DC01, NetBIOS user: &amp;lt;unknown&amp;gt;, NetBIOS MAC: 08:00:27:0f:d0:78 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Oracle VirtualBox virtual NIC&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap &lt;span style="color:#ff7b72"&gt;done&lt;/span&gt;: &lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; IP address &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;&lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; host up&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt; scanned in 61.04 seconds
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;add in etc/hosts&lt;/p&gt;</description></item></channel></rss>

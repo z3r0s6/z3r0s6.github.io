@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pwn on z3r0s</title><link>https://z3r0s6.github.io/tags/pwn/</link><description>Recent content in Pwn on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 22:54:00 +0300</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/pwn/index.xml" rel="self" type="application/rss+xml"/><item><title>Pwn - cyKer</title><link>https://z3r0s6.github.io/challenges/pwn-cyker/</link><pubDate>Sun, 10 May 2026 22:54:00 +0300</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-cyker/</guid><description>&lt;h1 id="cyker--kernel-exploitation-writeup"&gt;
+ cyKer — Kernel Exploitation Writeup
+ &lt;a class="heading-link" href="#cyker--kernel-exploitation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Pwn / Kernel
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{3c03ee481e3c39c175d1a8baed7f9bbe}&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a QEMU-based kernel challenge containing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bzImage&lt;/code&gt; — Linux 5.4.0 kernel&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initramfs.cpio.gz&lt;/code&gt; — root filesystem with a vulnerable kernel module &lt;code&gt;hackme.ko&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;run.sh&lt;/code&gt; — QEMU launch script with &lt;strong&gt;all mitigations disabled&lt;/strong&gt;:
+&lt;pre tabindex="0"&gt;&lt;code&gt;nokaslr nosmep nosmap mitigations=off
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The VM boots, loads &lt;code&gt;hackme.ko&lt;/code&gt;, then drops us into a shell as &lt;strong&gt;uid 1000&lt;/strong&gt;. The flag at &lt;code&gt;/flag&lt;/code&gt; is owned by root with &lt;code&gt;chmod 600&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>pwn - bil</title><link>https://z3r0s6.github.io/challenges/pwn-bil/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-bil/</guid><description>&lt;h1 id="bil---pwn-writeup"&gt;
+ bil - PWN Writeup
+ &lt;a class="heading-link" href="#bil---pwn-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; bil&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; PWN&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Remote:&lt;/strong&gt; 0.cloud.chals.io:18850&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="files-provided"&gt;
+ Files Provided
+ &lt;a class="heading-link" href="#files-provided"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - ELF 64-bit binary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;libc.so.6&lt;/code&gt; - GLIBC 2.36&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ld-linux-x86-64.so.2&lt;/code&gt; - dynamic linker&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flag&lt;/code&gt; - placeholder flag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="binary-analysis"&gt;
+ Binary Analysis
+ &lt;a class="heading-link" href="#binary-analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="checksec"&gt;
+ Checksec
+ &lt;a class="heading-link" href="#checksec"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Protection&lt;/th&gt;
+ &lt;th&gt;Status&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RELRO&lt;/td&gt;
+ &lt;td&gt;Full RELRO&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Stack Canary&lt;/td&gt;
+ &lt;td&gt;No&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;NX&lt;/td&gt;
+ &lt;td&gt;Enabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;PIE&lt;/td&gt;
+ &lt;td&gt;Disabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="key-functions"&gt;
+ Key Functions
+ &lt;a class="heading-link" href="#key-functions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;vuln()&lt;/code&gt; @ 0x4011c6&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>

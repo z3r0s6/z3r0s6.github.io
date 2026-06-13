@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jupyter on z3r0s</title><link>https://z3r0s6.github.io/tags/jupyter/</link><description>Recent content in Jupyter on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 30 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/jupyter/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - DevHub</title><link>https://z3r0s6.github.io/machines/devhub/</link><pubDate>Sat, 30 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/devhub/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows a caged beast with red glowing eyes trapped behind bars. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Caged beast behind bars:&lt;/strong&gt; A system designed to restrict access, block unsafe operations, or confine environments (sandboxing / containerization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Red glowing eyes:&lt;/strong&gt; A powerful or potentially dangerous interface that is supposed to be fully locked down, but might have vulnerabilities in its containment.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Caged element:&lt;/strong&gt; An environment escape (sandbox escape) or a container escape scenario.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;DevHub&amp;quot; combined with the logo points toward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A centralized developer platform or gateway (like GitLab, JupyterHub, or a custom tool manager) that coordinates multiple services.&lt;/li&gt;
+&lt;li&gt;An environment where developers deploy models, notebooks, or scripts, pointing directly to development-centric protocols like Model Context Protocol (MCP) or Jupyter.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name and logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a developer platform (DevHub) managing internal development or model tools. The caged beast suggests containerization, sandboxing, or restricted environments that we must escape. The primary attack vector will likely involve exploiting development utilities or container/sandbox escape vulnerabilities.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis is confirmed within minutes of enumeration, revealing an exposed Model Context Protocol (MCP) debugger and Jupyter notebook.&lt;/p&gt;</description></item></channel></rss>

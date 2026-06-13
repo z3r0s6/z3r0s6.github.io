@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Reverse Engineering on z3r0s</title><link>https://z3r0s6.github.io/tags/reverse-engineering/</link><description>Recent content in Reverse Engineering on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>Reverse Engineering - Coffee Invocation</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-coffee-invocation/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-coffee-invocation/</guid><description>&lt;h1 id="coffee-invocation-writeup"&gt;
+ Coffee Invocation Writeup
+ &lt;a class="heading-link" href="#coffee-invocation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{1_c4nt_c4ptur3_fl4g5_unt17_1v3_h4d_a1l_my_0xCAFEBABE}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;coffee_invocation&lt;/code&gt; is a PIE ELF that embeds two Java class files and drives them through JNI.&lt;/p&gt;
+&lt;p&gt;The native code:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;creates a JVM&lt;/li&gt;
+&lt;li&gt;hooks &lt;code&gt;java/lang/Shutdown.halt0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;rewrites cached boxed values such as &lt;code&gt;Byte&lt;/code&gt;, &lt;code&gt;Short&lt;/code&gt;, &lt;code&gt;Character&lt;/code&gt;, &lt;code&gt;Boolean&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;runs &lt;code&gt;Verify1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;runs &lt;code&gt;Verify2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;if both wrappers return &lt;code&gt;0&lt;/code&gt;, prints the supplied password as &lt;code&gt;HTB{&amp;lt;password&amp;gt;}&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So the solve is to recover the exact 52-character password accepted by both verifiers.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Cyberpsychosis</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-cyberpsychosis/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-cyberpsychosis/</guid><description>&lt;h1 id="hackthebox---cyberpsychosis-reverse-engineering"&gt;
+ HackTheBox - Cyberpsychosis (Reverse Engineering)
+ &lt;a class="heading-link" href="#hackthebox---cyberpsychosis-reverse-engineering"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-description"&gt;
+ Challenge Description
+ &lt;a class="heading-link" href="#challenge-description"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Malicious actors have infiltrated our systems and we believe they've implanted a custom rootkit. Can you disarm the rootkit and find the hidden data?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium&lt;br&gt;
+&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;br&gt;
+&lt;strong&gt;Files:&lt;/strong&gt; &lt;code&gt;diamorphine.ko&lt;/code&gt;, &lt;code&gt;LICENSE.txt&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;Target:&lt;/strong&gt; TCP service hosting a QEMU VM&lt;/p&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="identifying-the-rootkit"&gt;
+ Identifying the Rootkit
+ &lt;a class="heading-link" href="#identifying-the-rootkit"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge provides &lt;code&gt;diamorphine.ko&lt;/code&gt;, a Linux kernel module (LKM). Diamorphine is a well-known open-source Linux rootkit. Basic identification:&lt;/p&gt;</description></item><item><title>Reverse Engineering - Maze</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-maze/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-maze/</guid><description>&lt;h1 id="htb-reverse-challenge-maze"&gt;
+ HTB Reverse Challenge: Maze
+ &lt;a class="heading-link" href="#htb-reverse-challenge-maze"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-overview"&gt;
+ Challenge Overview
+ &lt;a class="heading-link" href="#challenge-overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;br&gt;
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium&lt;br&gt;
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;HTB{w0W_Y0u_C0uld_E5c4p3_Th1s_M4Z33!!}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We are given a Windows executable (&lt;code&gt;maze.exe&lt;/code&gt;), an encrypted zip (&lt;code&gt;enc_maze.zip&lt;/code&gt;), and an image (&lt;code&gt;maze.png&lt;/code&gt;). The goal is to navigate through multiple layers of obfuscation to find the flag.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="solution"&gt;
+ Solution
+ &lt;a class="heading-link" href="#solution"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="step-1-identify-and-unpack-pyinstaller"&gt;
+ Step 1: Identify and Unpack PyInstaller
+ &lt;a class="heading-link" href="#step-1-identify-and-unpack-pyinstaller"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ file maze.exe
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;maze.exe: PE32+ executable &lt;span style="color:#ff7b72"&gt;for&lt;/span&gt; MS Windows, x86-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ strings maze.exe | grep PyInstaller
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PyInstaller: pyi_win32_utils_to_utf8 failed.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The binary is a PyInstaller-packed Python 3.8 application. We extract it using &lt;code&gt;pyinstxtractor&lt;/code&gt;:&lt;/p&gt;</description></item><item><title>Reverse Engineering - rauth</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-rauth/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-rauth/</guid><description>&lt;h1 id="htb-reverse-challenge-rauth"&gt;
+ HTB Reverse Challenge: rauth
+ &lt;a class="heading-link" href="#htb-reverse-challenge-rauth"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; &amp;quot;My implementation of authentication mechanisms in C turned out to be failures. But my implementation in Rust is unbreakable. Can you retrieve my password?&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;HTB{I_Kn0w_h0w_t0_5al54}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The binary is a 64-bit ELF Rust executable, dynamically linked, with debug info and not stripped.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Regas Town</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/</guid><description>&lt;h1 id="regas-town---htb-reverse-engineering-challenge-writeup"&gt;
+ Rega's Town - HTB Reverse Engineering Challenge Writeup
+ &lt;a class="heading-link" href="#regas-town---htb-reverse-engineering-challenge-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; Welcome to Rega Town, a quaint little place where everyone communicates through the magic of patterns and rules!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides a 64-bit ELF binary written in Rust. Running it prompts for a &amp;quot;secret passphrase&amp;quot; and validates it against a series of regex patterns.&lt;/p&gt;</description></item><item><title>Reverse Engineering - VirtuallyMad</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-virtuallymad/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-virtuallymad/</guid><description>&lt;h1 id="virtuallymad---htb-reverse-engineering-challenge"&gt;
+ VirtuallyMad - HTB Reverse Engineering Challenge
+ &lt;a class="heading-link" href="#virtuallymad---htb-reverse-engineering-challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{0210010002100100031100010112110004130000}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides a stripped ELF binary (&lt;code&gt;virtually.mad&lt;/code&gt;) that implements a custom virtual machine. The user must supply a hex-encoded &amp;quot;code&amp;quot; string that, when executed by the VM, produces a specific register state.&lt;/p&gt;
+&lt;h2 id="vm-architecture"&gt;
+ VM Architecture
+ &lt;a class="heading-link" href="#vm-architecture"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="registers--state"&gt;
+ Registers &amp;amp; State
+ &lt;a class="heading-link" href="#registers--state"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The VM allocates a 0x38-byte structure:&lt;/p&gt;</description></item><item><title>Reverse Engineering - vvm</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-vvm/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-vvm/</guid><description>&lt;h1 id="rev_vvm-writeup"&gt;
+ rev_vvm Writeup
+ &lt;a class="heading-link" href="#rev_vvm-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{v1rTu4L_p4sSw0rD_t3ChN0loGy}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The binary is a stripped PIE ELF that implements a small VM. The visible flow is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Print the banner.&lt;/li&gt;
+&lt;li&gt;Build a dispatch table for VM opcodes by XOR-decoding multiple handler stubs from &lt;code&gt;.data&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Execute a dword-based bytecode program stored in &lt;code&gt;.data&lt;/code&gt; at &lt;code&gt;0x5540&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Running the binary directly is not useful because one VM opcode calls &lt;code&gt;ptrace&lt;/code&gt; and exits under tracing/debugged environments. The solve is easier statically by reconstructing the VM handlers and emulating the bytecode.&lt;/p&gt;</description></item></channel></rss>

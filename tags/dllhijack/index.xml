@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DLLHijack on z3r0s</title><link>https://z3r0s6.github.io/tags/dllhijack/</link><description>Recent content in DLLHijack on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 12 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/dllhijack/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Logging</title><link>https://z3r0s6.github.io/machines/logging/</link><pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/logging/</guid><description>&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Windows Server 2019&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Hard&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;IP&lt;/td&gt;
+ &lt;td&gt;10.129.X.X&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Domain&lt;/td&gt;
+ &lt;td&gt;logging.htb&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;DC&lt;/td&gt;
+ &lt;td&gt;dc01.logging.htb&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Attack Chain:&lt;/strong&gt;
+&lt;code&gt;Anonymous SMB → Credentials in Logs → Shadow Credentials (gMSA) → WinRM → DLL Hijack → Domain User Shell → ESC17 (ADCS + WSUS MitM) → SYSTEM&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="1-reconnaissance"&gt;
+ 1. Reconnaissance
+ &lt;a class="heading-link" href="#1-reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="port-scan"&gt;
+ Port Scan
+ &lt;a class="heading-link" href="#port-scan"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rustscan -a 10.129.X.X --ulimit &lt;span style="color:#a5d6ff"&gt;5000&lt;/span&gt; -- -sV
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Key open ports:&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PKINIT on z3r0s</title><link>https://z3r0s6.github.io/tags/pkinit/</link><description>Recent content in PKINIT on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 19 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/pkinit/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - PingPong</title><link>https://z3r0s6.github.io/machines/pingpong/</link><pubDate>Sun, 19 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/pingpong/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Insane&lt;br&gt;
+&lt;strong&gt;OS:&lt;/strong&gt; Windows&lt;br&gt;
+&lt;strong&gt;Points:&lt;/strong&gt; 50&lt;br&gt;
+&lt;strong&gt;Release:&lt;/strong&gt; 2026-04-27&lt;br&gt;
+&lt;strong&gt;Starting Creds:&lt;/strong&gt; &lt;code&gt;c.roberts / AssumedBreach123&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="attack-chain"&gt;
+ Attack Chain
+ &lt;a class="heading-link" href="#attack-chain"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;c.roberts (PING.HTB)
+ → ESC13 (TemporaryWinRM) → PKINIT TGT + TempWinRMAccess SID → WinRM on DC1
+ → Ligolo-ng tunnel → DC2 reachable (192.168.2.2)
+ → WriteDACL on gMSA Managers (PONG) → GenericAll → scope flip (Global→Universal→DomainLocal)
+ → Add cross-forest FSP → ReadGMSAPassword → Pong_gMSA$ NTLM/AES
+ → JEA endpoint on DC1 (restricted) → PSReadLine history → c.carlssen / A()DUJ!@414
+ → WinRM on DC2 → user.txt
+ → c.carlssen GenericWrite on svc_sql → RBCD (Pong_gMSA$ → svc_sql)
+ → S4U2Proxy impersonate c.adam → MSSQL xp_cmdshell → local admin on DC2
+ → c.carlssen → Domain Admins (PONG) → DCSync → R.Martinelli
+ → R.Martinelli ∈ CA Managers (PING) → ESC4 on SmartcardAuthentication → ESC1
+ → cert for Administrator@ping.htb → PKINIT → root.txt on DC1
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="recon"&gt;
+ Recon
+ &lt;a class="heading-link" href="#recon"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Classic Windows DC port profile: &lt;code&gt;53, 88, 135, 389, 445, 464, 636, 3268, 3269, 5985, 9389&lt;/code&gt;&lt;/p&gt;</description></item></channel></rss>

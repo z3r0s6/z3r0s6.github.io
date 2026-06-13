@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hardware on z3r0s</title><link>https://z3r0s6.github.io/tags/hardware/</link><description>Recent content in Hardware on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 05 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/hardware/index.xml" rel="self" type="application/rss+xml"/><item><title>Hardware - Espresso</title><link>https://z3r0s6.github.io/challenges/hardware-espresso/</link><pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-espresso/</guid><description>&lt;h1 id="hack-the-box-challenge-writeup-espresso"&gt;
+ Hack The Box Challenge Writeup: Espresso
+ &lt;a class="heading-link" href="#hack-the-box-challenge-writeup-espresso"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Name: Espresso&lt;/p&gt;
+&lt;p&gt;Scenario:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Someone leaked the new Espresso firmware, can you try to figure out what it does?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides an ESP32 firmware image. The firmware checks whether it is running on expected hardware by comparing the ESP32 factory MAC address against zero bytes. If the check fails, it prints anti-clone messages. If the check passes, it generates the flag by XOR decoding a 31 byte table stored in the firmware data segment.&lt;/p&gt;</description></item><item><title>Hardware - defusal</title><link>https://z3r0s6.github.io/challenges/hardware-defusal/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-defusal/</guid><description>&lt;h1 id="hardware-defusal-writeup"&gt;
+ Hardware Defusal Writeup
+ &lt;a class="heading-link" href="#hardware-defusal-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Ignoring &lt;code&gt;file.zip&lt;/code&gt; as requested, the challenge files are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Defusal&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;circuit.png&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C4-BOMB.mp4&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-triage"&gt;
+ 1. Triage
+ &lt;a class="heading-link" href="#1-triage"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Defusal&lt;/code&gt; is an AVR firmware ELF:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ELF 32-bit LSB executable, Atmel AVR 8-bit, statically linked, with debug_info, not stripped
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That makes this mostly a firmware reverse-engineering problem.&lt;/p&gt;
+&lt;h2 id="2-key-firmware-findings"&gt;
+ 2. Key Firmware Findings
+ &lt;a class="heading-link" href="#2-key-firmware-findings"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Useful strings inside the binary:&lt;/p&gt;</description></item><item><title>Hardware - line</title><link>https://z3r0s6.github.io/challenges/hardware-line/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-line/</guid><description>&lt;h1 id="hardware-line"&gt;
+ Hardware Line
+ &lt;a class="heading-link" href="#hardware-line"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Target: &lt;code&gt;154.57.164.83:31804&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service on &lt;code&gt;31804/tcp&lt;/code&gt; speaks LPD. The queue name &lt;code&gt;lp&lt;/code&gt; is accepted, and the implementation is vulnerable to command execution via Shellshock in user-controlled LPD control-file fields.&lt;/p&gt;
+&lt;p&gt;The working primitive is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;() { :;}; &amp;lt;command&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That payload can be injected into the control-file fields and filenames during a standard LPD &lt;code&gt;Receive a printer job&lt;/code&gt; request.&lt;/p&gt;</description></item><item><title>Hardware - mission pinpossible</title><link>https://z3r0s6.github.io/challenges/hardware-mission-pinpossible/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-mission-pinpossible/</guid><description>&lt;h1 id="mission-pinpossible-writeup"&gt;
+ Mission Pinpossible Writeup
+ &lt;a class="heading-link" href="#mission-pinpossible-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;op_pinpossible.logicdata&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;security_keypad.jpeg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="goal"&gt;
+ Goal
+ &lt;a class="heading-link" href="#goal"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Recover the password shown on the keypad LCD from the intercepted monitor traffic.&lt;/p&gt;
+&lt;h2 id="1-identify-the-bus"&gt;
+ 1. Identify the bus
+ &lt;a class="heading-link" href="#1-identify-the-bus"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The photo shows a standard 16x2 HD44780 LCD connected through a common I2C backpack based on a &lt;code&gt;PCF8574&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Hardware - ProjectPower</title><link>https://z3r0s6.github.io/challenges/hardware-projectpower/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-projectpower/</guid><description>&lt;h1 id="project-power-writeup"&gt;
+ Project Power Writeup
+ &lt;a class="heading-link" href="#project-power-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge exposes a remote interface to an embedded device performing AES-128 encryption. The interface lets us:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;send a chosen 16-byte plaintext and receive a corresponding power trace&lt;/li&gt;
+&lt;li&gt;submit a candidate AES key and receive the flag if the key is correct&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is a standard side-channel setup. A simple Correlation Power Analysis (CPA) attack against the first AES round is enough to recover the key.&lt;/p&gt;</description></item><item><title>Hardware - rflag</title><link>https://z3r0s6.github.io/challenges/hardware-rflag/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-rflag/</guid><description>&lt;h1 id="hardware_rflag-writeup"&gt;
+ hardware_rflag Writeup
+ &lt;a class="heading-link" href="#hardware_rflag-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{RF_H4ck1n6_1s_c00l!!!}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="approach"&gt;
+ Approach
+ &lt;a class="heading-link" href="#approach"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The archive only contains one useful file: &lt;code&gt;signal.cf32&lt;/code&gt;, a raw complex64 IQ capture.&lt;/p&gt;
+&lt;p&gt;I loaded the samples with NumPy and inspected the amplitude envelope:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The capture has &lt;code&gt;476160&lt;/code&gt; complex samples.&lt;/li&gt;
+&lt;li&gt;Thresholding the magnitude shows runs quantized almost perfectly at &lt;code&gt;~899&lt;/code&gt; samples and &lt;code&gt;~1798&lt;/code&gt; samples.&lt;/li&gt;
+&lt;li&gt;The first part of the signal is a preamble, followed by data encoded as alternating &lt;code&gt;01&lt;/code&gt; / &lt;code&gt;10&lt;/code&gt; unit pairs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That pattern is consistent with Manchester-style encoding.&lt;/p&gt;</description></item><item><title>Hardware - Secret Treasures</title><link>https://z3r0s6.github.io/challenges/hardware-secret-treasures/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-secret-treasures/</guid><description>&lt;h1 id="hardware-secret-treasures"&gt;
+ Hardware Secret Treasures
+ &lt;a class="heading-link" href="#hardware-secret-treasures"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{m3M0ry_5cR4Mbl1Ng_4nd_1CG_423_n07_3n0u9h7!$#}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;embedded_software&lt;/code&gt;: ARM ELF, not stripped&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flash_memory_dump.bin&lt;/code&gt;: 16 MiB flash contents&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;input_channel_trace.sal&lt;/code&gt;: Saleae capture of the passcode line&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-reverse-the-firmware"&gt;
+ 1. Reverse the firmware
+ &lt;a class="heading-link" href="#1-reverse-the-firmware"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The firmware is an ARM binary with useful symbols:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;random_generator&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_UniqieID&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_secret&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;W25Q128_init&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Important observations from &lt;code&gt;main&lt;/code&gt;:&lt;/p&gt;</description></item><item><title>Hardware - signals</title><link>https://z3r0s6.github.io/challenges/hardware-signals/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-signals/</guid><description>&lt;h1 id="hardware-signals-writeup"&gt;
+ Hardware Signals Writeup
+ &lt;a class="heading-link" href="#hardware-signals-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;The WAV file is an SSTV transmission, not packet radio.&lt;/p&gt;
+&lt;p&gt;The giveaway is the VIS/header pattern at the start of the audio:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1900 Hz&lt;/code&gt; leader&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1200 Hz&lt;/code&gt; break&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1900 Hz&lt;/code&gt; leader&lt;/li&gt;
+&lt;li&gt;VIS bits around &lt;code&gt;1100/1300 Hz&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Decoding the VIS bits gives decimal &lt;code&gt;95&lt;/code&gt;, which corresponds to &lt;code&gt;PD120&lt;/code&gt;. That also matches the total duration of the file: about &lt;code&gt;126 s&lt;/code&gt;, which is the expected PD120 transmission time used in ISS SSTV events.&lt;/p&gt;</description></item><item><title>Hardware - wander</title><link>https://z3r0s6.github.io/challenges/hardware-wander/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-wander/</guid><description>&lt;h1 id="hardware-challenge-wander"&gt;
+ Hardware Challenge: Wander
+ &lt;a class="heading-link" href="#hardware-challenge-wander"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="target"&gt;
+ Target
+ &lt;a class="heading-link" href="#target"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;154.57.164.83:31454&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The exposed service is a Flask/Werkzeug web app that forwards user-supplied PJL commands to the printer backend.&lt;br&gt;
+The &lt;code&gt;/jobs&lt;/code&gt; page exposes a form with the placeholder &lt;code&gt;@PJL INFO ID&lt;/code&gt;, which is enough to identify the intended attack surface: raw Printer Job Language.&lt;/p&gt;</description></item></channel></rss>

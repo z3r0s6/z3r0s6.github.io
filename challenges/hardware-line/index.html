@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><title>Hardware - line · z3r0s</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="author" content="z3r0s"><meta name="description" content="
+  Hardware Line
+  
+    
+    Link to heading
+  
+
+Target: 154.57.164.83:31804
+
+  Summary
+  
+    
+    Link to heading
+  
+
+The service on 31804/tcp speaks LPD. The queue name lp is accepted, and the implementation is vulnerable to command execution via Shellshock in user-controlled LPD control-file fields.
+The working primitive is:
+() { :;}; <command>
+That payload can be injected into the control-file fields and filenames during a standard LPD Receive a printer job request."><meta name="keywords" content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Hardware - line"><meta name="twitter:description" content="Hardware Line
+Link to heading
+Target: 154.57.164.83:31804
+Summary
+Link to heading
+The service on 31804/tcp speaks LPD. The queue name lp is accepted, and the implementation is vulnerable to command execution via Shellshock in user-controlled LPD control-file fields.
+The working primitive is:
+() { :;}; <command> That payload can be injected into the control-file fields and filenames during a standard LPD Receive a printer job request."><meta property="og:url" content="https://z3r0s6.github.io/challenges/hardware-line/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="Hardware - line"><meta property="og:description" content="Hardware Line
+Link to heading
+Target: 154.57.164.83:31804
+Summary
+Link to heading
+The service on 31804/tcp speaks LPD. The queue name lp is accepted, and the implementation is vulnerable to command execution via Shellshock in user-controlled LPD control-file fields.
+The working primitive is:
+() { :;}; <command> That payload can be injected into the control-file fields and filenames during a standard LPD Receive a printer job request."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="challenges"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="HackTheBox"><meta property="article:tag" content="Hardware"><link rel="canonical" href="https://z3r0s6.github.io/challenges/hardware-line/"><link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin=""><link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin=""><link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin=""><link rel="stylesheet" href="/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css" integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin="anonymous" media="screen"><link rel="stylesheet" href="/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css" integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin="anonymous" media="screen"><link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any"><link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16"><link rel="apple-touch-icon" href="/images/apple-touch-icon.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5"></head><body class="preload-transitions colorscheme-dark"><div class="float-container"><a id="dark-mode-toggle" class="colorscheme-toggle"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></a></div><main class="wrapper"><nav class="navigation"><section class="container"><a class="navigation-title" href="https://z3r0s6.github.io/">z3r0s
+</a><input type="checkbox" id="menu-toggle">
+<label class="menu-button float-right" for="menu-toggle"><i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i></label><ul class="navigation-list"><li class="navigation-item"><a class="navigation-link" href="/posts/">Posts</a></li><li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li></ul></section></nav><div class="content"><section class="container post"><article><header><div class="post-title"><h1 class="title"><a class="title-link" href="https://z3r0s6.github.io/challenges/hardware-line/">Hardware - line</a></h1></div><div class="post-meta"><div class="date"><span class="posted-on"><i class="fa-solid fa-calendar" aria-hidden="true"></i>
+<time datetime="2026-05-10T00:00:00Z">May 10, 2026
+</time></span><span class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i>
+2-minute read</span></div><div class="categories"><i class="fa-solid fa-folder" aria-hidden="true"></i>
+<a href="/categories/machineschallenges/">Machines&amp;Challenges</a></div><div class="tags"><i class="fa-solid fa-tag" aria-hidden="true"></i>
+<span class="tag"><a href="/tags/hackthebox/">HackTheBox</a>
+</span><span class="separator">•</span>
+<span class="tag"><a href="/tags/hardware/">Hardware</a></span></div></div></header><div class="post-content">
+    <div id="encryption-ui" style="text-align: center; margin: 50px 0; padding: 20px; border: 1px solid var(--border-color); border-radius: 8px;">
+        <h3 style="margin-bottom: 20px;">This content is currently password-protected while the machine/challenge remains active. It will be made publicly available once the machine/challenge is retired.</h3>
+        <input type="password" id="decrypt-password" placeholder="Enter password" style="padding: 10px; width: 60%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px; margin-right: 10px;">
+        <button id="decrypt-btn" style="padding: 10px 20px; border-radius: 4px; background: var(--primary-color, #007bff); color: white; border: none; cursor: pointer;">Unlock</button>
+        <p id="decrypt-error" style="color: red; display: none; margin-top: 10px;">Incorrect password.</p>
+    </div>
+    
+    <div id="encrypted-content" style="display: none;">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</div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        document.getElementById('decrypt-btn').addEventListener('click', function() {
+            var pass = document.getElementById('decrypt-password').value;
+            var ciphertext = document.getElementById('encrypted-content').innerText;
+            try {
+                var bytes = CryptoJS.AES.decrypt(ciphertext, pass);
+                var originalText = bytes.toString(CryptoJS.enc.Utf8);
+                if (!originalText) throw new Error('Bad password');
+                
+                var postContentDiv = document.querySelector('.post-content');
+                postContentDiv.innerHTML = originalText;
+                
+            } catch (e) {
+                document.getElementById('decrypt-error').style.display = 'block';
+            }
+        });
+        
+        document.getElementById('decrypt-password').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('decrypt-btn').click();
+            }
+        });
+    </script>
+    </div><footer></footer></article></section></div><footer class="footer"><section class="container">©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.</section></footer></main><script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

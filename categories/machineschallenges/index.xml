@@ -1,0 +1,1864 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Machines&amp;Challenges on z3r0s</title><link>https://z3r0s6.github.io/categories/machineschallenges/</link><description>Recent content in Machines&amp;Challenges on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 13 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/categories/machineschallenges/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Checkpoint</title><link>https://z3r0s6.github.io/machines/checkpoint/</link><pubDate>Sat, 13 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/checkpoint/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Windows&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before starting our pentest, the machine logo and name offer some interesting context clues.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The logo shows a traveler in a green cloak holding a staff, standing before a massive, reinforced iron gate (portcullis) inside a purple stone vault or dungeon.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Portcullis:&lt;/strong&gt; Represents a barrier or &amp;quot;checkpoint&amp;quot; preventing unauthorized entry.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Traveler:&lt;/strong&gt; Symbolizes the auditor or attacker looking for credentials or a key to open the gate and penetrate the internal domain.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Checkpoint&amp;quot; suggests:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A gateway or barrier where credentials, tokens, or tickets (like Kerberos TGTs) must be validated.&lt;/li&gt;
+&lt;li&gt;An assumed-breach scenario where we must verify access at various stages to move deeper into the Active Directory domain.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is an Active Directory box that starts with an assumed breach. The name 'Checkpoint' indicates we will be verifying our access at different stages (checkpoints) to move laterally. The foothold will likely involve getting past an initial access barrier using credentials, followed by lateral movement through Active Directory privileges or misconfigured service accounts, and escalating to Domain Admin by exploiting a Windows Server feature or credential reuse.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>HTB - Abducted</title><link>https://z3r0s6.github.io/machines/abducted/</link><pubDate>Sun, 07 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/abducted/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows two penguins (Tux) standing side by side against a red background, enclosed in an orange circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Two penguins (Tux):&lt;/strong&gt; Linux is the operating system, and the dual penguins suggest multiple Linux users, user pivoting, or lateral movement between accounts.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Red background:&lt;/strong&gt; Danger or urgency, indicating a critical vulnerability or high-impact exploit path.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Orange border:&lt;/strong&gt; A warm, inviting exterior hiding something dangerous inside.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Abducted&amp;quot; combined with the logo points toward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Something being taken or hijacked. In a cybersecurity context, this could mean session hijacking, credential theft, or file/user impersonation.&lt;/li&gt;
+&lt;li&gt;A scenario where access is &amp;quot;abducted&amp;quot; from one user to another through misconfigurations or chained exploits.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name and logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a Linux machine with multiple user accounts. The name 'Abducted' suggests credential theft or user impersonation. The dual penguins hint at lateral movement between Linux users. The foothold likely involves a Linux service exploit, and privilege escalation chains through multiple users via stolen credentials or misconfigured file permissions.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis is confirmed: the box chains through &lt;code&gt;nobody&lt;/code&gt; -&amp;gt; &lt;code&gt;scott&lt;/code&gt; -&amp;gt; &lt;code&gt;marcus&lt;/code&gt; -&amp;gt; &lt;code&gt;root&lt;/code&gt; via credential reuse and SMB misconfigurations.&lt;/p&gt;</description></item><item><title>HTB - Watcher</title><link>https://z3r0s6.github.io/machines/watcher/</link><pubDate>Sun, 07 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/watcher/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before running any scans, the logo and name of this machine provide clear clues about the theme.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The logo features a colossal, moss-covered, dark bird (resembling a raven or crow) peering down through a decaying stone archway or ruins. A solitary figure stands below, gazing up at this giant creature.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Key takeaways from the logo:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Giant Bird:&lt;/strong&gt; Ravens and crows are historically associated with keeping watch, intelligence, and acting as sentinels or observers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Archway:&lt;/strong&gt; Represents a gateway, bridge, or a passage to hidden internals.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Figure:&lt;/strong&gt; A player or administrator looking up at a massive system that observes everything.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Watcher&amp;quot; aligns directly with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;System monitoring, auditing, or logging software.&lt;/li&gt;
+&lt;li&gt;In a Linux environment, this heavily suggests tools like Zabbix, Nagios, Prometheus, or Grafana which &amp;quot;watch&amp;quot; over the network.&lt;/li&gt;
+&lt;li&gt;The path to root might involve manipulating or hijacking these monitoring/watching systems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;Watcher points to an infrastructure monitoring system such as Zabbix or Nagios. The giant bird logo indicates monitoring and observation. The foothold likely involves exploiting a vulnerability in a monitoring platform (Zabbix), while the privilege escalation might involve abusing administrative capabilities, active agent controls, or internal automation services like TeamCity.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis holds true: we exploit Zabbix for a foothold, capture credentials from simulated user login, and leverage TeamCity agent controls for root.&lt;/p&gt;</description></item><item><title>HTB - Connected</title><link>https://z3r0s6.github.io/machines/connected/</link><pubDate>Sat, 06 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/connected/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows a visual representation of network and telecom connections. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Network / Telephony lines:&lt;/strong&gt; A system managing communication channels, VoIP gateways, or PBX nodes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Telecom theme:&lt;/strong&gt; Likely FreePBX, Asterisk, or a similar telephony administration interface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Connected&amp;quot; combined with the logo points toward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Telephony networks, voice connections, or dial-in systems. FreePBX/Asterisk is the industry-standard Linux VoIP gateway.&lt;/li&gt;
+&lt;li&gt;A service coordinating connections, ports, or SIP trunks.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name and logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a Linux VoIP server running FreePBX/Asterisk. The name 'Connected' is a direct nod to telephony connections, and the logo reinforces this. The foothold is likely an exploit in FreePBX (potentially a recent CVE like CVE-2025-57819), and privilege escalation will likely involve abusing telephony or PBX configuration files/processes.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis is confirmed within minutes of scanning and basic web interaction.&lt;/p&gt;</description></item><item><title>Hardware - Espresso</title><link>https://z3r0s6.github.io/challenges/hardware-espresso/</link><pubDate>Fri, 05 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-espresso/</guid><description>&lt;h1 id="hack-the-box-challenge-writeup-espresso"&gt;
+ Hack The Box Challenge Writeup: Espresso
+ &lt;a class="heading-link" href="#hack-the-box-challenge-writeup-espresso"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Name: Espresso&lt;/p&gt;
+&lt;p&gt;Scenario:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Someone leaked the new Espresso firmware, can you try to figure out what it does?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides an ESP32 firmware image. The firmware checks whether it is running on expected hardware by comparing the ESP32 factory MAC address against zero bytes. If the check fails, it prints anti-clone messages. If the check passes, it generates the flag by XOR decoding a 31 byte table stored in the firmware data segment.&lt;/p&gt;</description></item><item><title>HTB - DevHub</title><link>https://z3r0s6.github.io/machines/devhub/</link><pubDate>Sat, 30 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/devhub/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows a caged beast with red glowing eyes trapped behind bars. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Caged beast behind bars:&lt;/strong&gt; A system designed to restrict access, block unsafe operations, or confine environments (sandboxing / containerization).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Red glowing eyes:&lt;/strong&gt; A powerful or potentially dangerous interface that is supposed to be fully locked down, but might have vulnerabilities in its containment.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Caged element:&lt;/strong&gt; An environment escape (sandbox escape) or a container escape scenario.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;DevHub&amp;quot; combined with the logo points toward:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A centralized developer platform or gateway (like GitLab, JupyterHub, or a custom tool manager) that coordinates multiple services.&lt;/li&gt;
+&lt;li&gt;An environment where developers deploy models, notebooks, or scripts, pointing directly to development-centric protocols like Model Context Protocol (MCP) or Jupyter.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name and logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a developer platform (DevHub) managing internal development or model tools. The caged beast suggests containerization, sandboxing, or restricted environments that we must escape. The primary attack vector will likely involve exploiting development utilities or container/sandbox escape vulnerabilities.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis is confirmed within minutes of enumeration, revealing an exposed Model Context Protocol (MCP) debugger and Jupyter notebook.&lt;/p&gt;</description></item><item><title>HTB - Reactor</title><link>https://z3r0s6.github.io/machines/reactor/</link><pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/reactor/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Easy | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before touching a single tool, the machine logo and name already give away a significant amount of information to an experienced player.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The machine logo shows a nuclear reactor facility - cooling towers with radiation symbols (☢), smoke/steam rising, set inside a green circle. On HackTheBox, machine logos almost always hint directly at the technology or theme involved.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What the logo tells us immediately:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nuclear reactor theme → the web app will be a reactor monitoring dashboard, ICS/SCADA-style interface with sensor readings, logs, and personnel panels&lt;/li&gt;
+&lt;li&gt;Green color scheme → &amp;quot;nominal / online&amp;quot; status indicators - a live running service dashboard&lt;/li&gt;
+&lt;li&gt;Radiation symbols → nuclear operations terminology ahead: coolant flow, pressure, neutron flux, core temperature - all realistic dashboard labels that give no obvious attack surface&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Reactor&amp;quot; combined with the logo points toward two things at once:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;React/Next.js&lt;/strong&gt; - &amp;quot;Reactor&amp;quot; is almost certainly a pun on React, the JavaScript framework. HTB machine names frequently reference the intended technology this way. This immediately narrows the attack surface to a Node.js web application.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nuclear monitoring theme&lt;/strong&gt; - the app will look like a static read-only dashboard with no login, no forms, no visible input - pushing the attacker toward framework-level vulnerabilities rather than application logic.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Combining name + logo before even running nmap:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;This is a Next.js app themed as a nuclear reactor dashboard. The name 'Reactor' punning on React strongly suggests a Next.js vulnerability is the intended path. The dashboard will look static but the attack vector will be server-side - likely Server Actions, API routes, or RSC deserialization.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis was confirmed within minutes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Port 3000 → &lt;code&gt;X-Powered-By: Next.js&lt;/code&gt; in response headers&lt;/li&gt;
+&lt;li&gt;No login page, no visible forms → the framework itself is the attack surface, not the application logic&lt;/li&gt;
+&lt;li&gt;Next.js Server Actions prototype pollution (CVE-2025-55182) → exact match&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is why reading the logo matters. A good HTB player can often narrow the entire attack path to 1-2 CVEs before the nmap scan finishes.&lt;/p&gt;</description></item><item><title>HTB - SmartHire</title><link>https://z3r0s6.github.io/machines/smarthire/</link><pubDate>Mon, 18 May 2026 00:37:12 +0300</pubDate><guid>https://z3r0s6.github.io/machines/smarthire/</guid><description>&lt;h1 id="smarthire-htb-write-up"&gt;
+ SmartHire HTB Write-up
+ &lt;a class="heading-link" href="#smarthire-htb-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;img src="https://htb-mp-prod-public-storage.s3.eu-central-1.amazonaws.com/avatars/26260a4f7f1e95d188a99210fb2ae693.png" alt="SmartHire Logo"&gt;&lt;/p&gt;
+&lt;h2 id="executive-summary"&gt;
+ Executive Summary
+ &lt;a class="heading-link" href="#executive-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;SmartHire was compromised in two stages:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Initial access / user shell&lt;/strong&gt;
+The SmartHire web application relied on an external MLflow instance to load a model by name during resume prediction. Because the MLflow registry was exposed and protected only by weak credentials (&lt;code&gt;admin:password&lt;/code&gt;), it was possible to register a malicious &lt;code&gt;pyfunc&lt;/code&gt; model under the exact name expected by the application. When the application later loaded that model during a prediction request, it deserialized attacker-controlled pickle content and executed a reverse shell as &lt;code&gt;svcweb&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>HTB - Browsed</title><link>https://z3r0s6.github.io/machines/browsed/</link><pubDate>Sun, 10 May 2026 23:19:05 +0300</pubDate><guid>https://z3r0s6.github.io/machines/browsed/</guid><description>&lt;p&gt;After get the target ip lets scan with nmap&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231254.png" alt="Pasted image 20260510231254.png"&gt;&lt;/p&gt;
+&lt;p&gt;We have port 80 lets check it&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231301.png" alt="Pasted image 20260510231301.png"&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo nano /etc/hosts
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ip browsed.htb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;lets go to check Samples Page&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;http://browsed.htb/samples.html&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;lets Download any file, I'll download second file&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**After download the file we got zip file lets unzip it
+&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231317.png" alt="Pasted image 20260510231317.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;It Looks interesting&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;lets Check upload page&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://z3r0s6.github.io/images/Pasted_image_20260510231338.png" alt="Pasted image 20260510231338.png"&gt;&lt;/p&gt;
+&lt;p&gt;We can Upload Chrome Extension (.zip)&lt;/p&gt;</description></item><item><title>Pwn - cyKer</title><link>https://z3r0s6.github.io/challenges/pwn-cyker/</link><pubDate>Sun, 10 May 2026 22:54:00 +0300</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-cyker/</guid><description>&lt;h1 id="cyker--kernel-exploitation-writeup"&gt;
+ cyKer — Kernel Exploitation Writeup
+ &lt;a class="heading-link" href="#cyker--kernel-exploitation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Pwn / Kernel
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{3c03ee481e3c39c175d1a8baed7f9bbe}&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a QEMU-based kernel challenge containing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bzImage&lt;/code&gt; — Linux 5.4.0 kernel&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initramfs.cpio.gz&lt;/code&gt; — root filesystem with a vulnerable kernel module &lt;code&gt;hackme.ko&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;run.sh&lt;/code&gt; — QEMU launch script with &lt;strong&gt;all mitigations disabled&lt;/strong&gt;:
+&lt;pre tabindex="0"&gt;&lt;code&gt;nokaslr nosmep nosmap mitigations=off
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The VM boots, loads &lt;code&gt;hackme.ko&lt;/code&gt;, then drops us into a shell as &lt;strong&gt;uid 1000&lt;/strong&gt;. The flag at &lt;code&gt;/flag&lt;/code&gt; is owned by root with &lt;code&gt;chmod 600&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Crypto - aliens</title><link>https://z3r0s6.github.io/challenges/crypto-aliens/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-aliens/</guid><description>&lt;h1 id="crypto-aliens-write-up"&gt;
+ Crypto Aliens Write-up
+ &lt;a class="heading-link" href="#crypto-aliens-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-summary"&gt;
+ Challenge Summary
+ &lt;a class="heading-link" href="#challenge-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;We are given a remote service and a local copy of the challenge logic in &lt;code&gt;server.py&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The service asks for a message, applies a custom padding routine, appends a similarly padded flag, and then encrypts the result with AES-ECB.&lt;/p&gt;
+&lt;p&gt;At first glance this looks annoying rather than breakable, because:&lt;/p&gt;</description></item><item><title>Crypto - BabyEncryption</title><link>https://z3r0s6.github.io/challenges/crypto-babyencryption/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-babyencryption/</guid><description>&lt;h1 id="baby-encryption"&gt;
+ Baby encryption
+ &lt;a class="heading-link" href="#baby-encryption"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;You are after an organised crime group which is responsible for the illegal
+weapon market in your country. As a secret agent, you have infiltrated the
+group enough to be included in meetings with clients. During the last
+negotiation, you found one of the confidential messages for the customer. It
+contains crucial information about the delivery. Do you think you can decrypt
+it?&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Crypto - raining primes</title><link>https://z3r0s6.github.io/challenges/crypto-raining-primes/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-raining-primes/</guid><description>&lt;h1 id="raining-primes-write-up"&gt;
+ Raining Primes Write-up
+ &lt;a class="heading-link" href="#raining-primes-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service mixes three ideas:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Prime generation of the form &lt;code&gt;p = a*r + b&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A homomorphic-looking key update routine&lt;/li&gt;
+&lt;li&gt;RSA encryption of an AES-encrypted flag&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The design breaks because the same hidden 640-bit prime &lt;code&gt;r&lt;/code&gt; is reused everywhere:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;every prime returned by option &lt;code&gt;1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;both RSA primes&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;update_key()&lt;/code&gt; routine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once &lt;code&gt;r&lt;/code&gt; is recovered, the rest of the scheme collapses:&lt;/p&gt;</description></item><item><title>Crypto - the last dance</title><link>https://z3r0s6.github.io/challenges/crypto-the-last-dance/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-the-last-dance/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;To be accepted into the upper class of the Berford Empire, you had to attend the annual Cha-Cha Ball at the High Court.
+Little did you know that among the many aristocrats invited, you would find a burned enemy spy.
+Your goal quickly became to capture him, which you succeeded in doing after putting something in his drink.
+Many hours passed in your agency's interrogation room, and you eventually learned important information about the enemy agency's secret communications.
+Can you use what you learned to decrypt the rest of the messages?&lt;/p&gt;</description></item><item><title>Crypto - twisted entanglement</title><link>https://z3r0s6.github.io/challenges/crypto-twisted-entanglement/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/crypto-twisted-entanglement/</guid><description>&lt;h1 id="twisted-entanglement-write-up"&gt;
+ Twisted Entanglement Write-Up
+ &lt;a class="heading-link" href="#twisted-entanglement-write-up"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="target"&gt;
+ Target
+ &lt;a class="heading-link" href="#target"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Host: &lt;code&gt;154.57.164.77:30486&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Flag: &lt;code&gt;HTB{Ek3rT_W4s_s000_b0R1nG_1N_1991_4nD_1_h4t3_Pr0b4b1l1Ty_s0_I_Us3_4_ECC_S33d!}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="vulnerabilities"&gt;
+ Vulnerabilities
+ &lt;a class="heading-link" href="#vulnerabilities"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge has two independent weaknesses that chain together cleanly.&lt;/p&gt;
+&lt;h3 id="1-invalid-curve-scalar-multiplication"&gt;
+ 1. Invalid-curve scalar multiplication
+ &lt;a class="heading-link" href="#1-invalid-curve-scalar-multiplication"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;Menu option &lt;code&gt;1&lt;/code&gt; accepts an arbitrary user point and computes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;public_key &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; multiply(private_key, point, E)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is no validation that the input point lies on the original secp256k1 curve. The code only uses &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;p&lt;/code&gt; inside the EC formulas, so any point on any curve of the form:&lt;/p&gt;</description></item><item><title>Hardware - defusal</title><link>https://z3r0s6.github.io/challenges/hardware-defusal/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-defusal/</guid><description>&lt;h1 id="hardware-defusal-writeup"&gt;
+ Hardware Defusal Writeup
+ &lt;a class="heading-link" href="#hardware-defusal-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Ignoring &lt;code&gt;file.zip&lt;/code&gt; as requested, the challenge files are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Defusal&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;circuit.png&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;C4-BOMB.mp4&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-triage"&gt;
+ 1. Triage
+ &lt;a class="heading-link" href="#1-triage"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Defusal&lt;/code&gt; is an AVR firmware ELF:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ELF 32-bit LSB executable, Atmel AVR 8-bit, statically linked, with debug_info, not stripped
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That makes this mostly a firmware reverse-engineering problem.&lt;/p&gt;
+&lt;h2 id="2-key-firmware-findings"&gt;
+ 2. Key Firmware Findings
+ &lt;a class="heading-link" href="#2-key-firmware-findings"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Useful strings inside the binary:&lt;/p&gt;</description></item><item><title>Hardware - line</title><link>https://z3r0s6.github.io/challenges/hardware-line/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-line/</guid><description>&lt;h1 id="hardware-line"&gt;
+ Hardware Line
+ &lt;a class="heading-link" href="#hardware-line"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Target: &lt;code&gt;154.57.164.83:31804&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service on &lt;code&gt;31804/tcp&lt;/code&gt; speaks LPD. The queue name &lt;code&gt;lp&lt;/code&gt; is accepted, and the implementation is vulnerable to command execution via Shellshock in user-controlled LPD control-file fields.&lt;/p&gt;
+&lt;p&gt;The working primitive is:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;() { :;}; &amp;lt;command&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That payload can be injected into the control-file fields and filenames during a standard LPD &lt;code&gt;Receive a printer job&lt;/code&gt; request.&lt;/p&gt;</description></item><item><title>Hardware - mission pinpossible</title><link>https://z3r0s6.github.io/challenges/hardware-mission-pinpossible/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-mission-pinpossible/</guid><description>&lt;h1 id="mission-pinpossible-writeup"&gt;
+ Mission Pinpossible Writeup
+ &lt;a class="heading-link" href="#mission-pinpossible-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;op_pinpossible.logicdata&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;security_keypad.jpeg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="goal"&gt;
+ Goal
+ &lt;a class="heading-link" href="#goal"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Recover the password shown on the keypad LCD from the intercepted monitor traffic.&lt;/p&gt;
+&lt;h2 id="1-identify-the-bus"&gt;
+ 1. Identify the bus
+ &lt;a class="heading-link" href="#1-identify-the-bus"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The photo shows a standard 16x2 HD44780 LCD connected through a common I2C backpack based on a &lt;code&gt;PCF8574&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Hardware - ProjectPower</title><link>https://z3r0s6.github.io/challenges/hardware-projectpower/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-projectpower/</guid><description>&lt;h1 id="project-power-writeup"&gt;
+ Project Power Writeup
+ &lt;a class="heading-link" href="#project-power-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge exposes a remote interface to an embedded device performing AES-128 encryption. The interface lets us:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;send a chosen 16-byte plaintext and receive a corresponding power trace&lt;/li&gt;
+&lt;li&gt;submit a candidate AES key and receive the flag if the key is correct&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is a standard side-channel setup. A simple Correlation Power Analysis (CPA) attack against the first AES round is enough to recover the key.&lt;/p&gt;</description></item><item><title>Hardware - rflag</title><link>https://z3r0s6.github.io/challenges/hardware-rflag/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-rflag/</guid><description>&lt;h1 id="hardware_rflag-writeup"&gt;
+ hardware_rflag Writeup
+ &lt;a class="heading-link" href="#hardware_rflag-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{RF_H4ck1n6_1s_c00l!!!}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="approach"&gt;
+ Approach
+ &lt;a class="heading-link" href="#approach"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The archive only contains one useful file: &lt;code&gt;signal.cf32&lt;/code&gt;, a raw complex64 IQ capture.&lt;/p&gt;
+&lt;p&gt;I loaded the samples with NumPy and inspected the amplitude envelope:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The capture has &lt;code&gt;476160&lt;/code&gt; complex samples.&lt;/li&gt;
+&lt;li&gt;Thresholding the magnitude shows runs quantized almost perfectly at &lt;code&gt;~899&lt;/code&gt; samples and &lt;code&gt;~1798&lt;/code&gt; samples.&lt;/li&gt;
+&lt;li&gt;The first part of the signal is a preamble, followed by data encoded as alternating &lt;code&gt;01&lt;/code&gt; / &lt;code&gt;10&lt;/code&gt; unit pairs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That pattern is consistent with Manchester-style encoding.&lt;/p&gt;</description></item><item><title>Hardware - Secret Treasures</title><link>https://z3r0s6.github.io/challenges/hardware-secret-treasures/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-secret-treasures/</guid><description>&lt;h1 id="hardware-secret-treasures"&gt;
+ Hardware Secret Treasures
+ &lt;a class="heading-link" href="#hardware-secret-treasures"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{m3M0ry_5cR4Mbl1Ng_4nd_1CG_423_n07_3n0u9h7!$#}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="files"&gt;
+ Files
+ &lt;a class="heading-link" href="#files"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;embedded_software&lt;/code&gt;: ARM ELF, not stripped&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flash_memory_dump.bin&lt;/code&gt;: 16 MiB flash contents&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;input_channel_trace.sal&lt;/code&gt;: Saleae capture of the passcode line&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="1-reverse-the-firmware"&gt;
+ 1. Reverse the firmware
+ &lt;a class="heading-link" href="#1-reverse-the-firmware"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The firmware is an ARM binary with useful symbols:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;random_generator&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_UniqieID&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_secret&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;W25Q128_init&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Important observations from &lt;code&gt;main&lt;/code&gt;:&lt;/p&gt;</description></item><item><title>Hardware - signals</title><link>https://z3r0s6.github.io/challenges/hardware-signals/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-signals/</guid><description>&lt;h1 id="hardware-signals-writeup"&gt;
+ Hardware Signals Writeup
+ &lt;a class="heading-link" href="#hardware-signals-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;The WAV file is an SSTV transmission, not packet radio.&lt;/p&gt;
+&lt;p&gt;The giveaway is the VIS/header pattern at the start of the audio:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;1900 Hz&lt;/code&gt; leader&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1200 Hz&lt;/code&gt; break&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;1900 Hz&lt;/code&gt; leader&lt;/li&gt;
+&lt;li&gt;VIS bits around &lt;code&gt;1100/1300 Hz&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Decoding the VIS bits gives decimal &lt;code&gt;95&lt;/code&gt;, which corresponds to &lt;code&gt;PD120&lt;/code&gt;. That also matches the total duration of the file: about &lt;code&gt;126 s&lt;/code&gt;, which is the expected PD120 transmission time used in ISS SSTV events.&lt;/p&gt;</description></item><item><title>Hardware - wander</title><link>https://z3r0s6.github.io/challenges/hardware-wander/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/hardware-wander/</guid><description>&lt;h1 id="hardware-challenge-wander"&gt;
+ Hardware Challenge: Wander
+ &lt;a class="heading-link" href="#hardware-challenge-wander"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="target"&gt;
+ Target
+ &lt;a class="heading-link" href="#target"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;154.57.164.83:31454&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The exposed service is a Flask/Werkzeug web app that forwards user-supplied PJL commands to the printer backend.&lt;br&gt;
+The &lt;code&gt;/jobs&lt;/code&gt; page exposes a form with the placeholder &lt;code&gt;@PJL INFO ID&lt;/code&gt;, which is enough to identify the intended attack surface: raw Printer Job Language.&lt;/p&gt;</description></item><item><title>Herald</title><link>https://z3r0s6.github.io/machines/herald/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/herald/</guid><description>&lt;p&gt;Nmap Scan&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ff7b72;font-weight:bold"&gt;[&lt;/span&gt;12ms&lt;span style="color:#ff7b72;font-weight:bold"&gt;][&lt;/span&gt;127&lt;span style="color:#ff7b72;font-weight:bold"&gt;][&lt;/span&gt;~/herald&lt;span style="color:#ff7b72;font-weight:bold"&gt;]&lt;/span&gt;$ nmap -sCV 10.0.12.3
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Starting Nmap 7.98 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt; https://nmap.org &lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt; at 2026-04-13 17:45 -0400
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Stats: 0:00:50 elapsed; &lt;span style="color:#a5d6ff"&gt;0&lt;/span&gt; hosts completed &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;&lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; up&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;, &lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; undergoing Script Scan
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;NSE Timing: About 99.95% &lt;span style="color:#ff7b72"&gt;done&lt;/span&gt;; ETC: 17:46 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;0:00:00 remaining&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap scan report &lt;span style="color:#ff7b72"&gt;for&lt;/span&gt; herald.htb &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;10.0.12.3&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Host is up &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;0.00091s latency&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Not shown: &lt;span style="color:#a5d6ff"&gt;986&lt;/span&gt; filtered tcp ports &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;no-response&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PORT STATE SERVICE VERSION
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;53/tcp open domain Simple DNS Plus
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;88/tcp open kerberos-sec Microsoft Windows Kerberos &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;server time: 2026-04-13 21:45:30Z&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;135/tcp open msrpc Microsoft Windows RPC
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;139/tcp open netbios-ssn Microsoft Windows netbios-ssn
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;389/tcp open ldap Microsoft Windows Active Directory LDAP &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Domain: herald.htb, Site: Default-First-Site-Name&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;445/tcp open microsoft-ds?
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;464/tcp open kpasswd5?
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;593/tcp open ncacn_http Microsoft Windows RPC over HTTP 1.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;636/tcp open tcpwrapped
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1433/tcp open ms-sql-s Microsoft SQL Server &lt;span style="color:#a5d6ff"&gt;2019&lt;/span&gt; 15.00.2000.00; RTM
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ms-sql-info: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 10.0.12.3:1433: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Version: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| name: Microsoft SQL Server &lt;span style="color:#a5d6ff"&gt;2019&lt;/span&gt; RTM
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| number: 15.00.2000.00
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Product: Microsoft SQL Server &lt;span style="color:#a5d6ff"&gt;2019&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Service pack level: RTM
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Post-SP patches applied: false
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ TCP port: &lt;span style="color:#a5d6ff"&gt;1433&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: 2026-04-13T21:46:08+00:00; -3s from scanner time.
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: &lt;span style="color:#79c0ff"&gt;commonName&lt;/span&gt;&lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt;SSL_Self_Signed_Fallback
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2026-04-13T21:42:38
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_Not valid after: 2056-04-13T21:42:38
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ms-sql-ntlm-info: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 10.0.12.3:1433: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Target_Name: HERALD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| NetBIOS_Domain_Name: HERALD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| NetBIOS_Computer_Name: DC01
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| DNS_Domain_Name: herald.htb
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| DNS_Computer_Name: DC01.herald.htb
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| DNS_Tree_Name: herald.htb
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Product_Version: 10.0.17763
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3268/tcp open ldap Microsoft Windows Active Directory LDAP &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Domain: herald.htb, Site: Default-First-Site-Name&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3269/tcp open tcpwrapped
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;5357/tcp open http Microsoft HTTPAPI httpd 2.0 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;SSDP/UPnP&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: Microsoft-HTTPAPI/2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Service Unavailable
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;5985/tcp open http Microsoft HTTPAPI httpd 2.0 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;SSDP/UPnP&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Not Found
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: Microsoft-HTTPAPI/2.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;MAC Address: 08:00:27:0F:D0:78 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Oracle VirtualBox virtual NIC&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Host script results:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| smb2-security-mode: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 3.1.1: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Message signing enabled and required
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_clock-skew: mean: 0s, deviation: 3s, median: 1s
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| smb2-time: 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| date: 2026-04-13T21:45:35
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ start_date: N/A
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_nbstat: NetBIOS name: DC01, NetBIOS user: &amp;lt;unknown&amp;gt;, NetBIOS MAC: 08:00:27:0f:d0:78 &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;Oracle VirtualBox virtual NIC&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Nmap &lt;span style="color:#ff7b72"&gt;done&lt;/span&gt;: &lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; IP address &lt;span style="color:#ff7b72;font-weight:bold"&gt;(&lt;/span&gt;&lt;span style="color:#a5d6ff"&gt;1&lt;/span&gt; host up&lt;span style="color:#ff7b72;font-weight:bold"&gt;)&lt;/span&gt; scanned in 61.04 seconds
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;add in etc/hosts&lt;/p&gt;</description></item><item><title>HTB - Helix</title><link>https://z3r0s6.github.io/machines/helix/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/helix/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux | &lt;strong&gt;Date:&lt;/strong&gt; 2026-05-10&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Helix presents a realistic industrial operations scenario built around Apache NiFi, OPC UA, and a custom maintenance console. The attack chain is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Vhost fuzzing → &lt;code&gt;flow.helix.htb&lt;/code&gt; (Apache NiFi 1.21.0, unauthenticated)&lt;/li&gt;
+&lt;li&gt;NiFi RCE via ExecuteScript processor → shell as &lt;code&gt;nifi&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;SSH private key for &lt;code&gt;operator&lt;/code&gt; found in NiFi support bundles&lt;/li&gt;
+&lt;li&gt;Privilege escalation via OPC UA node manipulation to open a timed maintenance window → root shell&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>misc,CyCTF-Luxor - sonnet-jail</title><link>https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/</guid><description>&lt;h1 id="sonnet-jail---writeup"&gt;
+ Sonnet Jail - Writeup
+ &lt;a class="heading-link" href="#sonnet-jail---writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; Sonnet Jail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Misc / PyJail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; &amp;quot;I told Sonnet create me a creative pyjail even you can't solve, does it make the job?&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Read &lt;code&gt;./flag.txt&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="reconnaissance"&gt;
+ Reconnaissance
+ &lt;a class="heading-link" href="#reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Connecting to the service presents a Python REPL with several restrictions:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; print(1+1)
+2
+&amp;gt;&amp;gt;&amp;gt; print(open(&amp;#34;flag.txt&amp;#34;).read())
+[blocked] no dots
+&amp;gt;&amp;gt;&amp;gt; print(open(&amp;#34;flag&amp;#34; + chr(46) + &amp;#34;txt&amp;#34;))
+[blocked] &amp;#39;open&amp;#39; is blocked
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="blocked-keywords"&gt;
+ Blocked keywords
+ &lt;a class="heading-link" href="#blocked-keywords"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Keyword&lt;/th&gt;
+ &lt;th&gt;Message&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;.&lt;/code&gt; (dot character)&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;no dots&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;open&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'open' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;eval&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'eval' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;exec&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'exec' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;dir&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'dir' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;getattr&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;'getattr' is blocked&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;hasattr&lt;/code&gt; / &lt;code&gt;setattr&lt;/code&gt; / &lt;code&gt;delattr&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__builtins__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__import__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;globals&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;breakpoint&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;compile&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;input&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;blocked&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__subclasses__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;__init__&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;flag&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;blocked string&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="allowed-builtins"&gt;
+ Allowed builtins
+ &lt;a class="heading-link" href="#allowed-builtins"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;print&lt;/code&gt;, &lt;code&gt;type&lt;/code&gt;, &lt;code&gt;chr&lt;/code&gt;, &lt;code&gt;isinstance&lt;/code&gt;, &lt;code&gt;vars&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;map&lt;/code&gt;, &lt;code&gt;filter&lt;/code&gt;, &lt;code&gt;zip&lt;/code&gt;, &lt;code&gt;object&lt;/code&gt;, &lt;code&gt;bytes&lt;/code&gt;, &lt;code&gt;int&lt;/code&gt;, &lt;code&gt;str&lt;/code&gt;, &lt;code&gt;range&lt;/code&gt;, &lt;code&gt;enumerate&lt;/code&gt;, &lt;code&gt;len&lt;/code&gt;, &lt;code&gt;tuple&lt;/code&gt;, &lt;code&gt;set&lt;/code&gt;, &lt;code&gt;dict&lt;/code&gt;, &lt;code&gt;frozenset&lt;/code&gt;, &lt;code&gt;hex&lt;/code&gt;, &lt;code&gt;oct&lt;/code&gt;, &lt;code&gt;ord&lt;/code&gt;, &lt;code&gt;bin&lt;/code&gt;, &lt;code&gt;abs&lt;/code&gt;, &lt;code&gt;round&lt;/code&gt;, &lt;code&gt;sorted&lt;/code&gt;, &lt;code&gt;reversed&lt;/code&gt;, &lt;code&gt;min&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;, &lt;code&gt;sum&lt;/code&gt;, &lt;code&gt;any&lt;/code&gt;, &lt;code&gt;all&lt;/code&gt;, &lt;code&gt;bool&lt;/code&gt;, &lt;code&gt;float&lt;/code&gt;, &lt;code&gt;complex&lt;/code&gt;, &lt;code&gt;super&lt;/code&gt;, &lt;code&gt;staticmethod&lt;/code&gt;, &lt;code&gt;classmethod&lt;/code&gt;, &lt;code&gt;property&lt;/code&gt;, &lt;code&gt;slice&lt;/code&gt;, &lt;code&gt;memoryview&lt;/code&gt;, &lt;code&gt;bytearray&lt;/code&gt;&lt;/p&gt;</description></item><item><title>pwn - bil</title><link>https://z3r0s6.github.io/challenges/pwn-bil/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/pwn-bil/</guid><description>&lt;h1 id="bil---pwn-writeup"&gt;
+ bil - PWN Writeup
+ &lt;a class="heading-link" href="#bil---pwn-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; bil&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; PWN&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Remote:&lt;/strong&gt; 0.cloud.chals.io:18850&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="files-provided"&gt;
+ Files Provided
+ &lt;a class="heading-link" href="#files-provided"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - ELF 64-bit binary&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;libc.so.6&lt;/code&gt; - GLIBC 2.36&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ld-linux-x86-64.so.2&lt;/code&gt; - dynamic linker&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flag&lt;/code&gt; - placeholder flag&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="binary-analysis"&gt;
+ Binary Analysis
+ &lt;a class="heading-link" href="#binary-analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="checksec"&gt;
+ Checksec
+ &lt;a class="heading-link" href="#checksec"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Protection&lt;/th&gt;
+ &lt;th&gt;Status&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;RELRO&lt;/td&gt;
+ &lt;td&gt;Full RELRO&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Stack Canary&lt;/td&gt;
+ &lt;td&gt;No&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;NX&lt;/td&gt;
+ &lt;td&gt;Enabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;PIE&lt;/td&gt;
+ &lt;td&gt;Disabled&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="key-functions"&gt;
+ Key Functions
+ &lt;a class="heading-link" href="#key-functions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;vuln()&lt;/code&gt; @ 0x4011c6&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Quantum - flagportation</title><link>https://z3r0s6.github.io/challenges/quantum-flagportation/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-flagportation/</guid><description>&lt;h1 id="htb-write-up-flagportation"&gt;
+ HTB Write-up: Flagportation
+ &lt;a class="heading-link" href="#htb-write-up-flagportation"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Link - &lt;a href="https://app.hackthebox.com/challenges/Flagportation" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Flagportation&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Very Easy&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The server implements a simplified quantum teleportation protocol: it encodes bit pairs (&lt;code&gt;00&lt;/code&gt;, &lt;code&gt;01&lt;/code&gt;, &lt;code&gt;10&lt;/code&gt;, &lt;code&gt;11&lt;/code&gt;) into a 3-qubit state, measures the first two qubits and prints the measurement results and the basis (&lt;code&gt;Z&lt;/code&gt; or &lt;code&gt;X&lt;/code&gt;) used to encode the original bits. Your job is to send instructions (which gates to apply to the third qubit) and choose the measurement basis for the third qubit. From the returned measurement you can reconstruct the original two-bit pair.&lt;/p&gt;</description></item><item><title>Quantum - global hyperlink zone</title><link>https://z3r0s6.github.io/challenges/quantum-global-hyperlink-zone/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-global-hyperlink-zone/</guid><description>&lt;h1 id="htb-write-up-global-hyperlink-zone"&gt;
+ HTB Write-up: Global Hyperlink Zone
+ &lt;a class="heading-link" href="#htb-write-up-global-hyperlink-zone"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;Link - &lt;a href="https://app.hackthebox.com/challenges/Global%2520Hyperlink%2520Zone" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Global%2520Hyperlink%2520Zone&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Very Easy&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge provides a Python script for a server that expects a specific sequence of quantum gates. The goal is to build a quantum circuit that satisfies a set of conditions defined in a validation function within the script. The solution involves creating a specific entangled state across five qubits.&lt;/p&gt;</description></item><item><title>Quantum - noisy vault</title><link>https://z3r0s6.github.io/challenges/quantum-noisy-vault/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-noisy-vault/</guid><description>&lt;h1 id="noisy-vault-writeup"&gt;
+ Noisy Vault Writeup
+ &lt;a class="heading-link" href="#noisy-vault-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge description mentions a 13-qubit system and a 9-bit key, but the actual service uses:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;64&lt;/code&gt; data qubits&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;16&lt;/code&gt; ancilla qubits&lt;/li&gt;
+&lt;li&gt;a single oracle query&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;4096&lt;/code&gt; noisy measurement shots&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The goal is to recover the hidden 64-bit &lt;code&gt;secret_key&lt;/code&gt; and submit it in one unlock attempt.&lt;/p&gt;
+&lt;h2 id="root-cause"&gt;
+ Root Cause
+ &lt;a class="heading-link" href="#root-cause"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The service prepares the secret as a computational basis state by applying &lt;code&gt;X&lt;/code&gt; on each data qubit whose key bit is &lt;code&gt;1&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Quantum - phase madness</title><link>https://z3r0s6.github.io/challenges/quantum-phase-madness/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-phase-madness/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Title:&lt;/strong&gt; Phase Madness&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Easy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link:&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/Phase%20Madness" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Phase%20Madness&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="brief-description"&gt;
+ Brief Description
+ &lt;a class="heading-link" href="#brief-description"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The description says &amp;quot;Qubitrix stores data unlike any other. At its core, every secret is locked in a silent quantum spiral, inaccessible to classical developers. The engineers swore it was flawless, yet something in its design hums and breathes. To them, it's madness. To us, clarity.&amp;quot;&lt;/p&gt;
+&lt;p&gt;So, essentially, we are given the server code in Python, &lt;code&gt;server.py&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>Quantum - qlotto</title><link>https://z3r0s6.github.io/challenges/quantum-qlotto/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-qlotto/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Name -&lt;/strong&gt; QLotto&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category -&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty -&lt;/strong&gt; Easy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link -&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/qlotto" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/qlotto&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge description sets the scene: &amp;quot;They call it QLotto â€” a dazzling new quantum lottery table provided by Qubitrix... If you can predict their draws, you can beat the system.&amp;quot; We are provided with a &lt;code&gt;server.py&lt;/code&gt; file. The core task is to bypass a restrictive input check on the quantum circuit indices and then manipulate the quantum state to create a predictable correlation between the &amp;quot;house card&amp;quot; and our draws. By using negative indexing and specific quantum gates, we can rig the lottery.&lt;/p&gt;</description></item><item><title>Quantum - untrusted node</title><link>https://z3r0s6.github.io/challenges/quantum-untrusted-node/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/quantum-untrusted-node/</guid><description>&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Name -&lt;/strong&gt; Untrusted Node&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Category -&lt;/strong&gt; Quantum&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty -&lt;/strong&gt; Medium&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Link -&lt;/strong&gt; &lt;a href="https://app.hackthebox.com/challenges/Untrusted%2520Node" class="external-link" target="_blank" rel="noopener"&gt;https://app.hackthebox.com/challenges/Untrusted%2520Node&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge presents a Quantum Key Distribution (QKD) simulation. The &amp;quot;Transmitter&amp;quot; (Alice) sends qubits to a &amp;quot;Receiver&amp;quot; (Bob), but there is a redundancy flaw: for every bit of the key, Alice sends a &amp;quot;chunk&amp;quot; of identical qubits. We act as the compromised &amp;quot;Trusted Node&amp;quot; in the middle. By measuring the first two qubits of each chunk in different bases and letting the rest pass to Bob, we can recover the key without alerting the protocol during the reconciliation phase.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Coffee Invocation</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-coffee-invocation/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-coffee-invocation/</guid><description>&lt;h1 id="coffee-invocation-writeup"&gt;
+ Coffee Invocation Writeup
+ &lt;a class="heading-link" href="#coffee-invocation-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{1_c4nt_c4ptur3_fl4g5_unt17_1v3_h4d_a1l_my_0xCAFEBABE}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;coffee_invocation&lt;/code&gt; is a PIE ELF that embeds two Java class files and drives them through JNI.&lt;/p&gt;
+&lt;p&gt;The native code:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;creates a JVM&lt;/li&gt;
+&lt;li&gt;hooks &lt;code&gt;java/lang/Shutdown.halt0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;rewrites cached boxed values such as &lt;code&gt;Byte&lt;/code&gt;, &lt;code&gt;Short&lt;/code&gt;, &lt;code&gt;Character&lt;/code&gt;, &lt;code&gt;Boolean&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;runs &lt;code&gt;Verify1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;runs &lt;code&gt;Verify2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;if both wrappers return &lt;code&gt;0&lt;/code&gt;, prints the supplied password as &lt;code&gt;HTB{&amp;lt;password&amp;gt;}&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;So the solve is to recover the exact 52-character password accepted by both verifiers.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Cyberpsychosis</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-cyberpsychosis/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-cyberpsychosis/</guid><description>&lt;h1 id="hackthebox---cyberpsychosis-reverse-engineering"&gt;
+ HackTheBox - Cyberpsychosis (Reverse Engineering)
+ &lt;a class="heading-link" href="#hackthebox---cyberpsychosis-reverse-engineering"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-description"&gt;
+ Challenge Description
+ &lt;a class="heading-link" href="#challenge-description"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Malicious actors have infiltrated our systems and we believe they've implanted a custom rootkit. Can you disarm the rootkit and find the hidden data?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium&lt;br&gt;
+&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;br&gt;
+&lt;strong&gt;Files:&lt;/strong&gt; &lt;code&gt;diamorphine.ko&lt;/code&gt;, &lt;code&gt;LICENSE.txt&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;Target:&lt;/strong&gt; TCP service hosting a QEMU VM&lt;/p&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="identifying-the-rootkit"&gt;
+ Identifying the Rootkit
+ &lt;a class="heading-link" href="#identifying-the-rootkit"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The challenge provides &lt;code&gt;diamorphine.ko&lt;/code&gt;, a Linux kernel module (LKM). Diamorphine is a well-known open-source Linux rootkit. Basic identification:&lt;/p&gt;</description></item><item><title>Reverse Engineering - Maze</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-maze/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-maze/</guid><description>&lt;h1 id="htb-reverse-challenge-maze"&gt;
+ HTB Reverse Challenge: Maze
+ &lt;a class="heading-link" href="#htb-reverse-challenge-maze"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-overview"&gt;
+ Challenge Overview
+ &lt;a class="heading-link" href="#challenge-overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;br&gt;
+&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium&lt;br&gt;
+&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;HTB{w0W_Y0u_C0uld_E5c4p3_Th1s_M4Z33!!}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;We are given a Windows executable (&lt;code&gt;maze.exe&lt;/code&gt;), an encrypted zip (&lt;code&gt;enc_maze.zip&lt;/code&gt;), and an image (&lt;code&gt;maze.png&lt;/code&gt;). The goal is to navigate through multiple layers of obfuscation to find the flag.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="solution"&gt;
+ Solution
+ &lt;a class="heading-link" href="#solution"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="step-1-identify-and-unpack-pyinstaller"&gt;
+ Step 1: Identify and Unpack PyInstaller
+ &lt;a class="heading-link" href="#step-1-identify-and-unpack-pyinstaller"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ file maze.exe
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;maze.exe: PE32+ executable &lt;span style="color:#ff7b72"&gt;for&lt;/span&gt; MS Windows, x86-64
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ strings maze.exe | grep PyInstaller
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;PyInstaller: pyi_win32_utils_to_utf8 failed.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The binary is a PyInstaller-packed Python 3.8 application. We extract it using &lt;code&gt;pyinstxtractor&lt;/code&gt;:&lt;/p&gt;</description></item><item><title>Reverse Engineering - rauth</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-rauth/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-rauth/</guid><description>&lt;h1 id="htb-reverse-challenge-rauth"&gt;
+ HTB Reverse Challenge: rauth
+ &lt;a class="heading-link" href="#htb-reverse-challenge-rauth"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; &amp;quot;My implementation of authentication mechanisms in C turned out to be failures. But my implementation in Rust is unbreakable. Can you retrieve my password?&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;HTB{I_Kn0w_h0w_t0_5al54}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The binary is a 64-bit ELF Rust executable, dynamically linked, with debug info and not stripped.&lt;/p&gt;</description></item><item><title>Reverse Engineering - Regas Town</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-regas-town/</guid><description>&lt;h1 id="regas-town---htb-reverse-engineering-challenge-writeup"&gt;
+ Rega's Town - HTB Reverse Engineering Challenge Writeup
+ &lt;a class="heading-link" href="#regas-town---htb-reverse-engineering-challenge-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Reverse Engineering&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Description:&lt;/strong&gt; Welcome to Rega Town, a quaint little place where everyone communicates through the magic of patterns and rules!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="analysis"&gt;
+ Analysis
+ &lt;a class="heading-link" href="#analysis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides a 64-bit ELF binary written in Rust. Running it prompts for a &amp;quot;secret passphrase&amp;quot; and validates it against a series of regex patterns.&lt;/p&gt;</description></item><item><title>Reverse Engineering - VirtuallyMad</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-virtuallymad/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-virtuallymad/</guid><description>&lt;h1 id="virtuallymad---htb-reverse-engineering-challenge"&gt;
+ VirtuallyMad - HTB Reverse Engineering Challenge
+ &lt;a class="heading-link" href="#virtuallymad---htb-reverse-engineering-challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{0210010002100100031100010112110004130000}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The challenge provides a stripped ELF binary (&lt;code&gt;virtually.mad&lt;/code&gt;) that implements a custom virtual machine. The user must supply a hex-encoded &amp;quot;code&amp;quot; string that, when executed by the VM, produces a specific register state.&lt;/p&gt;
+&lt;h2 id="vm-architecture"&gt;
+ VM Architecture
+ &lt;a class="heading-link" href="#vm-architecture"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="registers--state"&gt;
+ Registers &amp;amp; State
+ &lt;a class="heading-link" href="#registers--state"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The VM allocates a 0x38-byte structure:&lt;/p&gt;</description></item><item><title>Reverse Engineering - vvm</title><link>https://z3r0s6.github.io/challenges/reverse-engineering-vvm/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/reverse-engineering-vvm/</guid><description>&lt;h1 id="rev_vvm-writeup"&gt;
+ rev_vvm Writeup
+ &lt;a class="heading-link" href="#rev_vvm-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="flag"&gt;
+ Flag
+ &lt;a class="heading-link" href="#flag"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTB{v1rTu4L_p4sSw0rD_t3ChN0loGy}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The binary is a stripped PIE ELF that implements a small VM. The visible flow is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Print the banner.&lt;/li&gt;
+&lt;li&gt;Build a dispatch table for VM opcodes by XOR-decoding multiple handler stubs from &lt;code&gt;.data&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Execute a dword-based bytecode program stored in &lt;code&gt;.data&lt;/code&gt; at &lt;code&gt;0x5540&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Running the binary directly is not useful because one VM opcode calls &lt;code&gt;ptrace&lt;/code&gt; and exits under tracing/debugged environments. The solve is easier statically by reconstructing the VM handlers and emulating the bytecode.&lt;/p&gt;</description></item><item><title>Web - NextBlog</title><link>https://z3r0s6.github.io/challenges/web-nextblog/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-nextblog/</guid><description>&lt;h1 id="nextblog---ctf-writeup"&gt;
+ NextBlog - CTF Writeup
+ &lt;a class="heading-link" href="#nextblog---ctf-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; NextBlog&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;code&gt;https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Web&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;A Next.js 16 blog application with a hidden flag server running on &lt;code&gt;localhost:3001&lt;/code&gt;. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server.&lt;/p&gt;</description></item><item><title>WEB - Resizer</title><link>https://z3r0s6.github.io/challenges/web-resizer/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-resizer/</guid><description>&lt;h1 id="resizer-writeup"&gt;
+ Resizer Writeup
+ &lt;a class="heading-link" href="#resizer-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Name: &lt;code&gt;Resizer&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Category: &lt;code&gt;Web&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Target: &lt;code&gt;http://154.57.164.66:30462&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="tldr"&gt;
+ TL;DR
+ &lt;a class="heading-link" href="#tldr"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The core bug is an &lt;strong&gt;arbitrary file write through path traversal&lt;/strong&gt; in the upload filename:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;filename &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; file&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;filename
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;filepath &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; os&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;path&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;join(app&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;config[&lt;span style="color:#a5d6ff"&gt;&amp;#39;UPLOAD_FOLDER&amp;#39;&lt;/span&gt;], filename)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;file&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;save(filepath)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because &lt;code&gt;filename&lt;/code&gt; is never sanitized with &lt;code&gt;secure_filename()&lt;/code&gt; and &lt;code&gt;os.path.join()&lt;/code&gt; does not stop &lt;code&gt;../&lt;/code&gt;, we can write files outside &lt;code&gt;uploads/&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>HTB - WingData</title><link>https://z3r0s6.github.io/machines/wingdata/</link><pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/wingdata/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-47812 · CVE-2025-4517 · CVE-2025-4138&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;WingData is an Easy Linux machine. A company website redirects to an FTP client portal running &lt;strong&gt;Wing FTP Server v7.4.3&lt;/strong&gt;, which is vulnerable to an unauthenticated RCE (&lt;strong&gt;CVE-2025-47812&lt;/strong&gt;). Post-exploitation enumeration reveals a salted SHA-256 hash for user &lt;code&gt;wacky&lt;/code&gt; stored in Wing FTP config files. After cracking the hash with hashcat and gaining SSH access, a misconfigured sudo rule allows execution of a Python backup restoration script as root. The script is vulnerable to &lt;strong&gt;CVE-2025-4517&lt;/strong&gt;, a tarfile &lt;code&gt;PATH_MAX&lt;/code&gt; bypass that allows arbitrary file write - used to overwrite &lt;code&gt;/etc/sudoers&lt;/code&gt; and gain root.&lt;/p&gt;</description></item><item><title>HTB - VariaType</title><link>https://z3r0s6.github.io/machines/variatype/</link><pubDate>Tue, 05 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/variatype/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-66034 · CVE-2024-25082 · CVE-2025-47273&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;VariaType is a Linux medium box centered around a typography company's web infrastructure. The attack chain involves &lt;strong&gt;three distinct CVEs&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66034&lt;/strong&gt; - fonttools DesignSpace output path traversal → PHP webshell (&lt;code&gt;www-data&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-25082&lt;/strong&gt; - FontForge archive filename command injection → SSH as &lt;code&gt;steve&lt;/code&gt; (user)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-47273&lt;/strong&gt; - setuptools PackageIndex path traversal → SSH as &lt;code&gt;root&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="attack-chain-overview"&gt;
+ Attack Chain Overview
+ &lt;a class="heading-link" href="#attack-chain-overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;#&lt;/th&gt;
+ &lt;th&gt;Stage&lt;/th&gt;
+ &lt;th&gt;Technique&lt;/th&gt;
+ &lt;th&gt;CVE/Tool&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;1&lt;/td&gt;
+ &lt;td&gt;Recon&lt;/td&gt;
+ &lt;td&gt;Nmap + vhost fuzzing + &lt;code&gt;.git&lt;/code&gt; dump&lt;/td&gt;
+ &lt;td&gt;-&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;2&lt;/td&gt;
+ &lt;td&gt;Foothold&lt;/td&gt;
+ &lt;td&gt;DesignSpace filename path traversal&lt;/td&gt;
+ &lt;td&gt;CVE-2025-66034&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;3&lt;/td&gt;
+ &lt;td&gt;User (steve)&lt;/td&gt;
+ &lt;td&gt;FontForge archive filename cmd injection&lt;/td&gt;
+ &lt;td&gt;CVE-2024-25082&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;4&lt;/td&gt;
+ &lt;td&gt;Root&lt;/td&gt;
+ &lt;td&gt;setuptools PackageIndex path traversal&lt;/td&gt;
+ &lt;td&gt;CVE-2025-47273&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="01---reconnaissance"&gt;
+ 01 - Reconnaissance
+ &lt;a class="heading-link" href="#01---reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rustscan -a &amp;lt;TARGET_IP&amp;gt; --ulimit &lt;span style="color:#a5d6ff"&gt;5000&lt;/span&gt; -b &lt;span style="color:#a5d6ff"&gt;1500&lt;/span&gt; -- -sV -sC
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;Port 22 OpenSSH 9.2p1
+Port 80 nginx/1.22.1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="virtual-host-discovery"&gt;
+ Virtual Host Discovery
+ &lt;a class="heading-link" href="#virtual-host-discovery"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ffuf -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt &lt;span style="color:#79c0ff"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -u http://&amp;lt;TARGET_IP&amp;gt; -H &lt;span style="color:#a5d6ff"&gt;&amp;#34;Host: FUZZ.variatype.htb&amp;#34;&lt;/span&gt; -fs &amp;lt;default_size&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#8b949e;font-style:italic"&gt;# → portal.variatype.htb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="git-repository-leak"&gt;
+ Git Repository Leak
+ &lt;a class="heading-link" href="#git-repository-leak"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;curl -s http://portal.variatype.htb/.git/HEAD
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#8b949e;font-style:italic"&gt;# ref: refs/heads/master&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Dumping the repository reveals hardcoded credentials in commit history:&lt;/p&gt;</description></item><item><title>HTB - Pterodactyl</title><link>https://z3r0s6.github.io/machines/pterodactyl/</link><pubDate>Sun, 03 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/pterodactyl/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2025-49132 · CVE-2025-6018 · CVE-2025-6019&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pterodactyl is a Linux machine that chains three critical vulnerabilities for full system compromise. The Pterodactyl Panel (a Laravel-based game server management platform) is hosted on a discovered subdomain. &lt;strong&gt;PHP PEAR&lt;/strong&gt; is enabled with writable config paths, vulnerable to &lt;strong&gt;CVE-2025-49132&lt;/strong&gt; - unauthenticated RCE. Database credentials extracted from Laravel's &lt;code&gt;.env&lt;/code&gt; file reveal a secondary user. Privilege escalation leverages &lt;strong&gt;CVE-2025-6018&lt;/strong&gt; (PAM environment variable injection) chained with &lt;strong&gt;CVE-2025-6019&lt;/strong&gt; (UDisks2 XFS filesystem privilege escalation) to achieve root.&lt;/p&gt;</description></item><item><title>HTB - Pirate</title><link>https://z3r0s6.github.io/machines/pirate/</link><pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/pirate/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Hard&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Windows (Active Directory)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Domain&lt;/td&gt;
+ &lt;td&gt;PIRATE.HTB&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pirate is a Hard-rated multi-host Windows Active Directory machine simulating a realistic corporate environment with three domain-joined machines. The attack chains &lt;strong&gt;six distinct AD primitives&lt;/strong&gt; with no CVEs required - every step exploits misconfigurations:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pre-Windows 2000 Compatible Access&lt;/strong&gt; (MS01$ machine account auth) → &lt;strong&gt;gMSA password extraction&lt;/strong&gt; via LDAP → &lt;strong&gt;Pass-the-Hash&lt;/strong&gt; over WinRM on DC01 → &lt;strong&gt;L3 network pivot&lt;/strong&gt; via Ligolo-ng to the internal &lt;code&gt;192.168.100.0/24&lt;/code&gt; subnet → &lt;strong&gt;NTLM relay&lt;/strong&gt; to LDAPS with RBCD to gain WEB01 Administrator → user flag → &lt;strong&gt;SPN injection&lt;/strong&gt; with Constrained Delegation abuse to impersonate Domain Admin on DC01 → root flag.&lt;/p&gt;</description></item><item><title>HTB - PingPong</title><link>https://z3r0s6.github.io/machines/pingpong/</link><pubDate>Sun, 19 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/pingpong/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Insane&lt;br&gt;
+&lt;strong&gt;OS:&lt;/strong&gt; Windows&lt;br&gt;
+&lt;strong&gt;Points:&lt;/strong&gt; 50&lt;br&gt;
+&lt;strong&gt;Release:&lt;/strong&gt; 2026-04-27&lt;br&gt;
+&lt;strong&gt;Starting Creds:&lt;/strong&gt; &lt;code&gt;c.roberts / AssumedBreach123&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="attack-chain"&gt;
+ Attack Chain
+ &lt;a class="heading-link" href="#attack-chain"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;c.roberts (PING.HTB)
+ → ESC13 (TemporaryWinRM) → PKINIT TGT + TempWinRMAccess SID → WinRM on DC1
+ → Ligolo-ng tunnel → DC2 reachable (192.168.2.2)
+ → WriteDACL on gMSA Managers (PONG) → GenericAll → scope flip (Global→Universal→DomainLocal)
+ → Add cross-forest FSP → ReadGMSAPassword → Pong_gMSA$ NTLM/AES
+ → JEA endpoint on DC1 (restricted) → PSReadLine history → c.carlssen / A()DUJ!@414
+ → WinRM on DC2 → user.txt
+ → c.carlssen GenericWrite on svc_sql → RBCD (Pong_gMSA$ → svc_sql)
+ → S4U2Proxy impersonate c.adam → MSSQL xp_cmdshell → local admin on DC2
+ → c.carlssen → Domain Admins (PONG) → DCSync → R.Martinelli
+ → R.Martinelli ∈ CA Managers (PING) → ESC4 on SmartcardAuthentication → ESC1
+ → cert for Administrator@ping.htb → PKINIT → root.txt on DC1
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h2 id="recon"&gt;
+ Recon
+ &lt;a class="heading-link" href="#recon"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Classic Windows DC port profile: &lt;code&gt;53, 88, 135, 389, 445, 464, 636, 3268, 3269, 5985, 9389&lt;/code&gt;&lt;/p&gt;</description></item><item><title>HTB - Silentium</title><link>https://z3r0s6.github.io/machines/silentium/</link><pubDate>Tue, 14 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/silentium/</guid><description>&lt;hr&gt;
+&lt;h2 id="1-port-scan"&gt;
+ 1. Port Scan
+ &lt;a class="heading-link" href="#1-port-scan"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;nmap -sV -A -T4 10.129.30.114 -o port_scan
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;Starting Nmap 7.99 ( https://nmap.org ) at 2026-04-14 15:20 -0400
+Nmap scan report for 10.129.30.114
+Host is up (0.088s latency).
+Not shown: 998 closed tcp ports (reset)
+
+PORT STATE SERVICE VERSION
+22/tcp open ssh OpenSSH 9.6p1 Ubuntu 3ubuntu13.15 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+| 256 0c:4b:d2:76:ab:10:06:92:05:dc:f7:55:94:7f:18:df (ECDSA)
+|_ 256 2d:6d:4a:4c:ee:2e:11:b6:c8:90:e6:83:e9:df:38:b0 (ED25519)
+80/tcp open http nginx 1.24.0 (Ubuntu)
+|_http-server-header: nginx/1.24.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://silentium.htb/
+
+OS details: Linux 5.0 - 5.14
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Only &lt;strong&gt;SSH (22)&lt;/strong&gt; and &lt;strong&gt;HTTP (80)&lt;/strong&gt; are exposed. Add &lt;code&gt;silentium.htb&lt;/code&gt; to &lt;code&gt;/etc/hosts&lt;/code&gt;.&lt;/p&gt;</description></item><item><title>HTB - Logging</title><link>https://z3r0s6.github.io/machines/logging/</link><pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/logging/</guid><description>&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Windows Server 2019&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Hard&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;IP&lt;/td&gt;
+ &lt;td&gt;10.129.X.X&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Domain&lt;/td&gt;
+ &lt;td&gt;logging.htb&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;DC&lt;/td&gt;
+ &lt;td&gt;dc01.logging.htb&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Attack Chain:&lt;/strong&gt;
+&lt;code&gt;Anonymous SMB → Credentials in Logs → Shadow Credentials (gMSA) → WinRM → DLL Hijack → Domain User Shell → ESC17 (ADCS + WSUS MitM) → SYSTEM&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="1-reconnaissance"&gt;
+ 1. Reconnaissance
+ &lt;a class="heading-link" href="#1-reconnaissance"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;h3 id="port-scan"&gt;
+ Port Scan
+ &lt;a class="heading-link" href="#port-scan"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rustscan -a 10.129.X.X --ulimit &lt;span style="color:#a5d6ff"&gt;5000&lt;/span&gt; -- -sV
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Key open ports:&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>HTB - Kobold</title><link>https://z3r0s6.github.io/machines/kobold/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/kobold/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Ubuntu)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVE&lt;/td&gt;
+ &lt;td&gt;CVE-2026-23744&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Tags&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;docker&lt;/code&gt; &lt;code&gt;gshadow&lt;/code&gt; &lt;code&gt;lfi&lt;/code&gt; &lt;code&gt;mcp&lt;/code&gt; &lt;code&gt;mcpjam&lt;/code&gt; &lt;code&gt;pastebin&lt;/code&gt; &lt;code&gt;path-traversal&lt;/code&gt; &lt;code&gt;rce&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Kobold is a Linux easy box featuring a multi-service web application behind nginx with HTTPS and wildcard virtual hosting. Initial access requires exploiting &lt;strong&gt;CVE-2026-23744&lt;/strong&gt; - an unauthenticated RCE in MCPJam Inspector - by sending a crafted JSON payload to &lt;code&gt;/api/mcp/connect&lt;/code&gt; to execute arbitrary commands. Privilege escalation abuses a discrepancy between &lt;code&gt;/etc/gshadow&lt;/code&gt; and the running session, allowing the &lt;code&gt;sg&lt;/code&gt; command to switch into the &lt;code&gt;docker&lt;/code&gt; group and mount the host filesystem inside a container.&lt;/p&gt;</description></item><item><title>HTB - Interpreter</title><link>https://z3r0s6.github.io/machines/interpreter/</link><pubDate>Sun, 29 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/interpreter/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Debian 12)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVEs&lt;/td&gt;
+ &lt;td&gt;CVE-2023-43208 · CVE-2023-37679&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Interpreter is a Medium-difficulty Linux machine centred around &lt;strong&gt;Mirth Connect 4.4.0&lt;/strong&gt;, a widely-deployed open-source healthcare integration engine. The attack chain exploits &lt;strong&gt;CVE-2023-43208&lt;/strong&gt; - an unauthenticated pre-auth RCE via XStream deserialization - to gain an initial shell as the service user. Database credentials extracted from Mirth's config file lead to a PBKDF2-hashed password in the internal MySQL/PostgreSQL database. After cracking the hash offline with hashcat, SSH access is gained as user &lt;code&gt;sedric&lt;/code&gt;. A locally-bound Python Flask service (&lt;code&gt;notif.py&lt;/code&gt;) running as root exposes an &lt;code&gt;eval()&lt;/code&gt; sink vulnerable to SSTI, which is abused to plant a SUID bash binary and achieve full root compromise.&lt;/p&gt;</description></item><item><title>HTB - Garfield</title><link>https://z3r0s6.github.io/machines/garfield/</link><pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/garfield/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Hard | &lt;strong&gt;Platform:&lt;/strong&gt; Windows Active Directory | &lt;strong&gt;Category:&lt;/strong&gt; Seasonal&lt;br&gt;
+&lt;strong&gt;Tags:&lt;/strong&gt; &lt;code&gt;active-directory&lt;/code&gt; &lt;code&gt;smb&lt;/code&gt; &lt;code&gt;kerberos&lt;/code&gt; &lt;code&gt;rbcd&lt;/code&gt; &lt;code&gt;rodc&lt;/code&gt; &lt;code&gt;golden-ticket&lt;/code&gt; &lt;code&gt;keylist&lt;/code&gt; &lt;code&gt;mimikatz&lt;/code&gt; &lt;code&gt;rubeus&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="machine-info"&gt;
+ Machine Info
+ &lt;a class="heading-link" href="#machine-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Details&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Machine Name&lt;/td&gt;
+ &lt;td&gt;Garfield&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;IP Address&lt;/td&gt;
+ &lt;td&gt;10.129.27.196 (initial) / 10.129.23.120 (reset)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Windows Server 2019 (Domain Controller)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Domain&lt;/td&gt;
+ &lt;td&gt;garfield.htb (GARFIELD.HTB)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Hard&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Starting Creds&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;j.arbuckle / Th1sD4mnC4t!@1978&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="1-executive-summary"&gt;
+ 1. Executive Summary
+ &lt;a class="heading-link" href="#1-executive-summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Garfield is a Hard-rated Windows Active Directory machine on Hack The Box's seasonal lineup. It simulates a real-world corporate AD environment with multiple chained vulnerabilities spanning SMB misconfigurations, AD ACL abuse, logon script hijacking, RBCD (Resource-Based Constrained Delegation) attacks, Read-Only Domain Controller (RODC) compromise, and a KeyList attack to retrieve the main DC's Administrator hash - ultimately achieving full domain compromise.&lt;/p&gt;</description></item><item><title>HTB - Facts</title><link>https://z3r0s6.github.io/machines/facts/</link><pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/facts/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Techniques&lt;/td&gt;
+ &lt;td&gt;Mass Assignment · MinIO · ssh2john · facter GTFOBin&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Facts is an Easy Linux machine running a Ruby on Rails CMS. The intended foothold is a &lt;strong&gt;Mass Assignment&lt;/strong&gt; vulnerability in the password change endpoint - by appending &lt;code&gt;&amp;amp;password[role]=admin&lt;/code&gt; to the intercepted request, a low-privilege user escalates to admin without touching the LFI path. As admin, MinIO S3 credentials are exposed in the General Site filesystem settings. Using the &lt;code&gt;mc&lt;/code&gt; client, an SSH private key is pulled from the internal MinIO bucket. The key passphrase is cracked offline with &lt;code&gt;ssh2john&lt;/code&gt; + &lt;code&gt;john&lt;/code&gt; (rockyou.txt → &lt;code&gt;dragonballz&lt;/code&gt;). SSH access lands as &lt;code&gt;trivia&lt;/code&gt;, who can run &lt;code&gt;/usr/bin/facter&lt;/code&gt; as root via sudo. A malicious Ruby script planted in &lt;code&gt;/tmp/piv&lt;/code&gt; and loaded via &lt;code&gt;--custom-dir&lt;/code&gt; gives a root shell.&lt;/p&gt;</description></item><item><title>HTB - DevArea</title><link>https://z3r0s6.github.io/machines/devarea/</link><pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/devarea/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Medium&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Ubuntu 24.04)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Season&lt;/td&gt;
+ &lt;td&gt;10&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;DevArea is a Medium Linux machine. An anonymous FTP share exposes a Java SOAP service JAR. Decompiling it reveals Apache CXF with XOP/MTOM processing, vulnerable to CVE-2022-46364 - allowing Local File Inclusion via &lt;code&gt;&amp;lt;xop:Include href=&amp;quot;file:///...&amp;quot;/&amp;gt;&lt;/code&gt; elements. Using this LFI, plaintext HoverFly credentials are extracted from a systemd service file. HoverFly's middleware API then provides unauthenticated RCE. Privilege escalation abuses a world-writable &lt;code&gt;/bin/bash&lt;/code&gt; combined with a passwordless sudo rule.&lt;/p&gt;</description></item><item><title>HTB - CCTV</title><link>https://z3r0s6.github.io/machines/cctv/</link><pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/cctv/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Easy&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Linux (Ubuntu 24.04)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;CVE&lt;/td&gt;
+ &lt;td&gt;CVE-2024-51482&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;CCTV is an Easy Linux machine running ZoneMinder, a CCTV management web application. The attack chain involves exploiting a boolean-based SQL injection vulnerability (CVE-2024-51482) to enumerate the database and dump credentials, then pivoting through an internal Motion/MotionEye camera stack via command injection in the &lt;code&gt;picture_filename&lt;/code&gt; parameter to gain a root shell.&lt;/p&gt;</description></item></channel></rss>

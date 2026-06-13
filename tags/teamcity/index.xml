@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TeamCity on z3r0s</title><link>https://z3r0s6.github.io/tags/teamcity/</link><description>Recent content in TeamCity on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 07 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/teamcity/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Watcher</title><link>https://z3r0s6.github.io/machines/watcher/</link><pubDate>Sun, 07 Jun 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/watcher/</guid><description>&lt;p&gt;&lt;strong&gt;Difficulty:&lt;/strong&gt; Medium | &lt;strong&gt;OS:&lt;/strong&gt; Linux&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="logo--name-analysis---first-impressions"&gt;
+ Logo &amp;amp; Name Analysis - First Impressions
+ &lt;a class="heading-link" href="#logo--name-analysis---first-impressions"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Before running any scans, the logo and name of this machine provide clear clues about the theme.&lt;/p&gt;
+&lt;h3 id="the-logo"&gt;
+ The Logo
+ &lt;a class="heading-link" href="#the-logo"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;The logo features a colossal, moss-covered, dark bird (resembling a raven or crow) peering down through a decaying stone archway or ruins. A solitary figure stands below, gazing up at this giant creature.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Key takeaways from the logo:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The Giant Bird:&lt;/strong&gt; Ravens and crows are historically associated with keeping watch, intelligence, and acting as sentinels or observers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Archway:&lt;/strong&gt; Represents a gateway, bridge, or a passage to hidden internals.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The Figure:&lt;/strong&gt; A player or administrator looking up at a massive system that observes everything.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-name"&gt;
+ The Name
+ &lt;a class="heading-link" href="#the-name"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;p&gt;&amp;quot;Watcher&amp;quot; aligns directly with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;System monitoring, auditing, or logging software.&lt;/li&gt;
+&lt;li&gt;In a Linux environment, this heavily suggests tools like Zabbix, Nagios, Prometheus, or Grafana which &amp;quot;watch&amp;quot; over the network.&lt;/li&gt;
+&lt;li&gt;The path to root might involve manipulating or hijacking these monitoring/watching systems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="the-instant-hypothesis"&gt;
+ The Instant Hypothesis
+ &lt;a class="heading-link" href="#the-instant-hypothesis"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;quot;Watcher points to an infrastructure monitoring system such as Zabbix or Nagios. The giant bird logo indicates monitoring and observation. The foothold likely involves exploiting a vulnerability in a monitoring platform (Zabbix), while the privilege escalation might involve abusing administrative capabilities, active agent controls, or internal automation services like TeamCity.&amp;quot;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This hypothesis holds true: we exploit Zabbix for a foothold, capture credentials from simulated user login, and leverage TeamCity agent controls for root.&lt;/p&gt;</description></item></channel></rss>

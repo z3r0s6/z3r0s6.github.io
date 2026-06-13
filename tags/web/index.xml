@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web on z3r0s</title><link>https://z3r0s6.github.io/tags/web/</link><description>Recent content in Web on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>Web - NextBlog</title><link>https://z3r0s6.github.io/challenges/web-nextblog/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-nextblog/</guid><description>&lt;h1 id="nextblog---ctf-writeup"&gt;
+ NextBlog - CTF Writeup
+ &lt;a class="heading-link" href="#nextblog---ctf-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge-info"&gt;
+ Challenge Info
+ &lt;a class="heading-link" href="#challenge-info"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Name:&lt;/strong&gt; NextBlog&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;URL:&lt;/strong&gt; &lt;code&gt;https://cyctf-luxor-cbaff7649acb-nextblog-0-0.chals.io&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Category:&lt;/strong&gt; Web&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flag:&lt;/strong&gt; &lt;code&gt;CyCTF{F7oXj5sHY4xfvfrIo2x2pkbr4eIVEW3DoYSQe1WHsx_iffn39-InchEsJKhkGtnfg8VA60x6WfCvKRQjmHzftiAxx1TvnXF8FA}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="overview"&gt;
+ Overview
+ &lt;a class="heading-link" href="#overview"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;A Next.js 16 blog application with a hidden flag server running on &lt;code&gt;localhost:3001&lt;/code&gt;. The goal is to exploit a Server-Side Request Forgery (SSRF) vulnerability in a server action to reach the internal flag server.&lt;/p&gt;</description></item><item><title>WEB - Resizer</title><link>https://z3r0s6.github.io/challenges/web-resizer/</link><pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/challenges/web-resizer/</guid><description>&lt;h1 id="resizer-writeup"&gt;
+ Resizer Writeup
+ &lt;a class="heading-link" href="#resizer-writeup"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h1&gt;
+&lt;h2 id="challenge"&gt;
+ Challenge
+ &lt;a class="heading-link" href="#challenge"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Name: &lt;code&gt;Resizer&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Category: &lt;code&gt;Web&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Target: &lt;code&gt;http://154.57.164.66:30462&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="tldr"&gt;
+ TL;DR
+ &lt;a class="heading-link" href="#tldr"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;The core bug is an &lt;strong&gt;arbitrary file write through path traversal&lt;/strong&gt; in the upload filename:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;filename &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; file&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;filename
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;filepath &lt;span style="color:#ff7b72;font-weight:bold"&gt;=&lt;/span&gt; os&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;path&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;join(app&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;config[&lt;span style="color:#a5d6ff"&gt;&amp;#39;UPLOAD_FOLDER&amp;#39;&lt;/span&gt;], filename)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;file&lt;span style="color:#ff7b72;font-weight:bold"&gt;.&lt;/span&gt;save(filepath)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because &lt;code&gt;filename&lt;/code&gt; is never sanitized with &lt;code&gt;secure_filename()&lt;/code&gt; and &lt;code&gt;os.path.join()&lt;/code&gt; does not stop &lt;code&gt;../&lt;/code&gt;, we can write files outside &lt;code&gt;uploads/&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>

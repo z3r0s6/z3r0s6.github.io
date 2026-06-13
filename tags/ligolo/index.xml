@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ligolo on z3r0s</title><link>https://z3r0s6.github.io/tags/ligolo/</link><description>Recent content in Ligolo on z3r0s</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://z3r0s6.github.io/tags/ligolo/index.xml" rel="self" type="application/rss+xml"/><item><title>HTB - Pirate</title><link>https://z3r0s6.github.io/machines/pirate/</link><pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate><guid>https://z3r0s6.github.io/machines/pirate/</guid><description>&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Field&lt;/th&gt;
+ &lt;th&gt;Value&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Difficulty&lt;/td&gt;
+ &lt;td&gt;Hard&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;OS&lt;/td&gt;
+ &lt;td&gt;Windows (Active Directory)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Domain&lt;/td&gt;
+ &lt;td&gt;PIRATE.HTB&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="summary"&gt;
+ Summary
+ &lt;a class="heading-link" href="#summary"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Pirate is a Hard-rated multi-host Windows Active Directory machine simulating a realistic corporate environment with three domain-joined machines. The attack chains &lt;strong&gt;six distinct AD primitives&lt;/strong&gt; with no CVEs required - every step exploits misconfigurations:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pre-Windows 2000 Compatible Access&lt;/strong&gt; (MS01$ machine account auth) → &lt;strong&gt;gMSA password extraction&lt;/strong&gt; via LDAP → &lt;strong&gt;Pass-the-Hash&lt;/strong&gt; over WinRM on DC01 → &lt;strong&gt;L3 network pivot&lt;/strong&gt; via Ligolo-ng to the internal &lt;code&gt;192.168.100.0/24&lt;/code&gt; subnet → &lt;strong&gt;NTLM relay&lt;/strong&gt; to LDAPS with RBCD to gain WEB01 Administrator → user flag → &lt;strong&gt;SPN injection&lt;/strong&gt; with Constrained Delegation abuse to impersonate Domain Admin on DC01 → root flag.&lt;/p&gt;</description></item></channel></rss>

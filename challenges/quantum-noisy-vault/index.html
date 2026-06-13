@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><title>Quantum - noisy vault · z3r0s</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="author" content="z3r0s"><meta name="description" content="
+  Noisy Vault Writeup
+  
+    
+    Link to heading
+  
+
+
+  Summary
+  
+    
+    Link to heading
+  
+
+The challenge description mentions a 13-qubit system and a 9-bit key, but the actual service uses:
+
+64 data qubits
+16 ancilla qubits
+a single oracle query
+4096 noisy measurement shots
+
+The goal is to recover the hidden 64-bit secret_key and submit it in one unlock attempt.
+
+  Root Cause
+  
+    
+    Link to heading
+  
+
+The service prepares the secret as a computational basis state by applying X on each data qubit whose key bit is 1."><meta name="keywords" content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Quantum - noisy vault"><meta name="twitter:description" content="Noisy Vault Writeup
+Link to heading
+Summary
+Link to heading
+The challenge description mentions a 13-qubit system and a 9-bit key, but the actual service uses:
+64 data qubits 16 ancilla qubits a single oracle query 4096 noisy measurement shots The goal is to recover the hidden 64-bit secret_key and submit it in one unlock attempt.
+Root Cause
+Link to heading
+The service prepares the secret as a computational basis state by applying X on each data qubit whose key bit is 1."><meta property="og:url" content="https://z3r0s6.github.io/challenges/quantum-noisy-vault/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="Quantum - noisy vault"><meta property="og:description" content="Noisy Vault Writeup
+Link to heading
+Summary
+Link to heading
+The challenge description mentions a 13-qubit system and a 9-bit key, but the actual service uses:
+64 data qubits 16 ancilla qubits a single oracle query 4096 noisy measurement shots The goal is to recover the hidden 64-bit secret_key and submit it in one unlock attempt.
+Root Cause
+Link to heading
+The service prepares the secret as a computational basis state by applying X on each data qubit whose key bit is 1."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="challenges"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="HackTheBox"><meta property="article:tag" content="Quantum"><link rel="canonical" href="https://z3r0s6.github.io/challenges/quantum-noisy-vault/"><link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin=""><link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin=""><link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin=""><link rel="stylesheet" href="/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css" integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin="anonymous" media="screen"><link rel="stylesheet" href="/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css" integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin="anonymous" media="screen"><link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any"><link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32"><link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16"><link rel="apple-touch-icon" href="/images/apple-touch-icon.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5"></head><body class="preload-transitions colorscheme-dark"><div class="float-container"><a id="dark-mode-toggle" class="colorscheme-toggle"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></a></div><main class="wrapper"><nav class="navigation"><section class="container"><a class="navigation-title" href="https://z3r0s6.github.io/">z3r0s
+</a><input type="checkbox" id="menu-toggle">
+<label class="menu-button float-right" for="menu-toggle"><i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i></label><ul class="navigation-list"><li class="navigation-item"><a class="navigation-link" href="/posts/">Posts</a></li><li class="navigation-item"><a class="navigation-link" href="/about/">About</a></li></ul></section></nav><div class="content"><section class="container post"><article><header><div class="post-title"><h1 class="title"><a class="title-link" href="https://z3r0s6.github.io/challenges/quantum-noisy-vault/">Quantum - noisy vault</a></h1></div><div class="post-meta"><div class="date"><span class="posted-on"><i class="fa-solid fa-calendar" aria-hidden="true"></i>
+<time datetime="2026-05-10T00:00:00Z">May 10, 2026
+</time></span><span class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i>
+2-minute read</span></div><div class="categories"><i class="fa-solid fa-folder" aria-hidden="true"></i>
+<a href="/categories/machineschallenges/">Machines&amp;Challenges</a></div><div class="tags"><i class="fa-solid fa-tag" aria-hidden="true"></i>
+<span class="tag"><a href="/tags/hackthebox/">HackTheBox</a>
+</span><span class="separator">•</span>
+<span class="tag"><a href="/tags/quantum/">Quantum</a></span></div></div></header><div class="post-content">
+    <div id="encryption-ui" style="text-align: center; margin: 50px 0; padding: 20px; border: 1px solid var(--border-color); border-radius: 8px;">
+        <h3 style="margin-bottom: 20px;">This content is currently password-protected while the machine/challenge remains active. It will be made publicly available once the machine/challenge is retired.</h3>
+        <input type="password" id="decrypt-password" placeholder="Enter password" style="padding: 10px; width: 60%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px; margin-right: 10px;">
+        <button id="decrypt-btn" style="padding: 10px 20px; border-radius: 4px; background: var(--primary-color, #007bff); color: white; border: none; cursor: pointer;">Unlock</button>
+        <p id="decrypt-error" style="color: red; display: none; margin-top: 10px;">Incorrect password.</p>
+    </div>
+    
+    <div id="encrypted-content" style="display: none;">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</div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        document.getElementById('decrypt-btn').addEventListener('click', function() {
+            var pass = document.getElementById('decrypt-password').value;
+            var ciphertext = document.getElementById('encrypted-content').innerText;
+            try {
+                var bytes = CryptoJS.AES.decrypt(ciphertext, pass);
+                var originalText = bytes.toString(CryptoJS.enc.Utf8);
+                if (!originalText) throw new Error('Bad password');
+                
+                var postContentDiv = document.querySelector('.post-content');
+                postContentDiv.innerHTML = originalText;
+                
+            } catch (e) {
+                document.getElementById('decrypt-error').style.display = 'block';
+            }
+        });
+        
+        document.getElementById('decrypt-password').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('decrypt-btn').click();
+            }
+        });
+    </script>
+    </div><footer></footer></article></section></div><footer class="footer"><section class="container">©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &amp; <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.</section></footer></main><script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>

