@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WriteupList from '../../components/WriteupList.astro';
+
+const items = (await getCollection('challenges', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="challenges" description="CTF challenge writeups.">
+  <h1 class="section">Challenges</h1>
+  <p class="tagline">{items.length} CTF challenge writeups, newest first. Active challenges are password-protected until retired.</p>
+  <WriteupList items={items} base="/challenges" />
+</BaseLayout>

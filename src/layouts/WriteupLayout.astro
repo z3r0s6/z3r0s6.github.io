@@ -1,0 +1,48 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  tags?: string[];
+  difficulty?: string;
+  os?: string;
+  featuredImage?: string;
+  backHref: string;
+  backLabel: string;
+  description?: string;
+}
+const { title, date, tags = [], difficulty, os, featuredImage, backHref, backLabel, description } =
+  Astro.props;
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={title} description={description}>
+  <a class="back-link" href={backHref}>← {backLabel}</a>
+
+  <article>
+    <div class="writeup-head">
+      {featuredImage && <img class="featured" src={featuredImage} alt={title} width="72" height="72" />}
+      <div>
+        <h1>{title}</h1>
+        <div class="post-meta">
+          <time datetime={date.toISOString()}>{fmt(date)}</time>
+          {difficulty && <span> · {difficulty}</span>}
+          {os && <span> · {os}</span>}
+        </div>
+      </div>
+    </div>
+
+    {tags.length > 0 && (
+      <div class="tags" style="margin-bottom:2rem">
+        {tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+    )}
+
+    <!-- .writeup-body is the target the post-build encryptor wraps. -->
+    <div class="prose writeup-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

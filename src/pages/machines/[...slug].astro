@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import WriteupLayout from '../../layouts/WriteupLayout.astro';
+
+export async function getStaticPaths() {
+  const items = await getCollection('machines', ({ data }) => !data.draft);
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+
+<WriteupLayout
+  title={d.title}
+  date={d.date}
+  tags={d.tags}
+  difficulty={d.difficulty}
+  os={d.os}
+  featuredImage={d.featuredImage}
+  backHref="/machines"
+  backLabel="back to machines"
+>
+  <Content />
+</WriteupLayout>

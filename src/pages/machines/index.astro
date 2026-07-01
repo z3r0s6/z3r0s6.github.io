@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WriteupList from '../../components/WriteupList.astro';
+
+const items = (await getCollection('machines', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="machines" description="HackTheBox machine writeups.">
+  <h1 class="section">Machines</h1>
+  <p class="tagline">{items.length} HackTheBox machine writeups, newest first. Active boxes are password-protected until retired.</p>
+  <WriteupList items={items} base="/machines" />
+</BaseLayout>

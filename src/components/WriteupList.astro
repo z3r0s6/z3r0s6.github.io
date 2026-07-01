@@ -1,0 +1,46 @@
+---
+// Reusable list of writeups (machines / challenges).
+interface Item {
+  id: string;
+  data: {
+    title: string;
+    date: Date;
+    tags: string[];
+    difficulty?: string;
+    os?: string;
+  };
+}
+interface Props {
+  items: Item[];
+  base: string; // e.g. "/machines"
+}
+const { items, base } = Astro.props;
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+const diffClass = (d?: string) => {
+  const k = (d ?? '').toLowerCase();
+  if (k.includes('easy')) return 'diff diff-easy';
+  if (k.includes('medium')) return 'diff diff-medium';
+  if (k.includes('hard') || k.includes('insane')) return 'diff diff-hard';
+  return 'diff';
+};
+---
+
+<ul class="post-list">
+  {items.map((p) => (
+    <li>
+      <a href={`${base}/${p.id}/`}>
+        <span class="post-title">{p.data.title}</span>
+        <time class="post-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+        <div class="post-desc meta-row">
+          {p.data.difficulty && <span class={diffClass(p.data.difficulty)}>{p.data.difficulty}</span>}
+          {p.data.os && <span class="os-badge">{p.data.os}</span>}
+          {p.data.tags.length > 0 && (
+            <span class="tags">{p.data.tags.slice(0, 5).map((t) => <span class="tag">{t}</span>)}</span>
+          )}
+        </div>
+      </a>
+    </li>
+  ))}
+</ul>

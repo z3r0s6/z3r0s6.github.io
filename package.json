@@ -1,0 +1,25 @@
+{
+  "name": "personal-blog",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && npm run encrypt",
+    "encrypt": "node scripts/encrypt.mjs",
+    "preview": "astro preview",
+    "new": "node scripts/manage.mjs new",
+    "unlock": "node scripts/manage.mjs unlock",
+    "lock": "node scripts/manage.mjs lock",
+    "deploy": "git add -A && git commit -m \"content update\" && git push",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.0"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0",
+    "crypto-js": "^4.2.0"
+  }
+}

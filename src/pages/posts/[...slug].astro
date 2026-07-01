@@ -1,0 +1,33 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  // Only real posts get a page; external-link stubs are just list entries.
+  const posts = await getCollection('posts', ({ data }) => !data.draft && !data.externalLink);
+  return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const fmt = (x: Date) =>
+  x.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={d.title}>
+  <a class="back-link" href="/posts">← back to posts</a>
+  <article>
+    <h1>{d.title}</h1>
+    <div class="post-meta">
+      <time datetime={d.date.toISOString()}>{fmt(d.date)}</time>
+      {d.author && <span> · {d.author}</span>}
+    </div>
+    {d.tags.length > 0 && (
+      <div class="tags" style="margin-bottom:2rem">{d.tags.map((t) => <span class="tag">{t}</span>)}</div>
+    )}
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

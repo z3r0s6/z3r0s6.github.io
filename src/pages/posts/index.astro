@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => {
+  // External link stubs (weighted) first, then real posts newest-first.
+  if (a.data.externalLink && b.data.externalLink) return (a.data.weight ?? 0) - (b.data.weight ?? 0);
+  if (a.data.externalLink) return -1;
+  if (b.data.externalLink) return 1;
+  return b.data.date.valueOf() - a.data.date.valueOf();
+});
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const hrefFor = (p: (typeof posts)[number]) => p.data.externalLink ?? `/posts/${p.id}/`;
+---
+
+<BaseLayout title="posts" description="Research, notes, and section links.">
+  <h1 class="section">Posts</h1>
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li>
+        <a href={hrefFor(p)}>
+          <span class="post-title">{p.data.title}{p.data.externalLink && <span class="ext"> →</span>}</span>
+          {!p.data.externalLink && (
+            <time class="post-date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+          )}
+          {p.data.tags.length > 0 && (
+            <div class="tags">{p.data.tags.map((t) => <span class="tag">{t}</span>)}</div>
+          )}
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
