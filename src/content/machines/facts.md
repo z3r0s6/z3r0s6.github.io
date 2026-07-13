@@ -1,3 +1,5 @@
+<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
+
 ﻿---
 title: "HTB - Facts"
 date: 2026-03-15
