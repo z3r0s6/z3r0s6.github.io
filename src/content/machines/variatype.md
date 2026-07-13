@@ -1,5 +1,3 @@
-<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
-
 ﻿---
 title: "HTB - VariaType"
 date: 2026-05-05
@@ -10,6 +8,8 @@ os: "Linux"
 author: "z3r0s"
 featuredImage: "/logos/VariaType.png"
 ---
+<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
+
 | Field | Value |
 |-------|-------|
 | Difficulty | Medium |

@@ -1,5 +1,3 @@
-<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
-
 ﻿---
 title: "HTB - Facts"
 date: 2026-03-15
@@ -10,6 +8,8 @@ os: "Linux"
 author: "z3r0s"
 featuredImage: "/logos/facts.png"
 ---
+<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
+
 | Field | Value |
 |-------|-------|
 | Difficulty | Easy |
