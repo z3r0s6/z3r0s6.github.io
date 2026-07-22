@@ -2,13 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => {
-  // External link stubs (weighted) first, then real posts newest-first.
-  if (a.data.externalLink && b.data.externalLink) return (a.data.weight ?? 0) - (b.data.weight ?? 0);
-  if (a.data.externalLink) return -1;
-  if (b.data.externalLink) return 1;
-  return b.data.date.valueOf() - a.data.date.valueOf();
-});
+// Real research posts only, newest-first. The Machines/Challenges links live in
+// the top nav, so we don't repeat the external-link stubs here.
+const posts = (await getCollection('posts', ({ data }) => !data.draft && !data.externalLink))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
