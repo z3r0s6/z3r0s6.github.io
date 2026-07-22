@@ -6,12 +6,10 @@ categories: ["Machines&Challenges"]
 difficulty: "Medium"
 os: "Linux"
 author: "z3r0s"
-featuredImage: "/logos/MachineLogo.png"
+featuredImage: "/logos/SmartHire.png"
 ---
 
 # SmartHire HTB Write-up
-
-![SmartHire Logo](https://htb-mp-prod-public-storage.s3.eu-central-1.amazonaws.com/avatars/26260a4f7f1e95d188a99210fb2ae693.png)
 
 ## Executive Summary
 
