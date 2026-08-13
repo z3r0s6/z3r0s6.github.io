@@ -4,8 +4,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Real research posts only, newest-first. The Machines/Challenges links live in
 // the top nav, so we don't repeat the external-link stubs here.
-const posts = (await getCollection('posts', ({ data }) => !data.draft && !data.externalLink))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// import.meta.env.DEV shows drafts locally for review; the production build
+// (import.meta.env.DEV === false) still hides them.
+const posts = (await getCollection(
+  'posts',
+  ({ data }) => (import.meta.env.DEV || !data.draft) && !data.externalLink
+)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });

@@ -4,7 +4,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   // Only real posts get a page; external-link stubs are just list entries.
-  const posts = await getCollection('posts', ({ data }) => !data.draft && !data.externalLink);
+  // import.meta.env.DEV lets drafts render locally for review; the production
+  // build (import.meta.env.DEV === false) still excludes them.
+  const posts = await getCollection(
+    'posts',
+    ({ data }) => (import.meta.env.DEV || !data.draft) && !data.externalLink
+  );
   return posts.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
