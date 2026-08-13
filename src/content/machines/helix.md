@@ -1,6 +1,4 @@
-<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
-
-﻿---
+---
 title: "HTB - Helix"
 date: 2026-05-10
 tags: ["HackTheBox","Linux","Medium","ApacheNiFi","OPCUA","RCE","PrivEsc"]
@@ -10,6 +8,7 @@ os: "Linux"
 author: "z3r0s"
 featuredImage: "/logos/Helix.png"
 ---
+<span id="no-password" style="display:none;">Z3R0S_NO_PASSWORD_PLEASE</span>
 **Difficulty:** Medium | **OS:** Linux | **Date:** 2026-05-10
 
 ---
