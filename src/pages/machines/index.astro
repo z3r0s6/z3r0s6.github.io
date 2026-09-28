@@ -9,6 +9,5 @@ const items = (await getCollection('machines', ({ data }) => !data.draft))
 
 <BaseLayout title="machines" description="HackTheBox machine writeups.">
   <h1 class="section">Machines</h1>
-  <p class="tagline">{items.length} HackTheBox machine writeups, newest first. Active boxes are password-protected until retired.</p>
   <WriteupList items={items} base="/machines" />
 </BaseLayout>
