@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WriteupList from '../../components/WriteupList.astro';
+
+const items = (await getCollection('machines', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="machines" description="HackTheBox machine writeups.">
+  <h1 class="section">Machines</h1>
+  <WriteupList items={items} base="/machines" />
+</BaseLayout>

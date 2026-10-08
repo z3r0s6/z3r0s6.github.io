@@ -1,0 +1,122 @@
+---
+import '../styles/global.css';
+import { SITE, SOCIALS } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  bare?: boolean;
+}
+
+const { title, description, bare = false } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+const pageDesc = description ?? SITE.description;
+const path = Astro.url.pathname;
+const on = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
+
+// Absolute URLs for canonical + social cards (Astro.site = the configured domain).
+const siteUrl = Astro.site ?? new URL(SITE.url);
+const canonical = new URL(path, siteUrl).href;
+const ogImage = new URL(SITE.avatar, siteUrl).href;
+const isHome = path === '/';
+
+// Structured data: a WebSite + the Person behind it. The Person's "name" and
+// "alternateName" both carry the z3r0s6 handle, and sameAs links every profile
+// so a search for the handle resolves to this site. Emitted on the homepage.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl.href}#website`,
+      url: siteUrl.href,
+      name: 'z3r0s6',
+      alternateName: [SITE.title, SITE.author],
+      description: SITE.description,
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl.href}#person`,
+      name: 'z3r0s6',
+      alternateName: SITE.author,
+      url: siteUrl.href,
+      image: ogImage,
+      description: SITE.description,
+      sameAs: SOCIALS.map((s) => s.href),
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="google-site-verification" content="mh03gULTMfbLDKLnDP8kCkIhe-ncuhllpHaiwVvb2Ds" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta name="author" content="z3r0s6" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={isHome ? 'profile' : 'website'} />
+    <meta property="og:site_name" content="z3r0s6" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {isHome && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <link rel="icon" href="/favicon.jpg" type="image/jpeg" />
+
+    <!-- Reading + monospace webfonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    {bare ? <slot /> : (
+    <Fragment>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">{SITE.author}</a>
+        <nav class="nav">
+          <a href="/" aria-current={on('/')}>home</a>
+          <a href="/machines" aria-current={on('/machines')}>machines</a>
+          <a href="/posts" aria-current={on('/posts')}>research</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {SITE.author}</span>
+        <span>built with <a href="https://astro.build">astro</a> <span class="cursor">█</span></span>
+      </div>
+    </footer>
+    </Fragment>
+    )}
+  </body>
+</html>
