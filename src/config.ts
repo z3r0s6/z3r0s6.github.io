@@ -7,13 +7,13 @@ export const SITE = {
   title: 'z3r0s',
   description: 'Technical writeups, walkthroughs, some research and more.',
   author: 'z3r0s',
-  avatar: '/images/avatar-new.jpg',
+  avatar: '/images/avatar-v3.jpg',
   // Used to build absolute URLs. Change when you deploy.
   url: 'https://z3r0s6.github.io',
 };
 
 // Short intro shown on the homepage.
-export const ABOUT = `16 yo aspiring Red Teamer specializing in web & network penetration testing and Active Directory exploitation. I write HackTheBox writeups, CTF walkthroughs, and security research.`;
+export const ABOUT = `17 yo aspiring Red Teamer specializing in web & network penetration testing and Active Directory exploitation. I write HackTheBox writeups, CTF walkthroughs, and security research.`;
 
 // ── Password protecting writeups ──────────────────────────────
 // Machine and challenge writeups are AES-encrypted in the built site

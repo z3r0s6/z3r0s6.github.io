@@ -5,9 +5,10 @@ import { SITE } from '../config';
 interface Props {
   title?: string;
   description?: string;
+  bare?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, bare = false } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const pageDesc = description ?? SITE.description;
 const path = Astro.url.pathname;
@@ -40,14 +41,15 @@ const on = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'pa
     />
   </head>
   <body>
+    {bare ? <slot /> : (
+    <Fragment>
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href="/">{SITE.author}</a>
         <nav class="nav">
           <a href="/" aria-current={on('/')}>home</a>
           <a href="/machines" aria-current={on('/machines')}>machines</a>
-          <a href="/challenges" aria-current={on('/challenges')}>challenges</a>
-          <a href="/posts" aria-current={on('/posts')}>posts</a>
+          <a href="/posts" aria-current={on('/posts')}>research</a>
         </nav>
       </div>
     </header>
@@ -64,5 +66,7 @@ const on = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'pa
         <span>built with <a href="https://astro.build">astro</a> <span class="cursor">█</span></span>
       </div>
     </footer>
+    </Fragment>
+    )}
   </body>
 </html>

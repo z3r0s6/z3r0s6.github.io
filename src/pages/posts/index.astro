@@ -16,8 +16,8 @@ const fmt = (d: Date) =>
 const hrefFor = (p: (typeof posts)[number]) => p.data.externalLink ?? `/posts/${p.id}/`;
 ---
 
-<BaseLayout title="posts" description="Research, notes, and section links.">
-  <h1 class="section">Posts</h1>
+<BaseLayout title="research" description="Security research, notes, and bug writeups.">
+  <h1 class="section">Research</h1>
   <ul class="post-list">
     {posts.map((p) => (
       <li>
