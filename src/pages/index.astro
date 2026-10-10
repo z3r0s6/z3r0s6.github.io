@@ -16,9 +16,17 @@ const li = social('LinkedIn');
   <div class="page">
     <section class="intro">
       <img class="avatar" src={SITE.avatar} alt={SITE.author} width="92" height="92" />
-      <h1 class="name">{SITE.title}</h1>
-      {gh && <p class="handle">{gh.handle} · aspiring red teamer</p>}
-      <p class="bio">{ABOUT}</p>
+      <h1 class="name">{SITE.author}</h1>
+    </section>
+
+    <section class="letter">
+      <p class="letter-label">A brief note from the author</p>
+      <div class="letter-body">
+        <p>dear reader (and, perhaps, the curious observer),</p>
+        <p>I'm a 17 year old Security Researcher</p>
+        <p>This is where I post walkthroughs, and security research.</p>
+        <p>with care,<br>z3r0s6 (Omar Elfakharany)</p>
+      </div>
     </section>
 
     <section class="group">
@@ -29,7 +37,7 @@ const li = social('LinkedIn');
       </a>
       <a class="row" href="/posts">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6"/></svg>
-        <span class="lbl">Research</span><span class="meta">{posts.length}</span>
+        <span class="lbl">Writings</span><span class="meta">{posts.length}</span>
       </a>
     </section>
 
@@ -70,6 +78,23 @@ const li = social('LinkedIn');
     .name { margin: 1rem 0 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -.02em; color: var(--fg-strong); }
     .handle { margin: .3rem 0 0; color: var(--fg-muted); font-size: .9rem; font-family: var(--font-mono); }
     .bio { margin: 1rem 0 0; color: var(--fg); font-size: .98rem; line-height: 1.7; }
+
+    .letter {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.6rem 1.4rem; background: var(--bg-soft); text-align: left;
+    }
+    .letter-label {
+      margin: 0; text-align: center; font-family: var(--font-mono);
+      font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--fg-muted);
+    }
+    .letter-label.flip { transform: rotate(180deg); margin-top: 1.2rem; }
+    .letter-body {
+      margin: 1.2rem 0; font-family: Georgia, 'Times New Roman', serif;
+      color: var(--fg); line-height: 1.75; font-size: .98rem;
+    }
+    .letter-body p { margin: 0 0 .9rem; }
+    .letter-body p:last-child { margin-bottom: 0; }
+    .letter-body em { color: var(--fg-strong); font-style: italic; }
 
     .group { display: flex; flex-direction: column; gap: .5rem; }
     .glabel { margin: 0 0 .1rem; font-size: .72rem; font-weight: 600; letter-spacing: .13em;

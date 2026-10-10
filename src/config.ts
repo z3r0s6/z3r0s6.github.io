@@ -4,7 +4,7 @@
 // ..............................................................
 
 export const SITE = {
-  title: 'z3r0s',
+  title: 'root',
   description: 'z3r0s6 (z3r0s) — HackTheBox machine writeups, CTF walkthroughs, and security research by an aspiring red teamer.',
   author: 'z3r0s',
   avatar: '/images/avatar-v3.jpg',
