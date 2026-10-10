@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { title, description, bare = false } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
+const pageTitle = title ? `${title} /` : `${SITE.author} /`;
 const pageDesc = description ?? SITE.description;
 const path = Astro.url.pathname;
 const on = (p: string) => (path === p || (p !== '/' && path.startsWith(p)) ? 'page' : undefined);
@@ -97,9 +97,9 @@ const jsonLd = {
       <div class="wrap">
         <a class="brand" href="/">{SITE.author}</a>
         <nav class="nav">
-          <a href="/" aria-current={on('/')}>home</a>
-          <a href="/machines" aria-current={on('/machines')}>machines</a>
-          <a href="/posts" aria-current={on('/posts')}>research</a>
+          <a href="/" aria-current={on('/')}>Home</a>
+          <a href="/machines" aria-current={on('/machines')}>Machines</a>
+          <a href="/posts" aria-current={on('/posts')}>Writings</a>
         </nav>
       </div>
     </header>
