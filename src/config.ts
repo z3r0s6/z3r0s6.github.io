@@ -5,7 +5,7 @@
 
 export const SITE = {
   title: 'root',
-  description: 'z3r0s6 (z3r0s) — HackTheBox machine writeups, CTF walkthroughs, and security research by an aspiring red teamer.',
+  description: 'Personal site of z3r0s6 (Omar Elfakharany). Hack The Box writeups, CTF walkthroughs, and security research.',
   author: 'z3r0s',
   avatar: '/images/avatar-v3.jpg',
   // Used to build absolute URLs. Change when you deploy.
