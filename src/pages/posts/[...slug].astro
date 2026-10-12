@@ -23,6 +23,7 @@ const fmt = (x: Date) =>
 <BaseLayout title={d.title}>
   <a class="back-link" href="/posts">← back to posts</a>
   <article>
+    {d.featuredImage && <img class="post-cover" src={d.featuredImage} alt={d.title} />}
     <h1>{d.title}</h1>
     <div class="post-meta">
       <time datetime={d.date.toISOString()}>{fmt(d.date)}</time>

@@ -32,6 +32,8 @@ const posts = defineCollection({
     tags: z.array(z.string()).default([]),
     categories: z.array(z.string()).default([]),
     author: z.string().optional(),
+    // Optional cover image shown at the top of the post.
+    featuredImage: z.string().optional(),
     // Link-only posts (e.g. "Machines" -> /machines/) use this.
     externalLink: z.string().optional(),
     weight: z.number().optional(),

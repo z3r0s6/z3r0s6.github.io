@@ -118,5 +118,39 @@ const jsonLd = {
     </footer>
     </Fragment>
     )}
+
+    <div class="lightbox" id="lightbox" aria-hidden="true"><img alt="" /></div>
+    <script is:inline>
+      (function () {
+        var lb = document.getElementById('lightbox');
+        if (!lb) return;
+        var big = lb.querySelector('img');
+        function openLb(src, alt) {
+          big.src = src;
+          big.alt = alt || '';
+          lb.classList.add('open');
+          lb.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+          lb.classList.remove('open');
+          lb.setAttribute('aria-hidden', 'true');
+          big.removeAttribute('src');
+          document.body.style.overflow = '';
+        }
+        document.addEventListener('click', function (e) {
+          if (lb.classList.contains('open')) { closeLb(); return; }
+          var t = e.target;
+          if (t && t.tagName === 'IMG' &&
+              (t.closest('.prose') || t.classList.contains('post-cover') || t.classList.contains('featured'))) {
+            e.preventDefault();
+            openLb(t.currentSrc || t.src, t.alt);
+          }
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeLb();
+        });
+      })();
+    </script>
   </body>
 </html>
